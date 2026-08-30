@@ -236,6 +236,15 @@ def _read(r: dict, disp: dict) -> tuple[str, str]:
                 f"It runs on preseason ratings, so treat this as “look into it,” not a bet.")
     else:
         take = "Sportsbooks, my model and Kalshi all line up. Nothing to dig into."
+
+    extra = []
+    g = r.get("sharp_vs_retail_pts")
+    if g is not None and abs(g) >= 2:
+        extra.append(f"Sharp books are {abs(g):.0f} pts off retail here — worth noting.")
+    if r.get("line_move"):
+        extra.append(f"Line moved: {r['line_move']}.")
+    if extra:
+        take += "  " + "  ".join(extra)
     return bet_line, take
 
 

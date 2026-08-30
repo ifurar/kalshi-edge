@@ -166,6 +166,9 @@ def triage(scan_path: str, today_only: bool) -> list[dict]:
             "signal": signal,
             "picks": picks,
             "flags": model_flags,
+            "sharp_prob": o.get("sharp_prob"),
+            "sharp_vs_retail_pts": o.get("sharp_vs_retail_pts"),
+            "line_move": o.get("line_move"),
         })
 
     # keep the strongest-signal leg per game

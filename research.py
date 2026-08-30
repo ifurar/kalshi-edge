@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 """
-research.py -- build a deep-dive brief for one game.
+research.py -- build the read on one game: moneyline, spread and total
+side by side, with the sharp-book consensus, the retail-book consensus,
+my power-rating model, the Kalshi price, and any line movement. Then a
+checklist for the live web research and a place to write the call on each
+market plus a best bet.
 
-This assembles everything the tool already knows (market consensus, model
-projection, Kalshi price, and what a Kelly stake would be at various
-probabilities) into a markdown brief with a research checklist, then it's
-on you / Claude Code to fill in the web-research sections and write the
-recommendation. It does NOT hit the web and does NOT place bets.
+The goal is NOT only "is there a +EV edge" (usually there isn't). It's
+"here is the full picture on this game and which side, if any, I lean --
+and why." It does NOT hit the web and does NOT place bets.
 
-    python research.py 26AUG29MEMUNLV          # game_key from triage_result.json
-    python research.py "Memphis vs UNLV"       # or a matchup string
-    python research.py --list                  # show shortlist game keys
+    python research.py 26SEP13SFSEA       # game_key
+    python research.py "49ers"            # or a team / matchup
+    python research.py --list             # shortlist game keys
 
-Reads triage_result.json (falls back to scan_result.json). Writes
-research/<game_key>.md.
+Reads scan_result.json. Writes research/<game_key>.md.
 """
 from __future__ import annotations
 
@@ -53,12 +54,38 @@ def find_game(token: str, scan_path: str = "scan_result.json"):
     for gk, gl in groups.items():
         if tok and tok in re.sub(r"[^a-z0-9]", "", gk.lower()):
             return gk, gl
-    words = [w for w in re.split(r"[^a-z]+", token.lower()) if len(w) > 2]
+    words = [w for w in re.split(r"[^a-z0-9]+", token.lower()) if len(w) > 1]
     for gk, gl in groups.items():
         blob = f"{gl[0].get('home_team','')} {gl[0].get('away_team','')}".lower()
         if words and all(w in blob for w in words):
             return gk, gl
+    # last resort: a single distinctive word (nickname / abbr) that hits exactly one game
+    if len(words) == 1:
+        hits = [(gk, gl) for gk, gl in groups.items()
+                if words[0] in f"{gl[0].get('home_team','')} {gl[0].get('away_team','')}".lower()]
+        if len(hits) == 1:
+            return hits[0]
     return None, []
+
+
+def _model_prob(model, wp, o, home, away):
+    """Model P(the YES side) for one scan leg, or None."""
+    if model is None:
+        return None
+    try:
+        bt = o["bet_type"]
+        if bt == "moneyline":
+            return wp["home_win_prob"] if o["yes_side"] == home else wp["away_win_prob"]
+        if bt == "spread":
+            m = re.match(r"(.+?)\s+([+-][\d.]+)$", o["yes_side"])
+            team, pts = m.group(1), float(m.group(2))
+            opp = away if team == home else home
+            return model.cover_prob(team, pts, opp, team_is_home=(team == home))
+        if bt == "total":
+            return model.over_prob(home, away, float(re.search(r"([\d.]+)", o["yes_side"]).group(1)))
+    except Exception:
+        return None
+    return None
 
 
 def kelly_table(model_p: float | None, market_p: float, price_cents: float) -> str:
@@ -98,75 +125,124 @@ def build_brief(game_key: str, legs: list[dict]) -> str:
         model_line = f"(model unavailable: {e})"
         cov = tcov = "none"
 
-    lines = []
-    lines.append(f"# Research brief: {away} @ {home}")
-    lines.append("")
-    lines.append(f"- game key: `{game_key}`  ·  sport: {sport}  ·  kickoff: {commence}")
-    lines.append(f"- model coverage: moneyline/spread **{cov}**, total **{tcov}**")
-    lines.append(f"- generated {datetime.now().isoformat(timespec='minutes')}")
-    lines.append("- sizing below is % of bankroll; `python bankroll.py size --prob <p> --price <c>` for the dollar stake")
-    lines.append("")
-    lines.append(f"**Model projection:** {model_line}")
-    lines.append("")
+    L = []
+    L.append(f"# The read: {away} @ {home}")
+    L.append("")
+    L.append(f"- game key: `{game_key}`  ·  {sport.upper()}  ·  kickoff: {commence}")
+    L.append(f"- model coverage: moneyline/spread **{cov}**, total **{tcov}**  ·  "
+             f"generated {datetime.now().isoformat(timespec='minutes')}")
+    L.append("")
+    L.append(f"**Power-rating model projects:** {model_line}")
 
-    # -- market vs model vs kalshi per leg --------------------------------
-    lines.append("## Market · Model · Kalshi")
-    lines.append("")
-    lines.append("| bet | side (YES) | market % | model % | Kalshi YES | Kalshi NO | n books |")
-    lines.append("|-----|-----------|---------:|--------:|-----------:|----------:|--------:|")
-    for o in sorted(legs, key=lambda x: x["bet_type"]):
-        mp = ""
-        if model is not None:
-            try:
-                if o["bet_type"] == "moneyline":
-                    mp = wp["home_win_prob"] if o["yes_side"] == home else wp["away_win_prob"]
-                elif o["bet_type"] == "spread":
-                    m = re.match(r"(.+?)\s+([+-][\d.]+)$", o["yes_side"])
-                    team, pts = m.group(1), float(m.group(2))
-                    opp = away if team == home else home
-                    mp = model.cover_prob(team, pts, opp, team_is_home=(team == home))
-                elif o["bet_type"] == "total":
-                    mp = model.over_prob(home, away, float(re.search(r"([\d.]+)", o["yes_side"]).group(1)))
-            except Exception:
-                mp = ""
-        mp_s = f"{mp*100:.0f}" if isinstance(mp, float) else "-"
-        lines.append(f"| {o['bet_type']} | {o['yes_side']} | {o['fair_prob']*100:.0f} | {mp_s} | "
-                     f"{o.get('yes_ask_cents','-')} | {o.get('no_ask_cents','-')} | {o.get('n_books','-')} |")
-    lines.append("")
+    move = next((o.get("line_move") for o in legs if o.get("line_move")), None)
+    if move:
+        L.append(f"**Line movement since first tracked:** {move}")
+    L.append("")
 
-    # -- kelly sizing for the leg with the biggest model/market gap -------
-    focus = None
+    # one representative leg per market: home team for ML, the favourite's
+    # spread, the Over for the total -- so we don't print both mirror sides.
+    order = {"moneyline": 0, "spread": 1, "total": 2}
+    picked: dict[str, dict] = {}
     for o in legs:
-        if model is None:
-            break
-        try:
-            if o["bet_type"] == "moneyline":
-                mp = wp["home_win_prob"] if o["yes_side"] == home else wp["away_win_prob"]
-            elif o["bet_type"] == "spread":
-                m = re.match(r"(.+?)\s+([+-][\d.]+)$", o["yes_side"])
-                team, pts = m.group(1), float(m.group(2))
-                opp = away if team == home else home
-                mp = model.cover_prob(team, pts, opp, team_is_home=(team == home))
-            else:
-                mp = model.over_prob(home, away, float(re.search(r"([\d.]+)", o["yes_side"]).group(1)))
-        except Exception:
+        bt = o["bet_type"]
+        if bt == "moneyline":
+            if o["yes_side"] == home or bt not in picked:
+                picked[bt] = o
+        elif bt == "spread":
+            if bt not in picked or "-" in o.get("yes_side", ""):
+                picked[bt] = o
+        elif bt == "total":
+            if bt not in picked or o.get("yes_side", "").lower().startswith("over"):
+                picked[bt] = o
+    markets = [picked[k] for k in ("moneyline", "spread", "total") if k in picked]
+
+    # -- the three markets, everything side by side ----------------------
+    L.append("## Moneyline · spread · total")
+    L.append("")
+    L.append("| market | YES side | sharp bks | retail bks | my model | Kalshi YES / NO | edge vs sharp |")
+    L.append("|--------|----------|----------:|-----------:|---------:|:---------------:|-------------:|")
+    for o in markets:
+        mp = _model_prob(model, wp, o, home, away)
+        sharp = o.get("sharp_prob")
+        retail = o.get("retail_prob")
+        ya = o.get("yes_ask_cents")
+        edge = ""
+        if sharp is not None and ya is not None:
+            edge = f"{(sharp - ya/100)*100:+.1f} pts"
+        L.append(
+            f"| {o['bet_type']} | {o['yes_side']} | "
+            f"{f'{sharp*100:.0f}%' if sharp is not None else '—'} | "
+            f"{f'{retail*100:.0f}%' if retail is not None else '—'} | "
+            f"{f'{mp*100:.0f}%' if isinstance(mp, float) else '—'} | "
+            f"{o.get('yes_ask_cents','—')}¢ / {o.get('no_ask_cents','—')}¢ | {edge or '—'} |")
+    L.append("")
+    L.append("_Sharp = de-vigged consensus of the low-hold market-maker books "
+             "(Pinnacle, BetOnline, LowVig). Retail = DraftKings / FanDuel / BetMGM etc. "
+             "When retail sits off the sharp number, the sharp side is where the line is heading._")
+    L.append("")
+
+    # -- signal flags --------------------------------------------------
+    L.append("## Signals")
+    L.append("")
+    any_sig = False
+    for o in markets:
+        g = o.get("sharp_vs_retail_pts")
+        if g is not None and abs(g) >= 1.5:
+            any_sig = True
+            side = "YES" if g > 0 else "NO"
+            L.append(f"- **{o['bet_type']} — sharp/retail split:** the sharp books are {abs(g):.0f} pts "
+                     f"off retail, toward the {side} side ({o['yes_side']}). "
+                     f"{'Pinnacle included.' if o.get('has_pinnacle') else 'No Pinnacle on this one.'} "
+                     f"Retail usually moves toward sharp — a real signal.")
+        mp = _model_prob(model, wp, o, home, away)
+        if isinstance(mp, float) and o.get("sharp_prob") is not None:
+            d = (mp - o["sharp_prob"]) * 100
+            if abs(d) >= 6:
+                any_sig = True
+                L.append(f"- **{o['bet_type']} — model disagrees:** my model has the YES side at "
+                         f"{mp*100:.0f}% vs the sharp books' {o['sharp_prob']*100:.0f}%. The model is "
+                         f"preseason-only — assume it's stale here unless the research explains the gap.")
+    if move:
+        any_sig = True
+        L.append(f"- **Line movement:** {move}")
+    if not any_sig:
+        L.append("- Sharp books, retail books, my model and Kalshi all line up within a couple points. "
+                 "This is an efficient number — no angle from the data alone.")
+    L.append("")
+
+    # -- Kelly reference: the best side by the SHARP price, if it's real ----
+    best = None
+    for o in markets:
+        s, ya, na = o.get("sharp_prob"), o.get("yes_ask_cents"), o.get("no_ask_cents")
+        if s is None:
             continue
-        gap = abs(mp - o["fair_prob"])
-        if focus is None or gap > focus[0]:
-            focus = (gap, o, mp)
+        for side, p, price in (("YES", s, ya), ("NO", 1 - s, na)):
+            if price is None or not (8 <= price <= 92):
+                continue
+            edge = p - price / 100
+            if edge >= 0.02 and (best is None or edge > best[0]):
+                best = (edge, o, side, p, price)
+    if best:
+        _, o, side, p, price = best
+        L.append(f"## Best value by the sharp price — {o['bet_type']} {side} @ {price:.0f}¢")
+        L.append("")
+        L.append(f"Sharp books imply {p:.0%} on this side; Kalshi is charging {price:.0f}¢.")
+        L.append("")
+        L.append("| prob source | win prob | edge (fee-incl) | 1/4-Kelly size | note |")
+        L.append("|-------------|---------:|----------------:|---------------:|------|")
+        mp = _model_prob(model, wp, o, home, away)
+        mp = (mp if side == "YES" else (1 - mp)) if isinstance(mp, float) else None
+        L.append(kelly_table(mp, p, price))
+        L.append("")
+        L.append(f"_`python bankroll.py size --prob <your number> --price {price:.0f}` for the dollar stake._")
+    else:
+        L.append("## Best value")
+        L.append("")
+        L.append("Nothing on this game clears a real edge against the sharp price at a sane "
+                 "contract price. If you want action here it's a lean, not a value bet.")
+    L.append("")
 
-    if focus and focus[1].get("yes_ask_cents"):
-        _, o, mp = focus
-        lines.append(f"## Kelly sizing — {o['bet_type']} YES ({o['yes_side']}) @ {o['yes_ask_cents']}c")
-        lines.append("")
-        lines.append("| prob source | win prob | edge (fee-incl) | 1/4-Kelly size | note |")
-        lines.append("|-------------|---------:|----------------:|---------------:|------|")
-        lines.append(kelly_table(mp, o["fair_prob"], o["yes_ask_cents"]))
-        lines.append("")
-        lines.append("_Sizing is only as good as the probability. Fill in your own number "
-                     "in the analysis below before trusting a stake._")
-        lines.append("")
-
+    lines = L
     # -- the checklist ---------------------------------------------------
     lines.append("## Research checklist  ← fill these in")
     lines.append("")
@@ -185,24 +261,27 @@ def build_brief(game_key: str, legs: list[dict]) -> str:
         lines.append(f"- [ ] {item}")
     lines.append("")
 
-    lines.append("## Analysis")
+    lines.append("## The read")
     lines.append("")
-    lines.append("_Synthesize the above. State your probability for the side you like and WHY "
-                 "it differs from market and model. If nothing separates you from the closing "
-                 "line, the answer is 'no bet' — that's the common case._")
+    lines.append("_One call on each market. Use the sharp price as the reference, adjust for what "
+                 "the research turned up, then say your number and lean. \"No lean\" is fine and common._")
     lines.append("")
-    lines.append("## Recommendation")
+    lines.append("- **Moneyline:** who wins, and is there value at Kalshi's price? _<fill>_")
+    lines.append("- **Spread:** which side of the number, and why (vs the sharp line, not the model). _<fill>_")
+    lines.append("- **Total:** over or under, and what's driving it (pace, weather, defenses, model). _<fill>_")
     lines.append("")
-    lines.append("- **Bet:** <side / ticker>  ·  **Entry:** <=Nc  ·  **Your prob:** N%")
-    lines.append("- **Edge (fee-incl):** N%  ·  **Stake (1/4 Kelly):** $N (N contracts)")
+    lines.append("## Best bet")
+    lines.append("")
+    lines.append("- **Pick:** <market + side>  ·  **Kalshi:** <ticker> @ <=N¢>  ·  **Your prob:** N%")
+    lines.append("- **Why it's the pick over the other two markets:** ")
+    lines.append("- **Edge vs the sharp price (fee-incl):** N%  ·  **Stake:** N% of bankroll (1/4 Kelly)")
     lines.append("- **Confidence:** low / medium / high")
-    lines.append("- **Thesis in one line:** ")
-    lines.append("- **What would change the call:** ")
-    lines.append("- _Log it:_ `python bankroll.py add --ticker <T> --side <yes|no> --price <c> --prob <0.NN> --note \"...\"`")
+    lines.append("- **What would change it:** ")
+    lines.append("- _Log:_ `python bankroll.py add --ticker <T> --side <yes|no> --price <c> --prob <0.NN> --note \"...\"`")
     lines.append("")
     lines.append("---")
-    lines.append("_Not a prediction. Positive EV is a long-run edge over many bets; any single "
-                 "bet can lose. Not financial advice._")
+    lines.append("_Not a prediction. A lean is not a guarantee; any single bet can lose. "
+                 "Not financial advice._")
     return "\n".join(lines)
 
 
@@ -211,6 +290,7 @@ def main():
     ap.add_argument("game", nargs="?", help="game_key or matchup string")
     ap.add_argument("--scan", default="scan_result.json")
     ap.add_argument("--list", action="store_true", help="list triage shortlist game keys")
+    ap.add_argument("--force", action="store_true", help="overwrite a brief you've already filled in")
     args = ap.parse_args()
 
     if args.list or not args.game:
@@ -235,6 +315,10 @@ def main():
 
     os.makedirs(OUT_DIR, exist_ok=True)
     path = os.path.join(OUT_DIR, f"{game_key}.md")
+    if os.path.exists(path) and "- [x]" in open(path).read() and not args.force:
+        print(f"{path} already has filled-in research. Pass --force to regenerate the scaffold "
+              f"(you'll lose what's written), or open it as-is.")
+        return
     with open(path, "w") as f:
         f.write(build_brief(game_key, legs))
     print(f"wrote {path}  ({len(legs)} markets)")

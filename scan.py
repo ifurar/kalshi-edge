@@ -33,6 +33,7 @@ from core.matcher import (
     match_games, resolve_yes_team, extract_number, MatchedGame,
 )
 from core.edge_engine import BookLine, consensus_fair_prob, evaluate_yes_leg
+from core.signals import tiered_consensus, record_and_diff, flush_history, steam_note
 
 SPORT_KEYWORDS = {
     "nfl": ["NFL"],
@@ -97,13 +98,15 @@ def scan_moneyline(matched: MatchedGame, kalshi_market: dict, min_edge: float) -
         return None
     no_team = away if yes_team == home else home
 
-    lines = build_book_lines(oa.get("bookmakers", []), "h2h", yes_team, no_team)
+    bms = oa.get("bookmakers", [])
+    lines = build_book_lines(bms, "h2h", yes_team, no_team)
     if not lines:
         return None
     fair_yes, n_books = consensus_fair_prob(lines)
+    sig = tiered_consensus(bms, "h2h", yes_team, no_team)
     return finalize_leg(kalshi_market, fair_yes, n_books, min_edge, bet_type="moneyline",
                          label=f"{yes_team} to beat {no_team} ({matched.event_ticker})",
-                         yes_side=yes_team, no_side=no_team)
+                         yes_side=yes_team, no_side=no_team, signals=sig)
 
 
 def _paired_book_lines(bookmakers: list[dict], market_key: str,
@@ -155,13 +158,15 @@ def scan_spread(matched: MatchedGame, kalshi_market: dict, min_edge: float) -> d
         return None
     fav_point = -abs(thr)  # "wins by over 7.5" <=> favourite at -7.5
 
-    lines = _paired_book_lines(oa.get("bookmakers", []), "spreads", fav, dog, fav_point)
+    bms = oa.get("bookmakers", [])
+    lines = _paired_book_lines(bms, "spreads", fav, dog, fav_point)
     if not lines:
         return None
     fair, n_books = consensus_fair_prob(lines)
+    sig = tiered_consensus(bms, "spreads", fav, dog, a_point=fav_point)
     return finalize_leg(kalshi_market, fair, n_books, min_edge, bet_type="spread",
                          label=f"{fav} -{abs(thr):g} vs {dog} ({matched.event_ticker})",
-                         yes_side=f"{fav} -{abs(thr):g}", no_side=f"{dog} +{abs(thr):g}")
+                         yes_side=f"{fav} -{abs(thr):g}", no_side=f"{dog} +{abs(thr):g}", signals=sig)
 
 
 def scan_total(matched: MatchedGame, kalshi_market: dict, min_edge: float) -> dict | None:
@@ -174,14 +179,15 @@ def scan_total(matched: MatchedGame, kalshi_market: dict, min_edge: float) -> di
     yes_is_over = "over" in title or "under" not in title
     a_name, b_name = ("Over", "Under") if yes_is_over else ("Under", "Over")
 
-    lines = _paired_book_lines(oa.get("bookmakers", []), "totals", a_name, b_name,
-                               abs(thr), b_point=abs(thr))
+    bms = oa.get("bookmakers", [])
+    lines = _paired_book_lines(bms, "totals", a_name, b_name, abs(thr), b_point=abs(thr))
     if not lines:
         return None
     fair, n_books = consensus_fair_prob(lines)
+    sig = tiered_consensus(bms, "totals", a_name, b_name, a_point=abs(thr), b_point=abs(thr))
     return finalize_leg(kalshi_market, fair, n_books, min_edge, bet_type="total",
                          label=f"{a_name} {abs(thr):g} ({matched.event_ticker})",
-                         yes_side=f"{a_name} {abs(thr):g}", no_side=f"{b_name} {abs(thr):g}")
+                         yes_side=f"{a_name} {abs(thr):g}", no_side=f"{b_name} {abs(thr):g}", signals=sig)
 
 
 def market_ask_cents(kalshi_market: dict, side: str) -> float | None:
@@ -208,9 +214,46 @@ def _fp(value) -> float:
         return 0.0
 
 
+def _median(xs):
+    xs = sorted(x for x in xs if x is not None)
+    if not xs:
+        return None
+    n = len(xs)
+    return xs[n // 2] if n % 2 else round((xs[n // 2 - 1] + xs[n // 2]) / 2, 2)
+
+
+def _consensus_snapshot(oa_event: dict) -> dict:
+    """Median book spread (home) + total + home moneyline prob -- logged each
+    scan so scan-to-scan movement can be diffed later."""
+    home, away = oa_event.get("home_team"), oa_event.get("away_team")
+    spreads, totals, h_lines = [], [], []
+    for bm in oa_event.get("bookmakers", []):
+        for m in bm.get("markets", []):
+            outs = m.get("outcomes", [])
+            if m.get("key") == "spreads":
+                o = next((x for x in outs if x.get("name") == home), None)
+                if o and o.get("point") is not None:
+                    spreads.append(o["point"])
+            elif m.get("key") == "totals":
+                o = next((x for x in outs if x.get("name") == "Over"), None)
+                if o and o.get("point") is not None:
+                    totals.append(o["point"])
+            elif m.get("key") == "h2h":
+                a = next((x for x in outs if x.get("name") == home), None)
+                b = next((x for x in outs if x.get("name") == away), None)
+                if a and b:
+                    h_lines.append(BookLine(bm.get("key", "?"), a["price"], b["price"]))
+    hp = None
+    if h_lines:
+        hp, _ = consensus_fair_prob(h_lines)
+        hp = round(hp, 4)
+    return {"spread": _median(spreads), "total": _median(totals), "home_ml_prob": hp}
+
+
 def finalize_leg(kalshi_market: dict, fair_prob: float, n_books: int, min_edge: float,
                   bet_type: str, label: str,
-                  yes_side: str | None = None, no_side: str | None = None) -> dict:
+                  yes_side: str | None = None, no_side: str | None = None,
+                  signals: dict | None = None) -> dict:
     yes_ask = market_ask_cents(kalshi_market, "yes")
     no_ask = market_ask_cents(kalshi_market, "no")
     # Resting size backing each ask. Kalshi doesn't publish a NO ask size;
@@ -234,6 +277,11 @@ def finalize_leg(kalshi_market: dict, fair_prob: float, n_books: int, min_edge: 
         "no_ask_size": round(no_depth),
         "flagged": False,
     }
+    if signals:
+        result["sharp_prob"] = signals.get("sharp_prob")
+        result["retail_prob"] = signals.get("retail_prob")
+        result["sharp_vs_retail_pts"] = signals.get("sharp_vs_retail_pts")
+        result["has_pinnacle"] = signals.get("has_pinnacle")
 
     def consider(side: str, prob: float, ask: float | None, depth: float):
         if ask is None or not (0 < ask < 100):
@@ -276,7 +324,7 @@ def run_scan(sports: list[str], min_edge: float) -> dict:
             kalshi_games = kalshi.get_open_games_for_sport(keywords)
             if not kalshi_games:
                 continue
-            odds_client = OddsApiClient()
+            odds_client = OddsApiClient(regions="us,eu")   # us,eu brings in Pinnacle
             try:
                 oa_events = odds_client.get_odds(sport)
             finally:
@@ -284,6 +332,8 @@ def run_scan(sports: list[str], min_edge: float) -> dict:
 
             matches = match_games(kalshi_games, oa_events)
             for matched in matches:
+                gk = matched.event_ticker.split("-", 1)[1] if "-" in matched.event_ticker else matched.event_ticker
+                move = record_and_diff(gk, _consensus_snapshot(matched.odds_api_event))
                 for market in matched.kalshi_markets:
                     all_markets_seen.append(market)
                     series = next((s for s in matched.kalshi_markets[0].get("event_ticker", "").split("-")), "")
@@ -314,9 +364,11 @@ def run_scan(sports: list[str], min_edge: float) -> dict:
                         leg["home_team"] = matched.odds_api_event.get("home_team")
                         leg["away_team"] = matched.odds_api_event.get("away_team")
                         leg["commence_time"] = matched.odds_api_event.get("commence_time")
+                        leg["line_move"] = steam_note(move)
                         opportunities.append(leg)
     finally:
         kalshi.close()
+        flush_history()
 
     def _best_edge(o: dict) -> float:
         return max(o.get("yes_edge_pct") or -1e9, o.get("no_edge_pct") or -1e9)

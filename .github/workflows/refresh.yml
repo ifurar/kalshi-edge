@@ -1,16 +1,16 @@
 name: refresh board
 
 # Runs the scan + triage + model and publishes the public board to GitHub
-# Pages. Manual any time; scheduled a few times over football weekends.
-# Each run costs ~6 Odds API credits (one NFL + one CFB call). Bump the
-# cron if your Odds API tier allows; trim it in the off-season.
+# Pages. Manual any time; scheduled over football weekends.
+# Each run costs ~12 Odds API credits (NFL + CFB, us+eu regions for Pinnacle).
+# Free tier is 500/month, so this stays modest -- add runs if your tier allows.
 
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0 16,20,23 * * 6"   # Saturdays 16:00 / 20:00 / 23:00 UTC (CFB)
-    - cron: "0 17,21 * * 0"      # Sundays 17:00 / 21:00 UTC (NFL)
-    - cron: "0 23 * * 5"         # Friday night 23:00 UTC
+    - cron: "0 16,22 * * 6"     # Saturday 16:00 & 22:00 UTC (CFB windows)
+    - cron: "0 17,21 * * 0"     # Sunday 17:00 & 21:00 UTC (NFL windows)
+    - cron: "0 23 * * 5"        # Friday night 23:00 UTC
 
 concurrency:
   group: refresh-board
@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name  "kalshi-edge bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add scan_result.json triage_result.json enrich.json docs/index.html
+          git add scan_result.json triage_result.json enrich.json line_history.json docs/index.html
           git diff --staged --quiet || git commit -m "refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
 
