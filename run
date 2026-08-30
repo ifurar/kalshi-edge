@@ -29,6 +29,7 @@ case "${1:-board}" in
   board)
     $PY scan.py --sports "$SPORTS" --min-edge "${MIN_EDGE:-2.0}"
     $PY triage.py --scan scan_result.json || true
+    $PY enrich.py || true
     $PY dashboard.py
     open_file dashboard.html
     ;;

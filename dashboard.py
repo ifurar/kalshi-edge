@@ -12,6 +12,7 @@ request. Open the file and it works.
 from __future__ import annotations
 
 import argparse
+import datetime as _dt
 import glob
 import html
 import json
@@ -143,60 +144,157 @@ def _flagged(scan):
     return f'<ul class="flaglist">{rows}</ul>'
 
 
-def _prob_track(market, model, kalshi):
-    """0-100 track with three markers. market=ink, model=accent, kalshi=good."""
-    def m(v, cls, label):
-        if v is None:
-            return ""
-        return f'<span class="mk {cls}" style="left:{max(0,min(100,v*100)):.1f}%" title="{label} {v*100:.0f}%"></span>'
-    return (f'<span class="track">{m(market,"mk-mkt","market")}'
-            f'{m(model,"mk-mdl","model")}{m(kalshi,"mk-kal","kalshi")}</span>')
+try:
+    from zoneinfo import ZoneInfo
+    _PT = ZoneInfo("America/Los_Angeles")
+except Exception:  # pragma: no cover
+    _PT = timezone(_dt.timedelta(hours=-7))
 
 
-def _shortlist(triage):
-    if not triage:
-        return ('<p class="empty">No triage yet — run <code>./run today</code> '
-                'or <code>python triage.py</code>.</p>')
-    ranked = triage.get("all_ranked", [])
-    if not ranked:
-        return '<p class="empty">Nothing triaged.</p>'
-    short = {r["game_key"] for r in triage.get("shortlist", [])}
-    rows = ""
-    for r in ranked[:14]:
-        sig = r["signal"]
-        sig_cls = "sig-hi" if sig >= 8 else "sig-mid" if sig >= 4 else "sig-lo"
-        on = " on-list" if r["game_key"] in short else ""
-        mkt = r["market_prob"]
+def _pt(iso: str | None) -> str:
+    if not iso:
+        return "time TBD"
+    try:
+        dt = datetime.fromisoformat(iso.replace("Z", "+00:00")).astimezone(_PT)
+    except ValueError:
+        return "time TBD"
+    return dt.strftime("%a %b %-d · %-I:%M %p PT")
+
+
+def _team_index(scan):
+    """game_key -> (away_full, home_full, commence_time)."""
+    idx = {}
+    for o in scan.get("opportunities", []):
+        if o.get("bet_type") not in ("moneyline", "spread", "total"):
+            continue
+        et = o.get("event_ticker", "")
+        k = et.split("-", 1)[1] if "-" in et else et
+        if k not in idx and o.get("home_team") and o.get("away_team"):
+            idx[k] = (o["away_team"], o["home_team"], o.get("commence_time"))
+    return idx
+
+
+_MASCOT_TAIL = re.compile(
+    r"\s+(Tigers|Bulldogs|Eagles|Wildcats|Cardinals?|Aggies|Bears|Spartans|Gamecocks|"
+    r"Cougars|Bison|Hornets|Buckeyes|Ducks|Wolverines|Trojans|Rebels|Broncos|Sooners|"
+    r"Longhorns|Seminoles|Hurricanes|Volunteers|Commodores|Razorbacks|Crimson Tide|Gators|"
+    r"Huskies|Utes|Cavaliers|Hokies|Wolfpack|Yellow Jackets|Blue Devils|Demon Deacons|"
+    r"Tar Heels|Panthers|Knights|Bearcats|Mustangs|Red Wolves|Golden Flashes|Minutemen|"
+    r"Zips|Chippewas|Falcons|Rockets|Bobcats|RedHawks|Cornhuskers|Jayhawks|Cyclones|"
+    r"Mountaineers|Owls|Green Wave|Golden Eagles|Scarlet Knights|Fighting Irish|Nittany Lions|"
+    r"Hoosiers|Boilermakers|Golden Gophers|Badgers|Terrapins|Hawkeyes|Cardinal|Chanticleers|"
+    r"Ragin'? Cajuns|Warhawks|Hilltoppers|Monarchs|Roadrunners|Pirates|Midshipmen|Black Knights|"
+    r"49ers|Cowboys|Chiefs|Bills|Dolphins|Patriots|Jets|Ravens|Bengals|Browns|Steelers|"
+    r"Texans|Colts|Jaguars|Titans|Broncos|Raiders|Chargers|Rams|Seahawks|Cardinals|"
+    r"Commanders|Giants|Eagles|Packers|Vikings|Lions|Saints|Buccaneers|Falcons)$", re.I)
+
+
+def _short(name: str) -> str:
+    """Drop the mascot: 'Wake Forest Demon Deacons' -> 'Wake Forest'."""
+    n = (name or "").strip()
+    m = _MASCOT_TAIL.search(n)
+    return n[:m.start()] if m else n
+
+
+def _read(r: dict, disp: dict) -> tuple[str, str]:
+    """(the-bet line, plain-English take). `disp` maps a full team name to its short display."""
+    bt = r["bet_type"]
+    ys = r.get("yes_side", "")
+    mkt = r["market_prob"] * 100
+    mdl = (r.get("model_prob") or 0) * 100
+    ky = r.get("kalshi_yes_cents")
+
+    def show(team):
+        return disp.get(team) or _short(team)
+
+    if bt == "moneyline":
+        bet_line = f"Moneyline — {show(ys)} to win outright"
+    elif bt == "spread":
+        m = re.match(r"(.+?)\s+([+-][\d.]+)$", ys)
+        if m:
+            pts = abs(float(m.group(2)))
+            bet_line = f"Spread — {show(m.group(1))} to win by {pts:g}+"
+        else:
+            bet_line = f"Spread — {ys}"
+    else:
+        m = re.search(r"([\d.]+)", ys)
+        bet_line = f"Total — {m.group(1)}+ points combined" if m else f"Total — {ys}"
+
+    # who does the flag favour, and by how much
+    picks = r.get("picks", [])
+    if r.get("flags"):
+        take = ("The model is a long way off the sportsbook line here — almost certainly "
+                "the model being wrong (preseason ratings). Skip.")
+    elif any(src == "market" for _, src, _ in picks):
+        s, _, d = next((p for p in picks if p[1] == "market"))
+        take = (f"⚡ Kalshi is about {abs(d):.0f}¢ off the sportsbook price on the {s} side — "
+                f"the kind of gap actually worth acting on. Check it before it moves.")
+    elif picks:
+        s, _, d = picks[0]
+        lean = "leans this" if s == "YES" else "leans the other side"
+        take = (f"My model {lean} more than Vegas does ({mdl:.0f}% vs {mkt:.0f}%). "
+                f"It runs on preseason ratings, so treat this as “look into it,” not a bet.")
+    else:
+        take = "Sportsbooks, my model and Kalshi all line up. Nothing to dig into."
+    return bet_line, take
+
+
+def _slate(triage, scan, enrich):
+    if not triage or not triage.get("all_ranked"):
+        return ('<p class="empty">No games analysed yet — '
+                'run <code>./run board</code>.</p>')
+    tidx = _team_index(scan)
+    egames = (enrich or {}).get("games", {})
+    ranked = [r for r in triage["all_ranked"] if r["game_key"] in tidx][:16]
+
+    # group by kickoff day (Pacific)
+    def daykey(r):
+        _, _, ct = tidx[r["game_key"]]
+        try:
+            return datetime.fromisoformat((ct or "").replace("Z", "+00:00")).astimezone(_PT).strftime("%Y-%m-%d")
+        except ValueError:
+            return "9999"
+
+    ranked.sort(key=lambda r: (daykey(r), -r["signal"]))
+    out, cur_day = [], None
+    for r in ranked:
+        away, home, ct = tidx[r["game_key"]]
+        d = daykey(r)
+        if d != cur_day:
+            cur_day = d
+            label = "Date TBD"
+            try:
+                label = datetime.fromisoformat((ct or "").replace("Z", "+00:00")).astimezone(_PT).strftime("%A, %B %-d")
+            except ValueError:
+                pass
+            out.append(f'<h3 class="day">{esc(label)}</h3>')
+
+        en = egames.get(r["game_key"], {})
+        nets = " · ".join(en.get("networks", [])) or "TV TBD"
+        when = _pt(en.get("kickoff_utc") or ct)
+        a_disp = en.get("away_short") or _short(away)
+        h_disp = en.get("home_short") or _short(home)
+        bet_line, take = _read(r, {away: a_disp, home: h_disp})
+        strong = r["signal"] >= 8 and not r.get("flags") and any(s == "market" for _, s, _ in r.get("picks", []))
+        tag = '<span class="tag tag-edge">possible edge</span>' if strong else (
+              '<span class="tag">worth a look</span>' if r["signal"] >= 8 else "")
+        mkt = r["market_prob"] * 100
         mdl = r.get("model_prob")
-        ky = (r.get("kalshi_yes_cents") or 0) / 100 or None
-        picks = " ".join(
-            f'<span class="chip chip-{("bet" if s=="YES" else "no")}">{s} {esc(src)} {d:+.0f}</span>'
-            for s, src, d in r.get("picks", [])) or '<span class="chip chip-pass">watch</span>'
-        flag = ""
-        if r.get("flags"):
-            flag = f'<div class="rowflag">⚠ {esc("; ".join(r["flags"]))}</div>'
-        mdl_txt = f'{mdl*100:.0f}' if mdl is not None else '—'
-        kal_txt = f'{ky*100:.0f}' if ky else '—'
-        rows += f"""<li class="game{on}">
-          <span class="sig {sig_cls}">{sig:.0f}</span>
-          <span class="gmeta">
-            <span class="gkey">{esc(r['game_key'])}</span>
-            <span class="gsub">{esc(r['bet_type'])} &middot; {esc(r.get('model_coverage',''))} model &middot; {esc(r.get('n_books','?'))} books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>{mkt*100:.0f}</span>
-            <span class="pn accent"><i>mdl</i>{mdl_txt}</span>
-            <span class="pn good"><i>kal</i>{kal_txt}</span>
-          </span>
-          {_prob_track(mkt, mdl, ky)}
-          <span class="picks">{picks}</span>
-          {flag}
-        </li>"""
-    legend = ('<div class="legend"><span class="mk mk-mkt"></span>market'
-              '<span class="mk mk-mdl"></span>model'
-              '<span class="mk mk-kal"></span>Kalshi &nbsp; · &nbsp; '
-              'signal = pts of disagreement; a model that agrees with Vegas shows nothing</div>')
-    return f'<ul class="gamelist">{rows}</ul>{legend}'
+        ky = r.get("kalshi_yes_cents")
+        compare = (f'<span class="cmp"><i>Vegas</i>{mkt:.0f}%</span>'
+                   + (f'<span class="cmp accent"><i>My model</i>{mdl*100:.0f}%</span>' if mdl is not None else "")
+                   + (f'<span class="cmp good"><i>Kalshi</i>{ky:.0f}¢</span>' if ky else ""))
+        out.append(f"""<article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">{esc(a_disp)} <span class="at">at</span> {esc(h_disp)}</div>
+            {tag}
+          </div>
+          <div class="gc-when">{esc(when)} &middot; {esc(nets)}</div>
+          <div class="gc-bet">{esc(bet_line)}</div>
+          <p class="gc-take">{take}</p>
+          <div class="gc-foot">{compare}<code class="gc-key">{esc(r['game_key'])}</code></div>
+        </article>""")
+    return "".join(out)
 
 
 def _brief_list():
@@ -334,10 +432,9 @@ h2{font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--i
   margin:0 0 12px; font-weight:600}
 .empty{color:var(--ink-dim); font-size:14px; margin:0; padding:6px 0;
   border-left:2px solid var(--line); padding-left:12px}
+.sec-note{font-size:13px; line-height:1.55; color:var(--ink-dim); margin:0 0 14px; max-width:64ch}
 
 /* flagged */
-.flaglist,.gamelist,.brieflist{list-style:none; margin:0; padding:0; display:flex;
-  flex-direction:column; gap:8px}
 .flag{display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:12px 14px;
   background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--good);
   border-radius:10px; box-shadow:var(--shadow)}
@@ -353,40 +450,33 @@ h2{font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--i
 .chip-no{background:color-mix(in srgb,var(--bad) 16%,transparent); color:var(--bad)}
 .chip-pass{background:var(--surface-2); color:var(--ink-faint)}
 
-/* shortlist game rows */
-.game{display:grid; grid-template-columns:auto 1fr auto; grid-template-areas:
-  "sig meta probs" "sig track track" "sig picks picks";
-  gap:6px 14px; align-items:center; padding:13px 15px; background:var(--surface);
-  border:1px solid var(--line); border-radius:11px; box-shadow:var(--shadow)}
-.game.on-list{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
-.sig{grid-area:sig; align-self:center; width:44px; height:44px; border-radius:10px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:"IBM Plex Mono",monospace; font-size:19px; font-weight:600;
-  font-variant-numeric:tabular-nums}
-.sig-hi{background:var(--accent); color:var(--ground)}
-.sig-mid{background:color-mix(in srgb,var(--accent) 16%,transparent); color:var(--accent);
-  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
-.sig-lo{background:var(--surface-2); color:var(--ink-faint)}
-.gmeta{grid-area:meta; display:flex; flex-direction:column; gap:1px; min-width:0}
-.gkey{font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:14px}
-.gsub{font-size:11.5px; color:var(--ink-faint)}
-.probs{grid-area:probs; display:flex; gap:12px; font-family:"IBM Plex Mono",monospace;
-  font-variant-numeric:tabular-nums}
-.pn{display:flex; flex-direction:column; align-items:flex-end; font-size:14px; font-weight:500}
-.pn i{font-style:normal; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+/* slate — friendly game cards */
+.day{font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint);
+  font-weight:600; margin:20px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line)}
+.day:first-of-type{margin-top:2px}
+.gc{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow); padding:15px 17px; margin-bottom:10px}
+.gc-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px}
+.gc-teams{font-size:18px; font-weight:600; letter-spacing:-.01em; text-wrap:balance}
+.gc-teams .at{color:var(--ink-faint); font-weight:400; font-size:14px; margin:0 4px}
+.tag{font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; font-weight:600;
+  color:var(--ink-faint); border:1px solid var(--line); border-radius:999px;
+  padding:2px 9px; white-space:nowrap}
+.tag-edge{color:var(--good); border-color:color-mix(in srgb,var(--good) 45%,transparent);
+  background:color-mix(in srgb,var(--good) 12%,transparent)}
+.gc-when{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-dim); margin-top:3px}
+.gc-bet{font-size:13.5px; font-weight:600; margin-top:11px; color:var(--ink)}
+.gc-take{font-size:14px; line-height:1.5; color:var(--ink-dim); margin:4px 0 0; max-width:62ch}
+.gc-foot{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:12px;
+  padding-top:11px; border-top:1px solid var(--line)}
+.cmp{display:flex; flex-direction:column; font-family:"IBM Plex Mono",monospace;
+  font-size:14px; font-weight:500; font-variant-numeric:tabular-nums}
+.cmp i{font-style:normal; font-size:10px; letter-spacing:.05em; text-transform:uppercase;
   color:var(--ink-faint); font-weight:400}
-.pn.accent{color:var(--accent)} .pn.good{color:var(--good)}
-.track{grid-area:track; position:relative; height:4px; border-radius:2px;
-  background:var(--surface-2); margin:3px 0}
-.mk{position:absolute; width:3px; height:10px; top:-3px; border-radius:1px; transform:translateX(-50%)}
-.mk-mkt{background:var(--ink-dim)} .mk-mdl{background:var(--accent)} .mk-kal{background:var(--good)}
-.picks{grid-area:picks; display:flex; gap:6px; flex-wrap:wrap}
-.rowflag{grid-column:2/-1; font-size:11.5px; color:var(--warn);
-  font-family:"IBM Plex Mono",monospace}
-.legend{margin-top:10px; font-size:11.5px; color:var(--ink-faint); display:flex;
-  align-items:center; gap:6px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace}
-.legend .mk{position:static; transform:none; width:3px; height:11px; margin-left:8px}
-.legend .mk:first-child{margin-left:0}
+.cmp.accent{color:var(--accent)} .cmp.good{color:var(--good)}
+.gc-key{margin-left:auto; font-size:11px; color:var(--ink-faint)}
+.flaglist,.brieflist{list-style:none; margin:0; padding:0; display:flex;
+  flex-direction:column; gap:8px}
 
 /* briefs */
 .brief{display:flex; gap:12px; align-items:flex-start; padding:12px 14px;
@@ -418,12 +508,12 @@ summary::marker{color:var(--ink-faint)}
 @media (max-width:560px){
   body{padding:22px 14px 48px}
   .verdict h1{font-size:24px}
-  .game{grid-template-columns:auto 1fr; grid-template-areas:"sig meta" "probs probs" "track track" "picks picks"}
-  .probs{justify-content:flex-start}
+  .gc-teams{font-size:16px}
+  .gc-foot{gap:10px}
 }
 @media (prefers-reduced-motion:no-preference){
-  .flag,.game,.brief{animation:rise .4s ease both}
-  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .flag,.gc,.brief{animation:rise .35s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 """
 
@@ -433,6 +523,7 @@ def build_inner(scan: dict, public: bool = False) -> str:
     GitHub Pages page, which is world-readable. Nothing about the ledger,
     stakes, or P&L belongs there."""
     triage = _load("triage_result.json")
+    enrich = _load("enrich.json")
     bank = None if public else _load("bankroll.json")
     gen = scan.get("generated_at", "")
     fresh_word, fresh_cls, fresh_age = _freshness(gen)
@@ -460,9 +551,16 @@ def build_inner(scan: dict, public: bool = False) -> str:
     <p>{esc(vsub)}</p>
   </div>
 {bankroll_block}
-  <section><h2>Flagged bets — Kalshi vs the sportsbook</h2>{_flagged(scan)}</section>
+  <section><h2>Real edges — Kalshi off the sportsbook price</h2>{_flagged(scan)}</section>
 
-  <section><h2>Deep-dive shortlist — market &middot; model &middot; Kalshi</h2>{_shortlist(triage)}</section>
+  <section>
+    <h2>Games worth a look</h2>
+    <p class="sec-note">Games where the sportsbooks, my power-rating model, and Kalshi don't
+      line up. The model runs on <b>preseason</b> ratings, so it's usually the one that's off —
+      this is a “dig into this” list, not a bet list. For a full read on any game, open
+      <code>ifurar/kalshi-edge</code> in the Claude app or claude.ai/code and ask.</p>
+    {_slate(triage, scan, enrich)}
+  </section>
 
   <section><h2>Research briefs</h2>{_brief_list()}</section>
 {positions_block}

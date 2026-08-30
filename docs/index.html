@@ -65,10 +65,9 @@ h2{font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--i
   margin:0 0 12px; font-weight:600}
 .empty{color:var(--ink-dim); font-size:14px; margin:0; padding:6px 0;
   border-left:2px solid var(--line); padding-left:12px}
+.sec-note{font-size:13px; line-height:1.55; color:var(--ink-dim); margin:0 0 14px; max-width:64ch}
 
 /* flagged */
-.flaglist,.gamelist,.brieflist{list-style:none; margin:0; padding:0; display:flex;
-  flex-direction:column; gap:8px}
 .flag{display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:12px 14px;
   background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--good);
   border-radius:10px; box-shadow:var(--shadow)}
@@ -84,40 +83,33 @@ h2{font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--i
 .chip-no{background:color-mix(in srgb,var(--bad) 16%,transparent); color:var(--bad)}
 .chip-pass{background:var(--surface-2); color:var(--ink-faint)}
 
-/* shortlist game rows */
-.game{display:grid; grid-template-columns:auto 1fr auto; grid-template-areas:
-  "sig meta probs" "sig track track" "sig picks picks";
-  gap:6px 14px; align-items:center; padding:13px 15px; background:var(--surface);
-  border:1px solid var(--line); border-radius:11px; box-shadow:var(--shadow)}
-.game.on-list{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
-.sig{grid-area:sig; align-self:center; width:44px; height:44px; border-radius:10px;
-  display:flex; align-items:center; justify-content:center;
-  font-family:"IBM Plex Mono",monospace; font-size:19px; font-weight:600;
-  font-variant-numeric:tabular-nums}
-.sig-hi{background:var(--accent); color:var(--ground)}
-.sig-mid{background:color-mix(in srgb,var(--accent) 16%,transparent); color:var(--accent);
-  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
-.sig-lo{background:var(--surface-2); color:var(--ink-faint)}
-.gmeta{grid-area:meta; display:flex; flex-direction:column; gap:1px; min-width:0}
-.gkey{font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:14px}
-.gsub{font-size:11.5px; color:var(--ink-faint)}
-.probs{grid-area:probs; display:flex; gap:12px; font-family:"IBM Plex Mono",monospace;
-  font-variant-numeric:tabular-nums}
-.pn{display:flex; flex-direction:column; align-items:flex-end; font-size:14px; font-weight:500}
-.pn i{font-style:normal; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+/* slate — friendly game cards */
+.day{font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint);
+  font-weight:600; margin:20px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line)}
+.day:first-of-type{margin-top:2px}
+.gc{background:var(--surface); border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow); padding:15px 17px; margin-bottom:10px}
+.gc-top{display:flex; justify-content:space-between; align-items:baseline; gap:12px}
+.gc-teams{font-size:18px; font-weight:600; letter-spacing:-.01em; text-wrap:balance}
+.gc-teams .at{color:var(--ink-faint); font-weight:400; font-size:14px; margin:0 4px}
+.tag{font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; font-weight:600;
+  color:var(--ink-faint); border:1px solid var(--line); border-radius:999px;
+  padding:2px 9px; white-space:nowrap}
+.tag-edge{color:var(--good); border-color:color-mix(in srgb,var(--good) 45%,transparent);
+  background:color-mix(in srgb,var(--good) 12%,transparent)}
+.gc-when{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--ink-dim); margin-top:3px}
+.gc-bet{font-size:13.5px; font-weight:600; margin-top:11px; color:var(--ink)}
+.gc-take{font-size:14px; line-height:1.5; color:var(--ink-dim); margin:4px 0 0; max-width:62ch}
+.gc-foot{display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-top:12px;
+  padding-top:11px; border-top:1px solid var(--line)}
+.cmp{display:flex; flex-direction:column; font-family:"IBM Plex Mono",monospace;
+  font-size:14px; font-weight:500; font-variant-numeric:tabular-nums}
+.cmp i{font-style:normal; font-size:10px; letter-spacing:.05em; text-transform:uppercase;
   color:var(--ink-faint); font-weight:400}
-.pn.accent{color:var(--accent)} .pn.good{color:var(--good)}
-.track{grid-area:track; position:relative; height:4px; border-radius:2px;
-  background:var(--surface-2); margin:3px 0}
-.mk{position:absolute; width:3px; height:10px; top:-3px; border-radius:1px; transform:translateX(-50%)}
-.mk-mkt{background:var(--ink-dim)} .mk-mdl{background:var(--accent)} .mk-kal{background:var(--good)}
-.picks{grid-area:picks; display:flex; gap:6px; flex-wrap:wrap}
-.rowflag{grid-column:2/-1; font-size:11.5px; color:var(--warn);
-  font-family:"IBM Plex Mono",monospace}
-.legend{margin-top:10px; font-size:11.5px; color:var(--ink-faint); display:flex;
-  align-items:center; gap:6px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace}
-.legend .mk{position:static; transform:none; width:3px; height:11px; margin-left:8px}
-.legend .mk:first-child{margin-left:0}
+.cmp.accent{color:var(--accent)} .cmp.good{color:var(--good)}
+.gc-key{margin-left:auto; font-size:11px; color:var(--ink-faint)}
+.flaglist,.brieflist{list-style:none; margin:0; padding:0; display:flex;
+  flex-direction:column; gap:8px}
 
 /* briefs */
 .brief{display:flex; gap:12px; align-items:flex-start; padding:12px 14px;
@@ -149,18 +141,18 @@ summary::marker{color:var(--ink-faint)}
 @media (max-width:560px){
   body{padding:22px 14px 48px}
   .verdict h1{font-size:24px}
-  .game{grid-template-columns:auto 1fr; grid-template-areas:"sig meta" "probs probs" "track track" "picks picks"}
-  .probs{justify-content:flex-start}
+  .gc-teams{font-size:16px}
+  .gc-foot{gap:10px}
 }
 @media (prefers-reduced-motion:no-preference){
-  .flag,.game,.brief{animation:rise .4s ease both}
-  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .flag,.gc,.brief{animation:rise .35s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 }
 </style>
 <div class="wrap">
   <div class="top">
     <div class="brand"><b>kalshi-edge</b> &nbsp;board</div>
-    <div class="fresh"><span class="dot good"></span>scan 2026-08-30 17:43 UTC &middot; 0 min old &middot; nfl, cfb</div>
+    <div class="fresh"><span class="dot good"></span>scan 2026-08-30 17:43 UTC &middot; 21 min old &middot; nfl, cfb</div>
   </div>
 
   <div class="verdict">
@@ -168,219 +160,174 @@ summary::marker{color:var(--ink-faint)}
     <p>12 games flagged for a research pass; none is a priced edge.</p>
   </div>
 
-  <section><h2>Flagged bets — Kalshi vs the sportsbook</h2><p class="empty">Kalshi is priced in line with the sportsbook consensus across all 154 games. No arbitrage today — the common, correct case.</p></section>
+  <section><h2>Real edges — Kalshi off the sportsbook price</h2><p class="empty">Kalshi is priced in line with the sportsbook consensus across all 154 games. No arbitrage today — the common, correct case.</p></section>
 
-  <section><h2>Deep-dive shortlist — market &middot; model &middot; Kalshi</h2><ul class="gamelist"><li class="game on-list">
-          <span class="sig sig-hi">12</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05TXSTTEX</span>
-            <span class="gsub">total &middot; full model &middot; 1 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>62</span>
-            <span class="pn good"><i>kal</i>52</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:50.4%" title="market 50%"></span><span class="mk mk-mdl" style="left:62.5%" title="model 62%"></span><span class="mk mk-kal" style="left:52.0%" title="kalshi 52%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES model +10</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">12</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05CCARWVU</span>
-            <span class="gsub">spread &middot; full model &middot; 6 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>37</span>
-            <span class="pn good"><i>kal</i>50</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.8%" title="market 50%"></span><span class="mk mk-mdl" style="left:37.2%" title="model 37%"></span><span class="mk mk-kal" style="left:50.0%" title="kalshi 50%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +12</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">11</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05ECUALA</span>
-            <span class="gsub">spread &middot; full model &middot; 6 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>37</span>
-            <span class="pn good"><i>kal</i>52</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.9%" title="market 50%"></span><span class="mk mk-mdl" style="left:36.7%" title="model 37%"></span><span class="mk mk-kal" style="left:52.0%" title="kalshi 52%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +14</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">11</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05ARSTMEM</span>
-            <span class="gsub">spread &middot; full model &middot; 4 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>61</span>
-            <span class="pn good"><i>kal</i>49</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.9%" title="market 50%"></span><span class="mk mk-mdl" style="left:61.2%" title="model 61%"></span><span class="mk mk-kal" style="left:49.0%" title="kalshi 49%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES model +12</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">11</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP20JACDEN</span>
-            <span class="gsub">moneyline &middot; full model &middot; 1 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>56</span>
-            <span class="pn accent"><i>mdl</i>45</span>
-            <span class="pn good"><i>kal</i>57</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:56.4%" title="market 56%"></span><span class="mk mk-mdl" style="left:45.1%" title="model 45%"></span><span class="mk mk-kal" style="left:57.0%" title="kalshi 57%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +10</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">11</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP03AKRWAKE</span>
-            <span class="gsub">spread &middot; full model &middot; 6 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>61</span>
-            <span class="pn good"><i>kal</i>49</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.8%" title="market 50%"></span><span class="mk mk-mdl" style="left:61.0%" title="model 61%"></span><span class="mk mk-kal" style="left:49.0%" title="kalshi 49%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES model +12</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">11</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP11MIZZKU</span>
-            <span class="gsub">total &middot; full model &middot; 1 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>36</span>
-            <span class="pn good"><i>kal</i>52</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:50.0%" title="market 50%"></span><span class="mk mk-mdl" style="left:35.6%" title="model 36%"></span><span class="mk mk-kal" style="left:52.0%" title="kalshi 52%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +10</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">10</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05BSUORE</span>
-            <span class="gsub">total &middot; full model &middot; 2 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>49</span>
-            <span class="pn accent"><i>mdl</i>39</span>
-            <span class="pn good"><i>kal</i>49</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.3%" title="market 49%"></span><span class="mk mk-mdl" style="left:38.9%" title="model 39%"></span><span class="mk mk-kal" style="left:49.0%" title="kalshi 49%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +9</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">9</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP13CHICAR</span>
-            <span class="gsub">total &middot; full model &middot; 7 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>40</span>
-            <span class="pn good"><i>kal</i>51</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.6%" title="market 50%"></span><span class="mk mk-mdl" style="left:40.1%" title="model 40%"></span><span class="mk mk-kal" style="left:51.0%" title="kalshi 51%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +8</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">9</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05BAYAUB</span>
-            <span class="gsub">spread &middot; full model &middot; 2 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>49</span>
-            <span class="pn accent"><i>mdl</i>58</span>
-            <span class="pn good"><i>kal</i>48</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:48.7%" title="market 49%"></span><span class="mk mk-mdl" style="left:57.9%" title="model 58%"></span><span class="mk mk-kal" style="left:48.0%" title="kalshi 48%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES model +10</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">9</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP04TOLMSU</span>
-            <span class="gsub">spread &middot; full model &middot; 3 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>58</span>
-            <span class="pn good"><i>kal</i>48</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:49.5%" title="market 50%"></span><span class="mk mk-mdl" style="left:58.4%" title="model 58%"></span><span class="mk mk-kal" style="left:48.0%" title="kalshi 48%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES model +10</span></span>
-          
-        </li><li class="game on-list">
-          <span class="sig sig-hi">9</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP03MASSRUTG</span>
-            <span class="gsub">spread &middot; full model &middot; 1 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>68</span>
-            <span class="pn good"><i>kal</i>47</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:50.5%" title="market 50%"></span><span class="mk mk-mdl" style="left:68.0%" title="model 68%"></span><span class="mk mk-kal" style="left:47.0%" title="kalshi 47%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES market +4</span> <span class="chip chip-bet">YES model +21</span></span>
-          <div class="rowflag">⚠ model outlier (+17 pts vs market -- verify, likely model error)</div>
-        </li><li class="game">
-          <span class="sig sig-hi">8</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP05MRSHPSU</span>
-            <span class="gsub">total &middot; full model &middot; 9 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>50</span>
-            <span class="pn accent"><i>mdl</i>58</span>
-            <span class="pn good"><i>kal</i>52</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:50.0%" title="market 50%"></span><span class="mk mk-mdl" style="left:58.2%" title="model 58%"></span><span class="mk mk-kal" style="left:52.0%" title="kalshi 52%"></span></span>
-          <span class="picks"><span class="chip chip-bet">YES model +6</span></span>
-          
-        </li><li class="game">
-          <span class="sig sig-hi">8</span>
-          <span class="gmeta">
-            <span class="gkey">26SEP19LSUMISS</span>
-            <span class="gsub">moneyline &middot; full model &middot; 1 books</span>
-          </span>
-          <span class="probs">
-            <span class="pn"><i>mkt</i>54</span>
-            <span class="pn accent"><i>mdl</i>46</span>
-            <span class="pn good"><i>kal</i>56</span>
-          </span>
-          <span class="track"><span class="mk mk-mkt" style="left:54.0%" title="market 54%"></span><span class="mk mk-mdl" style="left:45.9%" title="model 46%"></span><span class="mk mk-kal" style="left:56.0%" title="kalshi 56%"></span></span>
-          <span class="picks"><span class="chip chip-no">NO model +8</span></span>
-          
-        </li></ul><div class="legend"><span class="mk mk-mkt"></span>market<span class="mk mk-mdl"></span>model<span class="mk mk-kal"></span>Kalshi &nbsp; · &nbsp; signal = pts of disagreement; a model that agrees with Vegas shows nothing</div></section>
+  <section>
+    <h2>Games worth a look</h2>
+    <p class="sec-note">Games where the sportsbooks, my power-rating model, and Kalshi don't
+      line up. The model runs on <b>preseason</b> ratings, so it's usually the one that's off —
+      this is a “dig into this” list, not a bet list. For a full read on any game, open
+      <code>ifurar/kalshi-edge</code> in the Claude app or claude.ai/code and ask.</p>
+    <h3 class="day">Thursday, September 3</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Akron <span class="at">at</span> Wake Forest</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Thu Sep 3 · 4:00 PM PT &middot; ACC Network</div>
+          <div class="gc-bet">Spread — Wake Forest to win by 24.5+</div>
+          <p class="gc-take">My model leans this more than Vegas does (61% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>61%</span><span class="cmp good"><i>Kalshi</i>49¢</span><code class="gc-key">26SEP03AKRWAKE</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Massachusetts <span class="at">at</span> Rutgers</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Thu Sep 3 · 3:00 PM PT &middot; BTN</div>
+          <div class="gc-bet">Spread — Rutgers to win by 30.5+</div>
+          <p class="gc-take">The model is a long way off the sportsbook line here — almost certainly the model being wrong (preseason ratings). Skip.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>68%</span><span class="cmp good"><i>Kalshi</i>47¢</span><code class="gc-key">26SEP03MASSRUTG</code></div>
+        </article><h3 class="day">Friday, September 4</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Toledo <span class="at">at</span> Michigan State</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Fri Sep 4 · 5:00 PM PT &middot; FS1</div>
+          <div class="gc-bet">Spread — Michigan State to win by 10.5+</div>
+          <p class="gc-take">My model leans this more than Vegas does (58% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>58%</span><span class="cmp good"><i>Kalshi</i>48¢</span><code class="gc-key">26SEP04TOLMSU</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Miami <span class="at">at</span> Stanford</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Fri Sep 4 · 6:00 PM PT &middot; ESPN</div>
+          <div class="gc-bet">Spread — Miami to win by 24.5+</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (41% vs 49%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>49%</span><span class="cmp accent"><i>My model</i>41%</span><span class="cmp good"><i>Kalshi</i>47¢</span><code class="gc-key">26SEP04MIASTAN</code></div>
+        </article><h3 class="day">Saturday, September 5</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Texas State <span class="at">at</span> Texas</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 12:30 PM PT &middot; ESPN</div>
+          <div class="gc-bet">Total — 59.5+ points combined</div>
+          <p class="gc-take">My model leans this more than Vegas does (62% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>62%</span><span class="cmp good"><i>Kalshi</i>52¢</span><code class="gc-key">26SEP05TXSTTEX</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Coastal Carolina <span class="at">at</span> West Virginia</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 9:00 AM PT &middot; TNT</div>
+          <div class="gc-bet">Spread — West Virginia to win by 21.5+</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (37% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>37%</span><span class="cmp good"><i>Kalshi</i>50¢</span><code class="gc-key">26SEP05CCARWVU</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">East Carolina <span class="at">at</span> Alabama</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 9:00 AM PT &middot; ABC</div>
+          <div class="gc-bet">Spread — Alabama to win by 28.5+</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (37% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>37%</span><span class="cmp good"><i>Kalshi</i>52¢</span><code class="gc-key">26SEP05ECUALA</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Arkansas State <span class="at">at</span> Memphis</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 4:00 PM PT &middot; ESPN+</div>
+          <div class="gc-bet">Spread — Memphis to win by 9.5+</div>
+          <p class="gc-take">My model leans this more than Vegas does (61% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>61%</span><span class="cmp good"><i>Kalshi</i>49¢</span><code class="gc-key">26SEP05ARSTMEM</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Boise State <span class="at">at</span> Oregon</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 12:30 PM PT &middot; CBS</div>
+          <div class="gc-bet">Total — 52.5+ points combined</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (39% vs 49%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>49%</span><span class="cmp accent"><i>My model</i>39%</span><span class="cmp good"><i>Kalshi</i>49¢</span><code class="gc-key">26SEP05BSUORE</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Baylor <span class="at">at</span> Auburn</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 12:30 PM PT &middot; ABC</div>
+          <div class="gc-bet">Spread — Auburn to win by 7.5+</div>
+          <p class="gc-take">My model leans this more than Vegas does (58% vs 49%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>49%</span><span class="cmp accent"><i>My model</i>58%</span><span class="cmp good"><i>Kalshi</i>48¢</span><code class="gc-key">26SEP05BAYAUB</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Marshall <span class="at">at</span> Penn State</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 5 · 12:30 PM PT &middot; FS1</div>
+          <div class="gc-bet">Total — 54.5+ points combined</div>
+          <p class="gc-take">My model leans this more than Vegas does (58% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>58%</span><span class="cmp good"><i>Kalshi</i>52¢</span><code class="gc-key">26SEP05MRSHPSU</code></div>
+        </article><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Central Michigan <span class="at">at</span> New Mexico</div>
+            
+          </div>
+          <div class="gc-when">Sat Sep 5 · 7:00 PM PT &middot; FS1</div>
+          <div class="gc-bet">Moneyline — New Mexico to win outright</div>
+          <p class="gc-take">My model leans this more than Vegas does (85% vs 77%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>77%</span><span class="cmp accent"><i>My model</i>85%</span><span class="cmp good"><i>Kalshi</i>79¢</span><code class="gc-key">26SEP05CMUUNM</code></div>
+        </article><h3 class="day">Friday, September 11</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Missouri <span class="at">at</span> Kansas</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Fri Sep 11 · 5:00 PM PT &middot; FOX</div>
+          <div class="gc-bet">Total — 51.5+ points combined</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (36% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>36%</span><span class="cmp good"><i>Kalshi</i>52¢</span><code class="gc-key">26SEP11MIZZKU</code></div>
+        </article><h3 class="day">Sunday, September 13</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Chicago <span class="at">at</span> Carolina</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sun Sep 13 · 10:00 AM PT &middot; FOX</div>
+          <div class="gc-bet">Total — 47.5+ points combined</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (40% vs 50%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>50%</span><span class="cmp accent"><i>My model</i>40%</span><span class="cmp good"><i>Kalshi</i>51¢</span><code class="gc-key">26SEP13CHICAR</code></div>
+        </article><h3 class="day">Saturday, September 19</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">LSU <span class="at">at</span> Ole Miss</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sat Sep 19 · 4:30 PM PT &middot; ABC</div>
+          <div class="gc-bet">Moneyline — Ole Miss to win outright</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (46% vs 54%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>54%</span><span class="cmp accent"><i>My model</i>46%</span><span class="cmp good"><i>Kalshi</i>56¢</span><code class="gc-key">26SEP19LSUMISS</code></div>
+        </article><h3 class="day">Sunday, September 20</h3><article class="gc">
+          <div class="gc-top">
+            <div class="gc-teams">Jacksonville <span class="at">at</span> Denver</div>
+            <span class="tag">worth a look</span>
+          </div>
+          <div class="gc-when">Sun Sep 20 · 1:05 PM PT &middot; CBS</div>
+          <div class="gc-bet">Moneyline — Denver to win outright</div>
+          <p class="gc-take">My model leans the other side more than Vegas does (45% vs 56%). It runs on preseason ratings, so treat this as “look into it,” not a bet.</p>
+          <div class="gc-foot"><span class="cmp"><i>Vegas</i>56%</span><span class="cmp accent"><i>My model</i>45%</span><span class="cmp good"><i>Kalshi</i>57¢</span><code class="gc-key">26SEP20JACDEN</code></div>
+        </article>
+  </section>
 
   <section><h2>Research briefs</h2><ul class="brieflist"><li class="brief">
           <span class="chip chip-pass">PASS</span>
           <span class="brief-body">
             <span class="brief-title">Coastal Carolina Chanticleers @ West Virginia Mountaineers</span>
             <span class="brief-thesis">the &quot;signal&quot; is my preseason model not knowing WVU&#x27;s actual roster; the market already does.</span>
-            <span class="gsub">26SEP05CCARWVU &middot; high (in the pass). &middot; Aug 30, 17:41</span>
+            <span class="gsub">26SEP05CCARWVU &middot; high (in the pass). &middot; Aug 30, 10:20</span>
           </span>
         </li><li class="brief">
           <span class="chip chip-pass">PASS</span>
           <span class="brief-body">
             <span class="brief-title">Memphis Tigers @ UNLV Rebels</span>
             <span class="brief-thesis">the only &quot;edge&quot; here is the model not knowing what the market already priced in; that&#x27;s not an edge.</span>
-            <span class="gsub">26AUG29MEMUNLV &middot; high (in the pass). &middot; Aug 30, 17:41</span>
+            <span class="gsub">26AUG29MEMUNLV &middot; high (in the pass). &middot; Aug 30, 10:20</span>
           </span>
         </li></ul></section>
 
