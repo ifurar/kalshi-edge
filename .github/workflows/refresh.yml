@@ -24,6 +24,9 @@ permissions:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -48,6 +51,8 @@ jobs:
           git add scan_result.json triage_result.json docs/index.html
           git diff --staged --quiet || git commit -m "refresh $(date -u +%Y-%m-%dT%H:%MZ)"
           git push
+
+      - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
