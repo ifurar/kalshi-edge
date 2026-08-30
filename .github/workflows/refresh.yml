@@ -20,6 +20,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  issues: write
 
 jobs:
   refresh:
@@ -44,6 +45,11 @@ jobs:
           python triage.py --scan scan_result.json || true
           python enrich.py || true
           python dashboard.py --public
+
+      - name: notify on price mismatch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/notify_mismatch.py || true
 
       - name: commit refreshed data
         run: |

@@ -1,18 +1,23 @@
 # kalshi-edge
 
-A tool for finding +EV / mispriced lines on Kalshi's NFL and college
-football markets and turning them into research-backed bet suggestions,
-for small recreational sports bets. Two layers:
+A **betting-advice companion** for Ian's NFL / college-football bets on
+Kalshi. The job: given a game or a weekend slate, give a real read --
+which side of the moneyline / spread / total, why, how confident, how
+much to stake. It's grounded in the sharp-book consensus, a power-rating
+model, and live web research, and it also watches for the rare case where
+Kalshi is mispriced against the sportsbooks.
 
-1. **Discrepancy layer** -- `scan.py` compares Kalshi's price to a
-   de-vigged sportsbook consensus (The Odds API).
-2. **Research layer** -- `triage.py` adds a power-rating model as a third
-   opinion and ranks games by disagreement; `research.py` builds a
-   deep-dive brief; you (Claude) fill it with live web research and write
-   a sized recommendation. `bankroll.py` does the Kelly math and ledger.
-3. **Live layer** -- `live.py` streams in-game state (ESPN, free) next to
-   live Kalshi prices for a single game, so you can answer "what's
-   happening / is there a live spot" while a game is on.
+Pieces:
+
+1. **Prices** -- `scan.py` pulls every Kalshi line and the sportsbook odds
+   (The Odds API, `us,eu` so Pinnacle is included), and `core/signals.py`
+   splits the books into sharp vs retail and tracks line movement.
+2. **The read** -- `research.py` lays a game's three markets out side by
+   side; `triage.py` ranks the slate; you (Claude) add live web research
+   and write the lean + best bet. `bankroll.py` does Kelly + the ledger.
+3. **Live** -- `live.py` streams in-game state next to live Kalshi prices.
+4. **Mismatch alert** -- when `scan.py` flags Kalshi genuinely off the
+   sportsbook price, that's the rare real edge; surface it loudly.
 
 ## Running in the Claude Code cloud sandbox (phone / web)
 
@@ -93,52 +98,57 @@ So on a phone question ("read me the 49ers game"):
   `scan_result.json` for the Kalshi tickers.
 - `trade_stub.py` -- NOT implemented. Order placement stays manual.
 
-## Giving a research-backed bet suggestion
+## What Ian wants from this: a betting companion
 
-This is the main workflow when Ian asks "what should I bet?", "is there a
-bet on <game>?", or "run the slate".
+Ian's primary use is **help me bet well** -- "who do you like this
+weekend?", "read me the 49ers game", "is Nebraska -23 a good bet?". He
+wants a real opinion: a lean on the moneyline / spread / total, why, how
+confident, and how much to put on it. Give that. "No bet / no edge" is an
+honest answer when it's true, but it is **not the goal** -- most weekends
+he is going to bet something, and the job is to help him bet the *better*
+side of a number, not to talk him out of playing.
 
-1. **Refresh prices.** `python scan.py --sports nfl,cfb --min-edge 2.0
-   --dashboard`. Reuse an existing `scan_result.json` if it's minutes old
-   (The Odds API costs credits). `scan_cfb.json` / `--sports cfb` alone is
-   faster when NFL isn't in season.
-2. **Triage.** `python triage.py --today` (or no `--today` for the whole
-   board). Read `triage_result.json`. The shortlist is where market, model
-   and Kalshi disagree enough to be worth the work. If Ian named a specific
-   game, do it regardless of whether it made the shortlist.
-3. **Deep-dive each candidate.** `python research.py <game_key>`, then open
-   `research/<game_key>.md` and actually fill the checklist using
-   `WebSearch` / `WebFetch`:
-   - injuries (both teams), weather (outdoor games), opening vs current
-     line and which way it moved, recent form / scheme / news, situational
-     spots (rest, travel, letdown, revenge).
-   - Explicitly answer "why might the model be wrong here?" (it only knows
-     preseason ratings -- no injuries, no new personnel, no scheme) and
-     "why might the market be wrong here?" (public bias, stale line,
-     overreaction).
-4. **Form YOUR probability** for the side you like, and say plainly how it
-   differs from both the market and the model and why. If nothing
-   separates you from the closing line, the answer is **no bet** -- that is
-   the correct and common outcome (the scan routinely finds 0 edges).
-5. **Size it.** Only if edge after fees is ~3%+ AND confidence isn't low:
-   `python bankroll.py size --prob <your_p> --price <yes_ask_c>`. Present
-   the recommendation with: side, entry price, your prob, market prob,
-   model prob, fee-inclusive edge, 1/4-Kelly stake, confidence, one-line
-   thesis, and what would change the call.
-6. **Log placed bets:** `python bankroll.py add --ticker ... --side ...
-   --price ... --prob ... --note "..."`; settle later with
-   `python bankroll.py settle <id> won|lost|void`.
+Price mismatches (Kalshi off the sportsbook consensus) are a **bonus** --
+flag them loudly when they exist, but they are rare and are not what the
+tool is mainly for.
 
-### Rules for every suggestion
+### When Ian asks about a game (or a slate)
 
-- Show market %, model %, and your % side by side. Never present a raw
-  price gap as the edge -- fees eat real edge near 50/50 (see
-  `edge_engine.py`).
-- Never present anything as a lock. It's a long-run statistical edge, not a
-  prediction of one game. Say so, especially for parlays.
-- The model is preseason-only and unproven. Treat a model/market gap as a
-  prompt to research, not as an edge in itself. If `model_coverage` isn't
-  `full`, or triage flagged a model outlier, lean on the market.
+1. **Get data.** Locally: `python scan.py --sports nfl,cfb` if the file is
+   stale. In the cloud sandbox: `git pull` and note the age of
+   `scan_result.json` (say it out loud). `python research.py "<team or
+   game>"` builds `research/<key>.md` -- the moneyline / spread / total
+   laid out with the sharp-book price, the retail price, the model, Kalshi,
+   and any line movement.
+2. **Research it live.** `WebSearch`/`WebFetch` for injuries, weather
+   (outdoor), line movement and which way sharp money went, QB/scheme
+   news, situational spots (rest, travel, letdown, revenge, lookahead),
+   and the key matchup. This is where the actual read comes from.
+3. **Form the read on each market.** Anchor on the **sharp consensus**
+   (`sharp_prob` -- the low-hold books, Pinnacle when present) as the best
+   estimate of the true price. Move off it for what the research turned up.
+   The power-rating model is a **preseason** third opinion -- a tiebreaker
+   and a sanity check, never the driver; if it's the lone dissenter,
+   trust the market.
+   - **Moneyline:** who wins, and is Kalshi's price fair / a bargain / a trap?
+   - **Spread:** which side of the number and why (vs the sharp line).
+   - **Total:** over/under and what's driving it (pace, weather, defenses).
+4. **Pick a best bet** among the three, or say "these are all coin-flips,
+   pass" when that's genuinely true. State a confidence (lean / solid /
+   strong) and be honest that a lean into the vig needs a small stake.
+5. **Size it.** `python bankroll.py size --prob <your_p> --price <c>` ->
+   1/4-Kelly, capped. A true edge vs the sharp price sizes up; a pure lean
+   sizes down (or is a "small play" only).
+6. **Log placed bets:** `python bankroll.py add ...`; settle later.
+
+### Rules for every read
+
+- Anchor on the sharp price, not the retail average or the model.
+- Give a lean even without a +EV edge -- but never dress a coin-flip up as
+  conviction. Match the stake to the conviction, and say so.
+- Never present anything as a lock. Any single bet can lose.
+- Flag a Kalshi/sportsbook price mismatch prominently whenever one exists
+  (`flagged` in the scan) -- that's the rare real edge and it sizes up.
 - Parlays: `parlay.py`, and always call out same-game correlation.
 
 ## Answering an in-game question

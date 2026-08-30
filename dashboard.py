@@ -87,15 +87,11 @@ def _verdict(scan, triage):
     ops = scan.get("opportunities", [])
     flagged = [o for o in ops if o.get("flagged")]
     n_games = len({o.get("event_ticker") for o in ops if o.get("bet_type") in ("moneyline", "spread", "total")})
-    shortlist = (triage or {}).get("shortlist", [])
     if flagged:
-        return "good", f"{len(flagged)} flagged bet{'s' if len(flagged) != 1 else ''}", \
-            "Kalshi is off the sportsbook consensus — see below."
-    if shortlist:
-        return "dim", "Nothing to bet", \
-            f"{len(shortlist)} game{'s' if len(shortlist) != 1 else ''} flagged for a research pass; " \
-            f"none is a priced edge."
-    return "dim", "Quiet board", f"{n_games} games priced, no disagreement worth chasing."
+        return "good", f"⚡ {len(flagged)} price mismatch{'es' if len(flagged) != 1 else ''}", \
+            "Kalshi is off the sportsbook price on these — the rare real edge. Details below."
+    return "dim", f"{n_games} games on the board", \
+        "No Kalshi mispricing right now. For a read on any game, ask in the Claude app."
 
 
 def _bankroll_strip(bank):
@@ -563,11 +559,11 @@ def build_inner(scan: dict, public: bool = False) -> str:
   <section><h2>Real edges — Kalshi off the sportsbook price</h2>{_flagged(scan)}</section>
 
   <section>
-    <h2>Games worth a look</h2>
-    <p class="sec-note">Games where the sportsbooks, my power-rating model, and Kalshi don't
-      line up. The model runs on <b>preseason</b> ratings, so it's usually the one that's off —
-      this is a “dig into this” list, not a bet list. For a full read on any game, open
-      <code>ifurar/kalshi-edge</code> in the Claude app or claude.ai/code and ask.</p>
+    <h2>This weekend — games with something to talk about</h2>
+    <p class="sec-note">The slate, sorted by how much the sharp books, my model and Kalshi
+      disagree. Each card has the kickoff, where to watch, and a one-line take. <b>For the
+      full read — moneyline, spread, total, a lean and a best bet — ask in the Claude app:</b>
+      open <code>ifurar/kalshi-edge</code> under Code and say e.g. “read me the LSU game”.</p>
     {_slate(triage, scan, enrich)}
   </section>
 
