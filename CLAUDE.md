@@ -14,6 +14,31 @@ for small recreational sports bets. Two layers:
    live Kalshi prices for a single game, so you can answer "what's
    happening / is there a live spot" while a game is on.
 
+## Running in the Claude Code cloud sandbox (phone / web)
+
+The cloud sandbox **blocks outbound calls to the Kalshi and Odds APIs**, so
+you cannot run a fresh `scan.py` here. What still works:
+
+- **Reading the committed data** -- `scan_result.json`, `triage_result.json`,
+  `enrich.json`, `line_history.json` are refreshed a few times on game days
+  by the `refresh board` GitHub Action and committed to the repo. `git pull`
+  first, then use them.
+- **`triage.py`, `research.py`, `dashboard.py`** against that committed data
+  (no network needed).
+- **Web search / fetch** -- injuries, weather, line movement, news, a second
+  computer model. This is where the live edge comes from here.
+
+So on a phone question ("read me the 49ers game"):
+1. `git pull` to get the latest committed scan.
+2. Say how old it is: read `generated_at` in `scan_result.json` and tell Ian
+   "scan data is N hours old" up front.
+3. If it's stale and a fresher one matters, offer to trigger a refresh:
+   `gh workflow run "refresh board" --repo ifurar/kalshi-edge`, wait ~2 min,
+   `git pull`, then proceed. (The Action runs on GitHub's runners, which are
+   not sandboxed.)
+4. Build the read from `research.py` + heavy live web research. Be explicit
+   that Kalshi prices in the file are from the last Action run, not live.
+
 ## What's here
 
 - `core/edge_engine.py` -- pure math: American-odds -> probability,
