@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T18:41:24.682153+00:00",
+  "generated_at": "2026-08-30T19:37:48.035017+00:00",
   "games": {
     "26SEP05BALLOSU": {
       "networks": [
@@ -181,16 +181,6 @@
       "away_short": "Akron",
       "home_short": "Wake Forest"
     },
-    "26SEP07SMUFSU": {
-      "networks": [
-        "ESPN"
-      ],
-      "venue": "Doak Campbell Stadium",
-      "kickoff_utc": "2026-09-07T23:30Z",
-      "espn_event_id": "401858212",
-      "away_short": "SMU",
-      "home_short": "Florida State"
-    },
     "26SEP03UWGAKENN": {
       "networks": [
         "ESPN+"
@@ -211,6 +201,26 @@
       "away_short": "UAlbany",
       "home_short": "Buffalo"
     },
+    "26SEP07SMUFSU": {
+      "networks": [
+        "ESPN"
+      ],
+      "venue": "Doak Campbell Stadium",
+      "kickoff_utc": "2026-09-07T23:30Z",
+      "espn_event_id": "401858212",
+      "away_short": "SMU",
+      "home_short": "Florida State"
+    },
+    "26SEP05BSUORE": {
+      "networks": [
+        "CBS"
+      ],
+      "venue": "Autzen Stadium",
+      "kickoff_utc": "2026-09-05T19:30Z",
+      "espn_event_id": "401858433",
+      "away_short": "Boise State",
+      "home_short": "Oregon"
+    },
     "26SEP05MOHPITT": {
       "networks": [
         "CW"
@@ -221,6 +231,16 @@
       "away_short": "Miami (OH)",
       "home_short": "Pittsburgh"
     },
+    "26SEP05BAYAUB": {
+      "networks": [
+        "ABC"
+      ],
+      "venue": "Mercedes-Benz Stadium",
+      "kickoff_utc": "2026-09-05T19:30Z",
+      "espn_event_id": "401856636",
+      "away_short": "Baylor",
+      "home_short": "Auburn"
+    },
     "26SEP03ARPBMIZZ": {
       "networks": [
         "SEC Network"
@@ -230,6 +250,16 @@
       "espn_event_id": "401856663",
       "away_short": "Arkansas-Pine Bluff",
       "home_short": "Missouri"
+    },
+    "26SEP05SEMOISU": {
+      "networks": [
+        "ESPN+"
+      ],
+      "venue": "Jack Trice Stadium",
+      "kickoff_utc": "2026-09-05T17:00Z",
+      "espn_event_id": "401856779",
+      "away_short": "Southeast Missouri State",
+      "home_short": "Iowa State"
     },
     "26SEP05OHIONEB": {
       "networks": [
@@ -271,26 +301,6 @@
       "away_short": "UT Rio Grande Valley",
       "home_short": "UTSA"
     },
-    "26SEP05BAYAUB": {
-      "networks": [
-        "ABC"
-      ],
-      "venue": "Mercedes-Benz Stadium",
-      "kickoff_utc": "2026-09-05T19:30Z",
-      "espn_event_id": "401856636",
-      "away_short": "Baylor",
-      "home_short": "Auburn"
-    },
-    "26SEP06LOUMISS": {
-      "networks": [
-        "ABC"
-      ],
-      "venue": "Nissan Stadium",
-      "kickoff_utc": "2026-09-06T23:30Z",
-      "espn_event_id": "401856661",
-      "away_short": "Louisville",
-      "home_short": "Ole Miss"
-    },
     "26SEP05BCCIN": {
       "networks": [
         "FOX"
@@ -301,15 +311,15 @@
       "away_short": "Boston College",
       "home_short": "Cincinnati"
     },
-    "26SEP05SEMOISU": {
+    "26SEP06LOUMISS": {
       "networks": [
-        "ESPN+"
+        "ABC"
       ],
-      "venue": "Jack Trice Stadium",
-      "kickoff_utc": "2026-09-05T17:00Z",
-      "espn_event_id": "401856779",
-      "away_short": "Southeast Missouri State",
-      "home_short": "Iowa State"
+      "venue": "Nissan Stadium",
+      "kickoff_utc": "2026-09-06T23:30Z",
+      "espn_event_id": "401856661",
+      "away_short": "Louisville",
+      "home_short": "Ole Miss"
     },
     "26SEP03EIUMINN": {
       "networks": [
@@ -341,15 +351,15 @@
       "away_short": "Liberty",
       "home_short": "James Madison"
     },
-    "26SEP05BSUORE": {
+    "26SEP12OKLAMICH": {
       "networks": [
-        "CBS"
+        "FOX"
       ],
-      "venue": "Autzen Stadium",
-      "kickoff_utc": "2026-09-05T19:30Z",
-      "espn_event_id": "401858433",
-      "away_short": "Boise State",
-      "home_short": "Oregon"
+      "venue": "Michigan Stadium",
+      "kickoff_utc": "2026-09-12T16:00Z",
+      "espn_event_id": "401856679",
+      "away_short": "Oklahoma",
+      "home_short": "Michigan"
     },
     "26SEP05TOWSNAVY": {
       "networks": [
@@ -360,16 +370,6 @@
       "espn_event_id": "401862696",
       "away_short": "Towson",
       "home_short": "Navy"
-    },
-    "26SEP12OKLAMICH": {
-      "networks": [
-        "FOX"
-      ],
-      "venue": "Michigan Stadium",
-      "kickoff_utc": "2026-09-12T16:00Z",
-      "espn_event_id": "401856679",
-      "away_short": "Oklahoma",
-      "home_short": "Michigan"
     },
     "26SEP05PEAYVAN": {
       "networks": [
@@ -390,6 +390,16 @@
       "espn_event_id": "401858437",
       "away_short": "Washington State",
       "home_short": "Washington"
+    },
+    "26SEP05FORNDSU": {
+      "networks": [
+        "MW+"
+      ],
+      "venue": "Fargodome",
+      "kickoff_utc": "2026-09-05T19:30Z",
+      "espn_event_id": "401864499",
+      "away_short": "Fordham",
+      "home_short": "North Dakota State"
     },
     "26SEP12OSUTEX": {
       "networks": [
@@ -441,16 +451,6 @@
       "away_short": "Clemson",
       "home_short": "LSU"
     },
-    "26SEP05NORFODU": {
-      "networks": [
-        "ESPN+"
-      ],
-      "venue": "S.B. Ballard Stadium",
-      "kickoff_utc": "2026-09-05T22:00Z",
-      "espn_event_id": "401867973",
-      "away_short": "Norfolk State",
-      "home_short": "Old Dominion"
-    },
     "26SEP05LAMULL": {
       "networks": [
         "ESPN+"
@@ -460,6 +460,16 @@
       "espn_event_id": "401869142",
       "away_short": "Lamar",
       "home_short": "Louisiana"
+    },
+    "26SEP04SJSUEMU": {
+      "networks": [
+        "ESPN+"
+      ],
+      "venue": "Rynearson Stadium",
+      "kickoff_utc": "2026-09-04T22:30Z",
+      "espn_event_id": "401864495",
+      "away_short": "San Jos\u00e9 State",
+      "home_short": "Eastern Michigan"
     },
     "26SEP05FIUUSF": {
       "networks": [
@@ -481,25 +491,15 @@
       "away_short": "Iowa State",
       "home_short": "Iowa"
     },
-    "26SEP05FORNDSU": {
-      "networks": [
-        "MW+"
-      ],
-      "venue": "Fargodome",
-      "kickoff_utc": "2026-09-05T19:30Z",
-      "espn_event_id": "401864499",
-      "away_short": "Fordham",
-      "home_short": "North Dakota State"
-    },
-    "26SEP04SJSUEMU": {
+    "26SEP05NORFODU": {
       "networks": [
         "ESPN+"
       ],
-      "venue": "Rynearson Stadium",
-      "kickoff_utc": "2026-09-04T22:30Z",
-      "espn_event_id": "401864495",
-      "away_short": "San Jos\u00e9 State",
-      "home_short": "Eastern Michigan"
+      "venue": "S.B. Ballard Stadium",
+      "kickoff_utc": "2026-09-05T22:00Z",
+      "espn_event_id": "401867973",
+      "away_short": "Norfolk State",
+      "home_short": "Old Dominion"
     },
     "26SEP05UNHSYR": {
       "networks": [
