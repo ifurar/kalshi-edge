@@ -1,7 +1,7 @@
 # Research brief: Memphis Tigers @ UNLV Rebels
 
 - game key: `26AUG29MEMUNLV`  ·  sport: cfb  ·  kickoff: 2026-08-30T02:00:00Z
-- model coverage: moneyline/spread **full**, total **full**  ·  available bankroll $500.00 (from bankroll.json)
+- model coverage: moneyline/spread **full**, total **full**
 - generated 2026-08-29T09:46
 
 **Model projection:** Memphis Tigers 26.6 @ UNLV Rebels 33.0  (margin +6.3, total 59.6)

@@ -1,7 +1,7 @@
 # Research brief: Coastal Carolina Chanticleers @ West Virginia Mountaineers
 
 - game key: `26SEP05CCARWVU`  ·  sport: cfb  ·  kickoff: 2026-09-05T16:00:00Z
-- model coverage: moneyline/spread **full**, total **partial** (Coastal defaulted)  ·  available bankroll $500.00
+- model coverage: moneyline/spread **full**, total **partial** (Coastal defaulted)
 - generated 2026-08-29T10:01 · researched 2026-08-29
 
 **Model projection:** Coastal Carolina 19.4 @ West Virginia 35.5  (margin WVU +16.1, total 54.8)

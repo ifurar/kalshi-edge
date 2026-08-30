@@ -24,7 +24,7 @@ import re
 from datetime import datetime
 
 from core.ratings import load_model
-from core.staking import kelly_stake, Bankroll, BANKROLL_PATH
+from core.staking import kelly_stake
 
 OUT_DIR = "research"
 
@@ -61,17 +61,19 @@ def find_game(token: str, scan_path: str = "scan_result.json"):
     return None, []
 
 
-def kelly_table(model_p: float | None, market_p: float, price_cents: float,
-                bankroll: float) -> str:
+def kelly_table(model_p: float | None, market_p: float, price_cents: float) -> str:
+    """Sizing as a fraction of bankroll -- no absolute dollars, so a brief is
+    safe to commit / publish. `bankroll.py size` gives the dollar stake."""
     rows = []
     probs = {"model": model_p, "market": market_p,
              "market+3": min(market_p + 0.03, 0.99), "market-3": max(market_p - 0.03, 0.01)}
     for tag, p in probs.items():
         if p is None:
             continue
-        adv = kelly_stake(p, price_cents, bankroll)
+        adv = kelly_stake(p, price_cents, bankroll=100.0)   # bankroll only scales the $ output
+        pct = adv.kelly_fraction_used * 100
         rows.append(f"| {tag:<10} | {p:.3f} | {adv.edge_pct:+6.1f}% | "
-                    f"${adv.stake_dollars:>7.2f} ({adv.contracts} ct) | {adv.note} |")
+                    f"{pct:>4.1f}% of bankroll | {adv.note} |")
     return "\n".join(rows)
 
 
@@ -96,19 +98,13 @@ def build_brief(game_key: str, legs: list[dict]) -> str:
         model_line = f"(model unavailable: {e})"
         cov = tcov = "none"
 
-    try:
-        bankroll = Bankroll.load().available
-        br_note = f"available bankroll ${bankroll:.2f} (from {BANKROLL_PATH})"
-    except FileNotFoundError:
-        bankroll = 100.0
-        br_note = "no bankroll.json -- Kelly stakes shown per $100; run `python bankroll.py init <amount>`"
-
     lines = []
     lines.append(f"# Research brief: {away} @ {home}")
     lines.append("")
     lines.append(f"- game key: `{game_key}`  ·  sport: {sport}  ·  kickoff: {commence}")
-    lines.append(f"- model coverage: moneyline/spread **{cov}**, total **{tcov}**  ·  {br_note}")
+    lines.append(f"- model coverage: moneyline/spread **{cov}**, total **{tcov}**")
     lines.append(f"- generated {datetime.now().isoformat(timespec='minutes')}")
+    lines.append("- sizing below is % of bankroll; `python bankroll.py size --prob <p> --price <c>` for the dollar stake")
     lines.append("")
     lines.append(f"**Model projection:** {model_line}")
     lines.append("")
@@ -163,9 +159,9 @@ def build_brief(game_key: str, legs: list[dict]) -> str:
         _, o, mp = focus
         lines.append(f"## Kelly sizing — {o['bet_type']} YES ({o['yes_side']}) @ {o['yes_ask_cents']}c")
         lines.append("")
-        lines.append("| prob source | win prob | edge (fee-incl) | 1/4-Kelly stake | note |")
-        lines.append("|-------------|---------:|----------------:|----------------:|------|")
-        lines.append(kelly_table(mp, o["fair_prob"], o["yes_ask_cents"], bankroll))
+        lines.append("| prob source | win prob | edge (fee-incl) | 1/4-Kelly size | note |")
+        lines.append("|-------------|---------:|----------------:|---------------:|------|")
+        lines.append(kelly_table(mp, o["fair_prob"], o["yes_ask_cents"]))
         lines.append("")
         lines.append("_Sizing is only as good as the probability. Fill in your own number "
                      "in the analysis below before trusting a stake._")
