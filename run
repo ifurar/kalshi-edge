@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# Friendly wrapper so you don't have to remember the venv path or flags.
+#   ./run board            refresh everything + open the dashboard
+#   ./run today            print the deep-dive shortlist for games <~30h out
+#   ./run brief <key>      build + open a research brief for one game
+#   ./run live <key>       stream a game live in the terminal
+#   ./run status           bankroll balance / open bets / P&L
+#   ./run scan             refresh prices only (no triage)
+#   ./run setup            create the venv, install deps
+set -euo pipefail
+cd "$(dirname "$0")"
+PY=".venv/bin/python"
+SPORTS="${SPORTS:-nfl,cfb}"
+
+open_file() { command -v open >/dev/null && open "$1" || echo "open $1"; }
+
+case "${1:-board}" in
+  setup)
+    python3 -m venv .venv
+    $PY -m pip install -q -r requirements.txt
+    echo "deps installed."
+    [ -f bankroll.json ] || { read -rp "starting bankroll \$: " amt; $PY bankroll.py init "${amt:-500}"; }
+    ;;
+
+  scan)
+    $PY scan.py --sports "$SPORTS" --min-edge "${MIN_EDGE:-2.0}" --dashboard
+    ;;
+
+  board)
+    $PY scan.py --sports "$SPORTS" --min-edge "${MIN_EDGE:-2.0}"
+    $PY triage.py --scan scan_result.json || true
+    $PY dashboard.py
+    open_file dashboard.html
+    ;;
+
+  today)
+    $PY triage.py --today --scan scan_result.json
+    ;;
+
+  brief)
+    [ $# -ge 2 ] || { echo "usage: ./run brief <game_key>   (see: ./run today)"; exit 1; }
+    $PY research.py "$2" --scan scan_result.json
+    open_file "research/$2.md"
+    ;;
+
+  live)
+    [ $# -ge 2 ] || { $PY live.py --list; exit 0; }
+    shift
+    $PY live.py "$@"
+    ;;
+
+  status)  $PY bankroll.py status ;;
+  list)    $PY live.py --list ;;
+  *)       $PY "$@" ;;
+esac

@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-08-29T18:00:00+00:00",
+  "sports": ["nfl", "cfb"],
+  "min_edge_pct": 2.0,
+  "total_markets_scanned": 42,
+  "opportunities": [
+    {
+      "event_ticker": "KXNFLGAME-26AUG29KCBUF",
+      "bet_type": "moneyline",
+      "label": "Kansas City Chiefs moneyline",
+      "fair_prob": 0.5722,
+      "n_books": 3,
+      "yes_ask_cents": 54,
+      "no_ask_cents": 48,
+      "flagged": true,
+      "recommended_side": "YES",
+      "yes_edge_pct": 4.9,
+      "yes_ev_per_contract": 0.0265,
+      "no_edge_pct": -12.1,
+      "no_ev_per_contract": -0.058,
+      "match_confidence": 0.9
+    },
+    {
+      "event_ticker": "KXNFLSPREAD-26AUG29KCBUF",
+      "bet_type": "spread",
+      "label": "Chiefs -3.5",
+      "fair_prob": 0.49,
+      "n_books": 3,
+      "yes_ask_cents": 51,
+      "no_ask_cents": 51,
+      "flagged": false,
+      "yes_edge_pct": -3.1,
+      "yes_ev_per_contract": -0.0158,
+      "no_edge_pct": -0.4,
+      "no_ev_per_contract": -0.002,
+      "match_confidence": 0.9
+    },
+    {
+      "event_ticker": "KXNFLTOTAL-26AUG29KCBUF",
+      "bet_type": "totals",
+      "label": "Over 47.5",
+      "fair_prob": 0.55,
+      "n_books": 4,
+      "yes_ask_cents": 49,
+      "no_ask_cents": 53,
+      "flagged": true,
+      "recommended_side": "YES",
+      "yes_edge_pct": 10.3,
+      "yes_ev_per_contract": 0.0512,
+      "no_edge_pct": -17.2,
+      "no_ev_per_contract": -0.091,
+      "match_confidence": 0.9
+    },
+    {
+      "event_ticker": "KXNFLGAME-26AUG29KCBUF",
+      "bet_type": "prop",
+      "label": "Patrick Mahomes 2+ passing TDs",
+      "fair_prob": null,
+      "yes_ask_cents": 62,
+      "no_ask_cents": 40,
+      "flagged": false,
+      "note": "prop matching not implemented yet -- see README"
+    }
+  ]
+}

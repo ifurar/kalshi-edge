@@ -1,0 +1,16 @@
+# secrets & local-only state -- never publish these
+.env
+bankroll.json
+
+# local build artifacts -- only docs/index.html (public, no bankroll) is published
+scan_cfb.json
+dashboard.html
+dashboard.artifact.html
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# os
+.DS_Store

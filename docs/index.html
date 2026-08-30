@@ -1,0 +1,2631 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body><title>kalshi-edge board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#f5f7f6; --surface:#fff; --surface-2:#eef2f0; --line:#dde4e1;
+  --ink:#16201e; --ink-dim:#566661; --ink-faint:#84938f;
+  --accent:#0e7c72; --good:#1c7a4a; --warn:#9a5c1c; --bad:#b03a30;
+  --shadow:0 1px 2px rgba(20,40,38,.06),0 8px 24px rgba(20,40,38,.05);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#0d1417; --surface:#131d20; --surface-2:#182529; --line:#26332f;
+  --ink:#e7ecea; --ink-dim:#98a6a1; --ink-faint:#6f7d78;
+  --accent:#5ad1c8; --good:#4cbe80; --warn:#d59248; --bad:#e0655a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.28);
+}}
+:root[data-theme="dark"]{
+  --ground:#0d1417; --surface:#131d20; --surface-2:#182529; --line:#26332f;
+  --ink:#e7ecea; --ink-dim:#98a6a1; --ink-faint:#6f7d78;
+  --accent:#5ad1c8; --good:#4cbe80; --warn:#d59248; --bad:#e0655a;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; padding:32px 20px 64px; background:var(--ground); color:var(--ink);
+  font:15px/1.55 "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  font-feature-settings:"ss01";
+}
+.wrap{max-width:1000px; margin:0 auto}
+code{font-family:"IBM Plex Mono", ui-monospace, Menlo, monospace; font-size:.82em;
+  background:var(--surface-2); padding:2px 6px; border-radius:5px; color:var(--ink-dim)}
+b{font-weight:600}
+
+/* header / verdict */
+.top{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+  flex-wrap:wrap; margin-bottom:4px}
+.brand{font-weight:600; letter-spacing:-.01em; font-size:14px; color:var(--ink-dim)}
+.brand b{color:var(--ink)}
+.fresh{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-dim);
+  display:flex; align-items:center; gap:7px}
+.dot{width:7px; height:7px; border-radius:50%; background:var(--ink-faint)}
+.dot.good{background:var(--good)} .dot.warn{background:var(--warn)} .dot.bad{background:var(--bad)}
+.verdict{margin:18px 0 8px}
+.verdict h1{font-size:30px; line-height:1.15; letter-spacing:-.02em; margin:0;
+  text-wrap:balance; font-weight:600}
+.verdict h1.good{color:var(--good)}
+.verdict p{margin:5px 0 0; color:var(--ink-dim); font-size:15px}
+
+/* bankroll strip */
+.strip{display:flex; flex-wrap:wrap; gap:2px; margin:20px 0 8px;
+  border:1px solid var(--line); border-radius:12px; overflow:hidden; background:var(--surface)}
+.cell{flex:1 1 120px; padding:12px 16px; display:flex; flex-direction:column; gap:3px;
+  border-right:1px solid var(--line)}
+.cell:last-child{border-right:0}
+.cell .k{font-size:11px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint)}
+.cell .v{font-family:"IBM Plex Mono",monospace; font-size:17px; font-weight:500;
+  font-variant-numeric:tabular-nums}
+.cell .v.pos{color:var(--good)} .cell .v.neg{color:var(--bad)} .cell .v.muted{font-size:12px; color:var(--ink-dim)}
+
+/* sections */
+section{margin-top:34px}
+h2{font-size:12px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-faint);
+  margin:0 0 12px; font-weight:600}
+.empty{color:var(--ink-dim); font-size:14px; margin:0; padding:6px 0;
+  border-left:2px solid var(--line); padding-left:12px}
+
+/* flagged */
+.flaglist,.gamelist,.brieflist{list-style:none; margin:0; padding:0; display:flex;
+  flex-direction:column; gap:8px}
+.flag{display:flex; align-items:center; gap:12px; flex-wrap:wrap; padding:12px 14px;
+  background:var(--surface); border:1px solid var(--line); border-left:3px solid var(--good);
+  border-radius:10px; box-shadow:var(--shadow)}
+.flag-label{font-weight:500; flex:1 1 240px}
+.flag-nums{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-dim)}
+.flag-nums b{color:var(--good)}
+
+/* chips */
+.chip{display:inline-block; padding:2px 9px; border-radius:999px; font-size:11px;
+  font-weight:600; letter-spacing:.02em; white-space:nowrap;
+  font-family:"IBM Plex Mono",monospace}
+.chip-bet{background:color-mix(in srgb,var(--good) 18%,transparent); color:var(--good)}
+.chip-no{background:color-mix(in srgb,var(--bad) 16%,transparent); color:var(--bad)}
+.chip-pass{background:var(--surface-2); color:var(--ink-faint)}
+
+/* shortlist game rows */
+.game{display:grid; grid-template-columns:auto 1fr auto; grid-template-areas:
+  "sig meta probs" "sig track track" "sig picks picks";
+  gap:6px 14px; align-items:center; padding:13px 15px; background:var(--surface);
+  border:1px solid var(--line); border-radius:11px; box-shadow:var(--shadow)}
+.game.on-list{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.sig{grid-area:sig; align-self:center; width:44px; height:44px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:"IBM Plex Mono",monospace; font-size:19px; font-weight:600;
+  font-variant-numeric:tabular-nums}
+.sig-hi{background:var(--accent); color:var(--ground)}
+.sig-mid{background:color-mix(in srgb,var(--accent) 16%,transparent); color:var(--accent);
+  border:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.sig-lo{background:var(--surface-2); color:var(--ink-faint)}
+.gmeta{grid-area:meta; display:flex; flex-direction:column; gap:1px; min-width:0}
+.gkey{font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:14px}
+.gsub{font-size:11.5px; color:var(--ink-faint)}
+.probs{grid-area:probs; display:flex; gap:12px; font-family:"IBM Plex Mono",monospace;
+  font-variant-numeric:tabular-nums}
+.pn{display:flex; flex-direction:column; align-items:flex-end; font-size:14px; font-weight:500}
+.pn i{font-style:normal; font-size:10px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-faint); font-weight:400}
+.pn.accent{color:var(--accent)} .pn.good{color:var(--good)}
+.track{grid-area:track; position:relative; height:4px; border-radius:2px;
+  background:var(--surface-2); margin:3px 0}
+.mk{position:absolute; width:3px; height:10px; top:-3px; border-radius:1px; transform:translateX(-50%)}
+.mk-mkt{background:var(--ink-dim)} .mk-mdl{background:var(--accent)} .mk-kal{background:var(--good)}
+.picks{grid-area:picks; display:flex; gap:6px; flex-wrap:wrap}
+.rowflag{grid-column:2/-1; font-size:11.5px; color:var(--warn);
+  font-family:"IBM Plex Mono",monospace}
+.legend{margin-top:10px; font-size:11.5px; color:var(--ink-faint); display:flex;
+  align-items:center; gap:6px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace}
+.legend .mk{position:static; transform:none; width:3px; height:11px; margin-left:8px}
+.legend .mk:first-child{margin-left:0}
+
+/* briefs */
+.brief{display:flex; gap:12px; align-items:flex-start; padding:12px 14px;
+  background:var(--surface); border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow)}
+.brief .chip{min-width:46px; text-align:center; margin-top:2px}
+.brief-body{display:flex; flex-direction:column; gap:2px; min-width:0}
+.brief-title{font-weight:500}
+.brief-thesis{font-size:13px; color:var(--ink-dim)}
+
+/* tables */
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px}
+table{border-collapse:collapse; width:100%; font-size:13px}
+th,td{padding:8px 11px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap}
+tr:last-child td{border-bottom:0}
+th{font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-faint); font-weight:600}
+td.num,th.num{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums}
+table.dense td:nth-child(3){white-space:normal; min-width:220px}
+tr.is-flag{background:color-mix(in srgb,var(--good) 8%,transparent)}
+tr.is-supp td{color:var(--ink-faint)}
+.held{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--warn)}
+details{margin-top:12px}
+summary{cursor:pointer; font-size:12px; text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink-faint); font-weight:600; padding:6px 0}
+summary::marker{color:var(--ink-faint)}
+
+.foot{margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
+  font-size:11.5px; line-height:1.6; color:var(--ink-faint); max-width:72ch}
+
+@media (max-width:560px){
+  body{padding:22px 14px 48px}
+  .verdict h1{font-size:24px}
+  .game{grid-template-columns:auto 1fr; grid-template-areas:"sig meta" "probs probs" "track track" "picks picks"}
+  .probs{justify-content:flex-start}
+}
+@media (prefers-reduced-motion:no-preference){
+  .flag,.game,.brief{animation:rise .4s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><b>kalshi-edge</b> &nbsp;board</div>
+    <div class="fresh"><span class="dot good"></span>scan 2026-08-30 15:56 UTC &middot; 35 min old &middot; nfl, cfb</div>
+  </div>
+
+  <div class="verdict">
+    <h1 class="">Nothing to bet</h1>
+    <p>12 games flagged for a research pass; none is a priced edge.</p>
+  </div>
+
+  <section><h2>Flagged bets — Kalshi vs the sportsbook</h2><p class="empty">Kalshi is priced in line with the sportsbook consensus across all 154 games. No arbitrage today — the common, correct case.</p></section>
+
+  <section><h2>Deep-dive shortlist — market &middot; model &middot; Kalshi</h2><ul class="gamelist"><li class="game on-list">
+          <span class="sig sig-hi">12</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05TXSTTEX</span>
+            <span class="gsub">total &middot; full model &middot; 1 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>62</span>
+            <span class="pn good"><i>kal</i>52</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:50.4%" title="market 50%"></span><span class="mk mk-mdl" style="left:62.5%" title="model 62%"></span><span class="mk mk-kal" style="left:52.0%" title="kalshi 52%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES model +10</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">12</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05CCARWVU</span>
+            <span class="gsub">spread &middot; full model &middot; 9 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>37</span>
+            <span class="pn good"><i>kal</i>50</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.9%" title="market 50%"></span><span class="mk mk-mdl" style="left:37.2%" title="model 37%"></span><span class="mk mk-kal" style="left:50.0%" title="kalshi 50%"></span></span>
+          <span class="picks"><span class="chip chip-no">NO model +12</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">11</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05ECUALA</span>
+            <span class="gsub">spread &middot; full model &middot; 5 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>37</span>
+            <span class="pn good"><i>kal</i>52</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.8%" title="market 50%"></span><span class="mk mk-mdl" style="left:36.7%" title="model 37%"></span><span class="mk mk-kal" style="left:52.0%" title="kalshi 52%"></span></span>
+          <span class="picks"><span class="chip chip-no">NO model +14</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">11</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05ARSTMEM</span>
+            <span class="gsub">spread &middot; full model &middot; 3 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>61</span>
+            <span class="pn good"><i>kal</i>49</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:50.0%" title="market 50%"></span><span class="mk mk-mdl" style="left:61.2%" title="model 61%"></span><span class="mk mk-kal" style="left:49.0%" title="kalshi 49%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES model +12</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">11</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP20JACDEN</span>
+            <span class="gsub">moneyline &middot; full model &middot; 1 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>56</span>
+            <span class="pn accent"><i>mdl</i>45</span>
+            <span class="pn good"><i>kal</i>57</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:56.4%" title="market 56%"></span><span class="mk mk-mdl" style="left:45.1%" title="model 45%"></span><span class="mk mk-kal" style="left:57.0%" title="kalshi 57%"></span></span>
+          <span class="picks"><span class="chip chip-no">NO model +10</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">11</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP03AKRWAKE</span>
+            <span class="gsub">spread &middot; full model &middot; 5 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>61</span>
+            <span class="pn good"><i>kal</i>49</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.8%" title="market 50%"></span><span class="mk mk-mdl" style="left:61.0%" title="model 61%"></span><span class="mk mk-kal" style="left:49.0%" title="kalshi 49%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES model +12</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">11</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP11MIZZKU</span>
+            <span class="gsub">total &middot; full model &middot; 1 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>36</span>
+            <span class="pn good"><i>kal</i>53</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:50.0%" title="market 50%"></span><span class="mk mk-mdl" style="left:35.6%" title="model 36%"></span><span class="mk mk-kal" style="left:53.0%" title="kalshi 53%"></span></span>
+          <span class="picks"><span class="chip chip-no">NO model +10</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">10</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05BSUORE</span>
+            <span class="gsub">total &middot; full model &middot; 2 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>49</span>
+            <span class="pn accent"><i>mdl</i>39</span>
+            <span class="pn good"><i>kal</i>50</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.3%" title="market 49%"></span><span class="mk mk-mdl" style="left:38.9%" title="model 39%"></span><span class="mk mk-kal" style="left:50.0%" title="kalshi 50%"></span></span>
+          <span class="picks"><span class="chip chip-no">NO model +9</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">9</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP13CHICAR</span>
+            <span class="gsub">total &middot; full model &middot; 7 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>40</span>
+            <span class="pn good"><i>kal</i>51</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.6%" title="market 50%"></span><span class="mk mk-mdl" style="left:40.1%" title="model 40%"></span><span class="mk mk-kal" style="left:51.0%" title="kalshi 51%"></span></span>
+          <span class="picks"><span class="chip chip-no">NO model +7</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">9</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05BAYAUB</span>
+            <span class="gsub">spread &middot; full model &middot; 2 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>49</span>
+            <span class="pn accent"><i>mdl</i>58</span>
+            <span class="pn good"><i>kal</i>48</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:48.7%" title="market 49%"></span><span class="mk mk-mdl" style="left:57.9%" title="model 58%"></span><span class="mk mk-kal" style="left:48.0%" title="kalshi 48%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES model +10</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">9</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP04TOLMSU</span>
+            <span class="gsub">spread &middot; full model &middot; 3 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>58</span>
+            <span class="pn good"><i>kal</i>48</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.5%" title="market 50%"></span><span class="mk mk-mdl" style="left:58.4%" title="model 58%"></span><span class="mk mk-kal" style="left:48.0%" title="kalshi 48%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES model +10</span></span>
+          
+        </li><li class="game on-list">
+          <span class="sig sig-hi">9</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP03MASSRUTG</span>
+            <span class="gsub">spread &middot; full model &middot; 1 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>68</span>
+            <span class="pn good"><i>kal</i>47</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:50.5%" title="market 50%"></span><span class="mk mk-mdl" style="left:68.0%" title="model 68%"></span><span class="mk mk-kal" style="left:47.0%" title="kalshi 47%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES market +4</span> <span class="chip chip-bet">YES model +21</span></span>
+          <div class="rowflag">⚠ model outlier (+17 pts vs market -- verify, likely model error)</div>
+        </li><li class="game">
+          <span class="sig sig-hi">8</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP04MIASTAN</span>
+            <span class="gsub">spread &middot; full model &middot; 4 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>49</span>
+            <span class="pn accent"><i>mdl</i>41</span>
+            <span class="pn good"><i>kal</i>47</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:49.3%" title="market 49%"></span><span class="mk mk-mdl" style="left:40.9%" title="model 41%"></span><span class="mk mk-kal" style="left:47.0%" title="kalshi 47%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES market +2</span> <span class="chip chip-no">NO model +5</span></span>
+          
+        </li><li class="game">
+          <span class="sig sig-hi">8</span>
+          <span class="gmeta">
+            <span class="gkey">26SEP05MRSHPSU</span>
+            <span class="gsub">total &middot; full model &middot; 9 books</span>
+          </span>
+          <span class="probs">
+            <span class="pn"><i>mkt</i>50</span>
+            <span class="pn accent"><i>mdl</i>58</span>
+            <span class="pn good"><i>kal</i>51</span>
+          </span>
+          <span class="track"><span class="mk mk-mkt" style="left:50.0%" title="market 50%"></span><span class="mk mk-mdl" style="left:58.2%" title="model 58%"></span><span class="mk mk-kal" style="left:51.0%" title="kalshi 51%"></span></span>
+          <span class="picks"><span class="chip chip-bet">YES model +7</span></span>
+          
+        </li></ul><div class="legend"><span class="mk mk-mkt"></span>market<span class="mk mk-mdl"></span>model<span class="mk mk-kal"></span>Kalshi &nbsp; · &nbsp; signal = pts of disagreement; a model that agrees with Vegas shows nothing</div></section>
+
+  <section><h2>Research briefs</h2><ul class="brieflist"><li class="brief">
+          <span class="chip chip-pass">PASS</span>
+          <span class="brief-body">
+            <span class="brief-title">Coastal Carolina Chanticleers @ West Virginia Mountaineers</span>
+            <span class="brief-thesis">the &quot;signal&quot; is my preseason model not knowing WVU&#x27;s actual roster; the market already does.</span>
+            <span class="gsub">26SEP05CCARWVU &middot; high (in the pass). &middot; Aug 29, 10:02</span>
+          </span>
+        </li><li class="brief">
+          <span class="chip chip-pass">PASS</span>
+          <span class="brief-body">
+            <span class="brief-title">Memphis Tigers @ UNLV Rebels</span>
+            <span class="brief-thesis">the only &quot;edge&quot; here is the model not knowing what the market already priced in; that&#x27;s not an edge.</span>
+            <span class="gsub">26AUG29MEMUNLV &middot; high (in the pass). &middot; Aug 29, 09:47</span>
+          </span>
+        </li></ul></section>
+
+  <section>
+    <details><summary>All priced markets (248 of 2357 scanned)</summary>
+    <div class="tablewrap"><table class="dense"><thead><tr><th>Game</th><th>Type</th><th>Line</th><th class="num">Fair%</th><th class="num">Bk</th><th class="num">Y¢</th><th class="num">N¢</th><th class="num">Y edge</th><th class="num">N edge</th><th></th></tr></thead><tbody><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05BALLOSU</td><td>moneyline</td>
+          <td>Ohio State Buckeyes to beat Ball State Cardinals (KXNCAAFGAME-26SEP05BALLOSU)</td>
+          <td class="num">94</td>
+          <td class="num">1</td>
+          <td class="num">100.0</td>
+          <td class="num">1.0</td>
+          <td class="num">—</td>
+          <td class="num">+182.0</td>
+          <td><span class="held" title="NO: only 1 book(s); price 1c outside 5-95c">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05BALLOSU</td><td>moneyline</td>
+          <td>Ball State Cardinals to beat Ohio State Buckeyes (KXNCAAFGAME-26SEP05BALLOSU)</td>
+          <td class="num">6</td>
+          <td class="num">1</td>
+          <td class="num">1.0</td>
+          <td class="num">100.0</td>
+          <td class="num">+182.0</td>
+          <td class="num">—</td>
+          <td><span class="held" title="YES: only 1 book(s); price 1c outside 5-95c">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05MOSUTXAM</td><td>moneyline</td>
+          <td>Texas A&amp;M Aggies to beat Missouri State Bears (KXNCAAFGAME-26SEP05MOSUTXAM)</td>
+          <td class="num">94</td>
+          <td class="num">1</td>
+          <td class="num">99.0</td>
+          <td class="num">2.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">+90.7</td>
+          <td><span class="held" title="NO: only 1 book(s); price 2c outside 5-95c">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05MOSUTXAM</td><td>moneyline</td>
+          <td>Missouri State Bears to beat Texas A&amp;M Aggies (KXNCAAFGAME-26SEP05MOSUTXAM)</td>
+          <td class="num">6</td>
+          <td class="num">1</td>
+          <td class="num">2.0</td>
+          <td class="num">99.0</td>
+          <td class="num">+90.7</td>
+          <td class="num">-5.7</td>
+          <td><span class="held" title="YES: only 1 book(s); price 2c outside 5-95c">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05ECUALA</td><td>moneyline</td>
+          <td>Alabama Crimson Tide to beat East Carolina Pirates (KXNCAAFGAME-26SEP05ECUALA)</td>
+          <td class="num">95</td>
+          <td class="num">5</td>
+          <td class="num">99.0</td>
+          <td class="num">2.0</td>
+          <td class="num">-4.8</td>
+          <td class="num">+60.3</td>
+          <td><span class="held" title="NO: price 2c outside 5-95c; EV $0.018/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05WMUMICH</td><td>moneyline</td>
+          <td>Western Michigan Broncos to beat Michigan Wolverines (KXNCAAFGAME-26SEP05WMUMICH)</td>
+          <td class="num">5</td>
+          <td class="num">7</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">+36.4</td>
+          <td class="num">-4.5</td>
+          <td><span class="held" title="YES: price 3c outside 5-95c; EV $0.015/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05KENTSCAR</td><td>moneyline</td>
+          <td>South Carolina Gamecocks to beat Kent State Golden Flashes (KXNCAAFGAME-26SEP05KENTSCAR)</td>
+          <td class="num">96</td>
+          <td class="num">2</td>
+          <td class="num">99.0</td>
+          <td class="num">2.0</td>
+          <td class="num">-3.9</td>
+          <td class="num">+28.8</td>
+          <td><span class="held" title="NO: only 2 book(s); price 2c outside 5-95c; EV $0.009/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05KENTSCAR</td><td>moneyline</td>
+          <td>Kent State Golden Flashes to beat South Carolina Gamecocks (KXNCAAFGAME-26SEP05KENTSCAR)</td>
+          <td class="num">4</td>
+          <td class="num">2</td>
+          <td class="num">2.0</td>
+          <td class="num">99.0</td>
+          <td class="num">+28.8</td>
+          <td class="num">-3.9</td>
+          <td><span class="held" title="YES: only 2 book(s); price 2c outside 5-95c; EV $0.009/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05NIUIOWA</td><td>moneyline</td>
+          <td>Iowa Hawkeyes to beat Northern Illinois Huskies (KXNCAAFGAME-26SEP05NIUIOWA)</td>
+          <td class="num">96</td>
+          <td class="num">2</td>
+          <td class="num">99.0</td>
+          <td class="num">2.0</td>
+          <td class="num">-3.8</td>
+          <td class="num">+27.4</td>
+          <td><span class="held" title="NO: only 2 book(s); price 2c outside 5-95c; EV $0.008/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05ECUALA</td><td>moneyline</td>
+          <td>East Carolina Pirates to beat Alabama Crimson Tide (KXNCAAFGAME-26SEP05ECUALA)</td>
+          <td class="num">5</td>
+          <td class="num">5</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">+20.2</td>
+          <td class="num">-3.9</td>
+          <td><span class="held" title="YES: price 3c outside 5-95c; EV $0.008/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05MEAPP</td><td>moneyline</td>
+          <td>Maine Black Bears to beat Appalachian State Mountaineers (KXNCAAFGAME-26SEP05MEAPP)</td>
+          <td class="num">12</td>
+          <td class="num">3</td>
+          <td class="num">10.0</td>
+          <td class="num">91.0</td>
+          <td class="num">+13.4</td>
+          <td class="num">-4.9</td>
+          <td><span class="held" title="YES: EV $0.015/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP04MIASTAN</td><td>moneyline</td>
+          <td>Stanford Cardinal to beat Miami Hurricanes (KXNCAAFGAME-26SEP04MIASTAN)</td>
+          <td class="num">7</td>
+          <td class="num">7</td>
+          <td class="num">5.0</td>
+          <td class="num">96.0</td>
+          <td class="num">+13.3</td>
+          <td class="num">-3.9</td>
+          <td><span class="held" title="YES: EV $0.008/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP04MIASTAN</td><td>moneyline</td>
+          <td>Miami Hurricanes to beat Stanford Cardinal (KXNCAAFGAME-26SEP04MIASTAN)</td>
+          <td class="num">93</td>
+          <td class="num">7</td>
+          <td class="num">96.0</td>
+          <td class="num">5.0</td>
+          <td class="num">-3.9</td>
+          <td class="num">+13.3</td>
+          <td><span class="held" title="NO: EV $0.008/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05TXSTTEX</td><td>moneyline</td>
+          <td>Texas State Bobcats to beat Texas Longhorns (KXNCAAFGAME-26SEP05TXSTTEX)</td>
+          <td class="num">4</td>
+          <td class="num">4</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">+11.3</td>
+          <td class="num">-3.5</td>
+          <td><span class="held" title="YES: price 3c outside 5-95c; EV $0.004/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05CCARWVU</td><td>moneyline</td>
+          <td>Coastal Carolina Chanticleers to beat West Virginia Mountaineers (KXNCAAFGAME-26SEP05CCARWVU)</td>
+          <td class="num">9</td>
+          <td class="num">9</td>
+          <td class="num">7.0</td>
+          <td class="num">94.0</td>
+          <td class="num">+11.0</td>
+          <td class="num">-4.1</td>
+          <td><span class="held" title="YES: thin book (6 contracts); EV $0.009/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05LAMULL</td><td>moneyline</td>
+          <td>Louisiana Ragin Cajuns to beat Lamar Cardinals (KXNCAAFGAME-26SEP05LAMULL)</td>
+          <td class="num">90</td>
+          <td class="num">3</td>
+          <td class="num">93.0</td>
+          <td class="num">8.0</td>
+          <td class="num">-4.2</td>
+          <td class="num">+10.3</td>
+          <td><span class="held" title="NO: EV $0.009/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05LAMULL</td><td>moneyline</td>
+          <td>Lamar Cardinals to beat Louisiana Ragin Cajuns (KXNCAAFGAME-26SEP05LAMULL)</td>
+          <td class="num">10</td>
+          <td class="num">3</td>
+          <td class="num">8.0</td>
+          <td class="num">93.0</td>
+          <td class="num">+10.3</td>
+          <td class="num">-4.2</td>
+          <td><span class="held" title="YES: EV $0.009/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05OHIONEB</td><td>moneyline</td>
+          <td>Ohio Bobcats to beat Nebraska Cornhuskers (KXNCAAFGAME-26SEP05OHIONEB)</td>
+          <td class="num">7</td>
+          <td class="num">8</td>
+          <td class="num">6.0</td>
+          <td class="num">95.0</td>
+          <td class="num">+4.0</td>
+          <td class="num">-3.4</td>
+          <td><span class="held" title="YES: EV $0.003/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP05MEAPP</td><td>moneyline</td>
+          <td>Appalachian State Mountaineers to beat Maine Black Bears (KXNCAAFGAME-26SEP05MEAPP)</td>
+          <td class="num">88</td>
+          <td class="num">3</td>
+          <td class="num">90.0</td>
+          <td class="num">11.0</td>
+          <td class="num">-3.8</td>
+          <td class="num">+3.9</td>
+          <td><span class="held" title="NO: EV $0.005/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFSPREAD-26SEP03MASSRUTG</td><td>spread</td>
+          <td>Rutgers Scarlet Knights -30.5 vs UMass Minutemen (KXNCAAFSPREAD-26SEP03MASSRUTG)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">47.0</td>
+          <td class="num">54.0</td>
+          <td class="num">+3.1</td>
+          <td class="num">-11.7</td>
+          <td><span class="held" title="YES: only 1 book(s); thin book (38 contracts); EV $0.015/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP03AKRWAKE</td><td>moneyline</td>
+          <td>Wake Forest Demon Deacons to beat Akron Zips (KXNCAAFGAME-26SEP03AKRWAKE)</td>
+          <td class="num">93</td>
+          <td class="num">9</td>
+          <td class="num">95.0</td>
+          <td class="num">6.0</td>
+          <td class="num">-3.3</td>
+          <td class="num">+2.9</td>
+          <td><span class="held" title="NO: EV $0.002/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP03AKRWAKE</td><td>moneyline</td>
+          <td>Akron Zips to beat Wake Forest Demon Deacons (KXNCAAFGAME-26SEP03AKRWAKE)</td>
+          <td class="num">7</td>
+          <td class="num">9</td>
+          <td class="num">6.0</td>
+          <td class="num">95.0</td>
+          <td class="num">+2.9</td>
+          <td class="num">-3.3</td>
+          <td><span class="held" title="YES: EV $0.002/contract below $0.02">held</span></td></tr><tr class="is-supp">
+          <td>KXNCAAFGAME-26SEP07SMUFSU</td><td>moneyline</td>
+          <td>Florida State Seminoles to beat SMU Mustangs (KXNCAAFGAME-26SEP07SMUFSU)</td>
+          <td class="num">42</td>
+          <td class="num">3</td>
+          <td class="num">39.0</td>
+          <td class="num">63.0</td>
+          <td class="num">+2.1</td>
+          <td class="num">-10.6</td>
+          <td><span class="held" title="YES: EV $0.009/contract below $0.02">held</span></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04FRESUSC</td><td>moneyline</td>
+          <td>USC Trojans to beat Fresno State Bulldogs (KXNCAAFGAME-26SEP04FRESUSC)</td>
+          <td class="num">93</td>
+          <td class="num">7</td>
+          <td class="num">95.0</td>
+          <td class="num">6.0</td>
+          <td class="num">-3.2</td>
+          <td class="num">+1.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05ARSTMEM</td><td>moneyline</td>
+          <td>Memphis Tigers to beat Arkansas State Red Wolves (KXNCAAFGAME-26SEP05ARSTMEM)</td>
+          <td class="num">74</td>
+          <td class="num">6</td>
+          <td class="num">77.0</td>
+          <td class="num">24.0</td>
+          <td class="num">-6.7</td>
+          <td class="num">+1.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05MEAPP</td><td>spread</td>
+          <td>Appalachian State Mountaineers -18.5 vs Maine Black Bears (KXNCAAFSPREAD-26SEP05MEAPP)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">56.0</td>
+          <td class="num">+0.9</td>
+          <td class="num">-14.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP04MIASTAN</td><td>spread</td>
+          <td>Miami Hurricanes -24.5 vs Stanford Cardinal (KXNCAAFSPREAD-26SEP04MIASTAN)</td>
+          <td class="num">49</td>
+          <td class="num">4</td>
+          <td class="num">47.0</td>
+          <td class="num">54.0</td>
+          <td class="num">+0.7</td>
+          <td class="num">-9.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03UWGAKENN</td><td>spread</td>
+          <td>Kennesaw State Owls -23.5 vs West Georgia Wolves (KXNCAAFSPREAD-26SEP03UWGAKENN)</td>
+          <td class="num">52</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-0.3</td>
+          <td class="num">-9.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP07SMUFSU</td><td>moneyline</td>
+          <td>SMU Mustangs to beat Florida State Seminoles (KXNCAAFGAME-26SEP07SMUFSU)</td>
+          <td class="num">58</td>
+          <td class="num">3</td>
+          <td class="num">62.0</td>
+          <td class="num">40.0</td>
+          <td class="num">-9.2</td>
+          <td class="num">-0.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20MIASF</td><td>moneyline</td>
+          <td>Miami Dolphins to beat San Francisco 49ers (KXNFLGAME-26SEP20MIASF)</td>
+          <td class="num">16</td>
+          <td class="num">1</td>
+          <td class="num">18.0</td>
+          <td class="num">83.0</td>
+          <td class="num">-18.6</td>
+          <td class="num">-0.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05OHIONEB</td><td>spread</td>
+          <td>Nebraska Cornhuskers -24.5 vs Ohio Bobcats (KXNCAAFSPREAD-26SEP05OHIONEB)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-0.4</td>
+          <td class="num">-8.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05ARSTMEM</td><td>total</td>
+          <td>Over 55.5 (KXNCAAFTOTAL-26SEP05ARSTMEM)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">56.0</td>
+          <td class="num">-0.6</td>
+          <td class="num">-13.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03ARPBMIZZ</td><td>total</td>
+          <td>Over 62.5 (KXNCAAFTOTAL-26SEP03ARPBMIZZ)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">49.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-0.9</td>
+          <td class="num">-10.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03ARPBMIZZ</td><td>total</td>
+          <td>Over 61.5 (KXNCAAFTOTAL-26SEP03ARPBMIZZ)</td>
+          <td class="num">52</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-1.0</td>
+          <td class="num">-10.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05UTRGVUTSA</td><td>moneyline</td>
+          <td>UTSA Roadrunners to beat UT Rio Grande Valley Vaqueros (KXNCAAFGAME-26SEP05UTRGVUTSA)</td>
+          <td class="num">96</td>
+          <td class="num">2</td>
+          <td class="num">96.0</td>
+          <td class="num">5.0</td>
+          <td class="num">-1.0</td>
+          <td class="num">-33.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05UTRGVUTSA</td><td>moneyline</td>
+          <td>UT Rio Grande Valley Vaqueros to beat UTSA Roadrunners (KXNCAAFGAME-26SEP05UTRGVUTSA)</td>
+          <td class="num">4</td>
+          <td class="num">2</td>
+          <td class="num">5.0</td>
+          <td class="num">96.0</td>
+          <td class="num">-33.7</td>
+          <td class="num">-1.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP04TOLMSU</td><td>spread</td>
+          <td>Michigan State Spartans -10.5 vs Toledo Rockets (KXNCAAFSPREAD-26SEP04TOLMSU)</td>
+          <td class="num">49</td>
+          <td class="num">3</td>
+          <td class="num">48.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-1.1</td>
+          <td class="num">-8.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03ARPBMIZZ</td><td>spread</td>
+          <td>Missouri Tigers -54.5 vs Arkansas Pine Bluff Golden Lions (KXNCAAFSPREAD-26SEP03ARPBMIZZ)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-1.1</td>
+          <td class="num">-8.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05BCCIN</td><td>spread</td>
+          <td>Cincinnati Bearcats -7.5 vs Boston College Eagles (KXNCAAFSPREAD-26SEP05BCCIN)</td>
+          <td class="num">49</td>
+          <td class="num">8</td>
+          <td class="num">48.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-1.2</td>
+          <td class="num">-8.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05SEMOISU</td><td>moneyline</td>
+          <td>Southeast Missouri State Redhawks to beat Iowa State Cyclones (KXNCAAFGAME-26SEP05SEMOISU)</td>
+          <td class="num">3</td>
+          <td class="num">2</td>
+          <td class="num">4.0</td>
+          <td class="num">97.0</td>
+          <td class="num">-34.0</td>
+          <td class="num">-1.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05SEMOISU</td><td>moneyline</td>
+          <td>Iowa State Cyclones to beat Southeast Missouri State Redhawks (KXNCAAFGAME-26SEP05SEMOISU)</td>
+          <td class="num">97</td>
+          <td class="num">2</td>
+          <td class="num">97.0</td>
+          <td class="num">4.0</td>
+          <td class="num">-1.3</td>
+          <td class="num">-34.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05CCARWVU</td><td>moneyline</td>
+          <td>West Virginia Mountaineers to beat Coastal Carolina Chanticleers (KXNCAAFGAME-26SEP05CCARWVU)</td>
+          <td class="num">91</td>
+          <td class="num">9</td>
+          <td class="num">94.0</td>
+          <td class="num">8.0</td>
+          <td class="num">-4.1</td>
+          <td class="num">-1.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20CLETB</td><td>moneyline</td>
+          <td>Tampa Bay Buccaneers to beat Cleveland Browns (KXNFLGAME-26SEP20CLETB)</td>
+          <td class="num">68</td>
+          <td class="num">1</td>
+          <td class="num">70.0</td>
+          <td class="num">31.0</td>
+          <td class="num">-6.2</td>
+          <td class="num">-1.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03UWGAKENN</td><td>moneyline</td>
+          <td>West Georgia Wolves to beat Kennesaw State Owls (KXNCAAFGAME-26SEP03UWGAKENN)</td>
+          <td class="num">6</td>
+          <td class="num">2</td>
+          <td class="num">6.0</td>
+          <td class="num">95.0</td>
+          <td class="num">-21.4</td>
+          <td class="num">-1.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20LVLAC</td><td>moneyline</td>
+          <td>Las Vegas Raiders to beat Los Angeles Chargers (KXNFLGAME-26SEP20LVLAC)</td>
+          <td class="num">24</td>
+          <td class="num">1</td>
+          <td class="num">26.0</td>
+          <td class="num">75.0</td>
+          <td class="num">-13.3</td>
+          <td class="num">-1.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP06LOUMISS</td><td>moneyline</td>
+          <td>Ole Miss Rebels to beat Louisville Cardinals (KXNCAAFGAME-26SEP06LOUMISS)</td>
+          <td class="num">69</td>
+          <td class="num">7</td>
+          <td class="num">71.0</td>
+          <td class="num">30.0</td>
+          <td class="num">-6.1</td>
+          <td class="num">-1.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05ECUALA</td><td>spread</td>
+          <td>Alabama Crimson Tide -28.5 vs East Carolina Pirates (KXNCAAFSPREAD-26SEP05ECUALA)</td>
+          <td class="num">50</td>
+          <td class="num">5</td>
+          <td class="num">52.0</td>
+          <td class="num">49.0</td>
+          <td class="num">-7.7</td>
+          <td class="num">-1.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05TOWSNAVY</td><td>moneyline</td>
+          <td>Towson Tigers to beat Navy Midshipmen (KXNCAAFGAME-26SEP05TOWSNAVY)</td>
+          <td class="num">3</td>
+          <td class="num">2</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">-32.1</td>
+          <td class="num">-1.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05TOWSNAVY</td><td>moneyline</td>
+          <td>Navy Midshipmen to beat Towson Tigers (KXNCAAFGAME-26SEP05TOWSNAVY)</td>
+          <td class="num">97</td>
+          <td class="num">2</td>
+          <td class="num">98.0</td>
+          <td class="num">3.0</td>
+          <td class="num">-1.7</td>
+          <td class="num">-32.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP12OKLAMICH</td><td>spread</td>
+          <td>Michigan Wolverines -1.5 vs Oklahoma Sooners (KXNCAAFSPREAD-26SEP12OKLAMICH)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-1.7</td>
+          <td class="num">-7.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP04MIASTAN</td><td>spread</td>
+          <td>Miami Hurricanes -23.5 vs Stanford Cardinal (KXNCAAFSPREAD-26SEP04MIASTAN)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">48.0</td>
+          <td class="num">-7.5</td>
+          <td class="num">-1.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MOHPITT</td><td>total</td>
+          <td>Over 50.5 (KXNCAAFTOTAL-26SEP05MOHPITT)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">54.0</td>
+          <td class="num">-1.7</td>
+          <td class="num">-9.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05BSUORE</td><td>moneyline</td>
+          <td>Boise State Broncos to beat Oregon Ducks (KXNCAAFGAME-26SEP05BSUORE)</td>
+          <td class="num">7</td>
+          <td class="num">8</td>
+          <td class="num">7.0</td>
+          <td class="num">94.0</td>
+          <td class="num">-16.9</td>
+          <td class="num">-1.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05PEAYVAN</td><td>moneyline</td>
+          <td>Vanderbilt Commodores to beat Austin Peay Governors (KXNCAAFGAME-26SEP05PEAYVAN)</td>
+          <td class="num">97</td>
+          <td class="num">2</td>
+          <td class="num">98.0</td>
+          <td class="num">3.0</td>
+          <td class="num">-1.9</td>
+          <td class="num">-29.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05PEAYVAN</td><td>moneyline</td>
+          <td>Austin Peay Governors to beat Vanderbilt Commodores (KXNCAAFGAME-26SEP05PEAYVAN)</td>
+          <td class="num">3</td>
+          <td class="num">2</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">-29.2</td>
+          <td class="num">-1.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03COOKUCF</td><td>total</td>
+          <td>Over 59.5 (KXNCAAFTOTAL-26SEP03COOKUCF)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">49.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-1.9</td>
+          <td class="num">-9.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP12OSUTEX</td><td>moneyline</td>
+          <td>Texas Longhorns to beat Ohio State Buckeyes (KXNCAAFGAME-26SEP12OSUTEX)</td>
+          <td class="num">52</td>
+          <td class="num">2</td>
+          <td class="num">54.0</td>
+          <td class="num">47.0</td>
+          <td class="num">-7.3</td>
+          <td class="num">-1.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP12OSUTEX</td><td>moneyline</td>
+          <td>Ohio State Buckeyes to beat Texas Longhorns (KXNCAAFGAME-26SEP12OSUTEX)</td>
+          <td class="num">48</td>
+          <td class="num">2</td>
+          <td class="num">47.0</td>
+          <td class="num">54.0</td>
+          <td class="num">-1.9</td>
+          <td class="num">-7.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03MASSRUTG</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP03MASSRUTG)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-1.9</td>
+          <td class="num">-7.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05MOHPITT</td><td>moneyline</td>
+          <td>Miami (OH) RedHawks to beat Pittsburgh Panthers (KXNCAAFGAME-26SEP05MOHPITT)</td>
+          <td class="num">15</td>
+          <td class="num">9</td>
+          <td class="num">15.0</td>
+          <td class="num">86.0</td>
+          <td class="num">-8.3</td>
+          <td class="num">-1.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05UTRGVUTSA</td><td>spread</td>
+          <td>UTSA Roadrunners -28.5 vs UT Rio Grande Valley Vaqueros (KXNCAAFSPREAD-26SEP05UTRGVUTSA)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">49.0</td>
+          <td class="num">57.0</td>
+          <td class="num">-2.0</td>
+          <td class="num">-15.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20MINCHI</td><td>moneyline</td>
+          <td>Chicago Bears to beat Minnesota Vikings (KXNFLGAME-26SEP20MINCHI)</td>
+          <td class="num">64</td>
+          <td class="num">1</td>
+          <td class="num">63.0</td>
+          <td class="num">38.0</td>
+          <td class="num">-2.0</td>
+          <td class="num">-9.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05ARSTMEM</td><td>spread</td>
+          <td>Memphis Tigers -9.5 vs Arkansas State Red Wolves (KXNCAAFSPREAD-26SEP05ARSTMEM)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.0</td>
+          <td class="num">-7.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MOHPITT</td><td>total</td>
+          <td>Over 49.5 (KXNCAAFTOTAL-26SEP05MOHPITT)</td>
+          <td class="num">50</td>
+          <td class="num">8</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.1</td>
+          <td class="num">-7.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP06WSUWASH</td><td>moneyline</td>
+          <td>Washington State Cougars to beat Washington Huskies (KXNCAAFGAME-26SEP06WSUWASH)</td>
+          <td class="num">8</td>
+          <td class="num">8</td>
+          <td class="num">8.0</td>
+          <td class="num">93.0</td>
+          <td class="num">-11.2</td>
+          <td class="num">-2.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04FRESUSC</td><td>moneyline</td>
+          <td>Fresno State Bulldogs to beat USC Trojans (KXNCAAFGAME-26SEP04FRESUSC)</td>
+          <td class="num">7</td>
+          <td class="num">7</td>
+          <td class="num">7.0</td>
+          <td class="num">94.0</td>
+          <td class="num">-11.1</td>
+          <td class="num">-2.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05MOHPITT</td><td>moneyline</td>
+          <td>Pittsburgh Panthers to beat Miami (OH) RedHawks (KXNCAAFGAME-26SEP05MOHPITT)</td>
+          <td class="num">85</td>
+          <td class="num">9</td>
+          <td class="num">87.0</td>
+          <td class="num">14.0</td>
+          <td class="num">-3.0</td>
+          <td class="num">-2.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03AKRWAKE</td><td>spread</td>
+          <td>Wake Forest Demon Deacons -24.5 vs Akron Zips (KXNCAAFSPREAD-26SEP03AKRWAKE)</td>
+          <td class="num">50</td>
+          <td class="num">5</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.3</td>
+          <td class="num">-7.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05MRSHPSU</td><td>moneyline</td>
+          <td>Penn State Nittany Lions to beat Marshall Thundering Herd (KXNCAAFGAME-26SEP05MRSHPSU)</td>
+          <td class="num">93</td>
+          <td class="num">8</td>
+          <td class="num">95.0</td>
+          <td class="num">6.0</td>
+          <td class="num">-3.0</td>
+          <td class="num">-2.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05MRSHPSU</td><td>moneyline</td>
+          <td>Marshall Thundering Herd to beat Penn State Nittany Lions (KXNCAAFGAME-26SEP05MRSHPSU)</td>
+          <td class="num">7</td>
+          <td class="num">8</td>
+          <td class="num">6.0</td>
+          <td class="num">95.0</td>
+          <td class="num">-2.3</td>
+          <td class="num">-3.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP13CHICAR</td><td>moneyline</td>
+          <td>Chicago Bears to beat Carolina Panthers (KXNFLGAME-26SEP13CHICAR)</td>
+          <td class="num">58</td>
+          <td class="num">9</td>
+          <td class="num">60.0</td>
+          <td class="num">41.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-2.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP13CHICAR</td><td>moneyline</td>
+          <td>Carolina Panthers to beat Chicago Bears (KXNFLGAME-26SEP13CHICAR)</td>
+          <td class="num">42</td>
+          <td class="num">9</td>
+          <td class="num">41.0</td>
+          <td class="num">60.0</td>
+          <td class="num">-2.3</td>
+          <td class="num">-6.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03ALBYBUFF</td><td>total</td>
+          <td>Over 48.5 (KXNCAAFTOTAL-26SEP03ALBYBUFF)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.4</td>
+          <td class="num">-7.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05BSUORE</td><td>spread</td>
+          <td>Oregon Ducks -24.5 vs Boise State Broncos (KXNCAAFSPREAD-26SEP05BSUORE)</td>
+          <td class="num">50</td>
+          <td class="num">5</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.4</td>
+          <td class="num">-7.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03MASSRUTG</td><td>moneyline</td>
+          <td>Rutgers Scarlet Knights to beat UMass Minutemen (KXNCAAFGAME-26SEP03MASSRUTG)</td>
+          <td class="num">97</td>
+          <td class="num">2</td>
+          <td class="num">98.0</td>
+          <td class="num">3.0</td>
+          <td class="num">-2.5</td>
+          <td class="num">-13.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03MASSRUTG</td><td>moneyline</td>
+          <td>UMass Minutemen to beat Rutgers Scarlet Knights (KXNCAAFGAME-26SEP03MASSRUTG)</td>
+          <td class="num">3</td>
+          <td class="num">2</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">-13.8</td>
+          <td class="num">-2.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05KENTSCAR</td><td>total</td>
+          <td>Over 54.5 (KXNCAAFTOTAL-26SEP05KENTSCAR)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.5</td>
+          <td class="num">-6.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04MIASTAN</td><td>total</td>
+          <td>Over 47.5 (KXNCAAFTOTAL-26SEP04MIASTAN)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">52.0</td>
+          <td class="num">49.0</td>
+          <td class="num">-6.9</td>
+          <td class="num">-2.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05NIUIOWA</td><td>total</td>
+          <td>Over 45.5 (KXNCAAFTOTAL-26SEP05NIUIOWA)</td>
+          <td class="num">51</td>
+          <td class="num">4</td>
+          <td class="num">53.0</td>
+          <td class="num">48.0</td>
+          <td class="num">-6.8</td>
+          <td class="num">-2.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05ARSTMEM</td><td>moneyline</td>
+          <td>Arkansas State Red Wolves to beat Memphis Tigers (KXNCAAFGAME-26SEP05ARSTMEM)</td>
+          <td class="num">26</td>
+          <td class="num">6</td>
+          <td class="num">25.0</td>
+          <td class="num">76.0</td>
+          <td class="num">-2.5</td>
+          <td class="num">-5.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP21NYGLAR</td><td>moneyline</td>
+          <td>New York Giants to beat Los Angeles Rams (KXNFLGAME-26SEP21NYGLAR)</td>
+          <td class="num">24</td>
+          <td class="num">1</td>
+          <td class="num">25.0</td>
+          <td class="num">76.0</td>
+          <td class="num">-11.1</td>
+          <td class="num">-2.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03UWGAKENN</td><td>moneyline</td>
+          <td>Kennesaw State Owls to beat West Georgia Wolves (KXNCAAFGAME-26SEP03UWGAKENN)</td>
+          <td class="num">94</td>
+          <td class="num">2</td>
+          <td class="num">96.0</td>
+          <td class="num">5.0</td>
+          <td class="num">-2.6</td>
+          <td class="num">-8.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05BAYAUB</td><td>spread</td>
+          <td>Auburn Tigers -7.5 vs Baylor Bears (KXNCAAFSPREAD-26SEP05BAYAUB)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">48.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-2.6</td>
+          <td class="num">-6.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20MIASF</td><td>moneyline</td>
+          <td>San Francisco 49ers to beat Miami Dolphins (KXNFLGAME-26SEP20MIASF)</td>
+          <td class="num">84</td>
+          <td class="num">1</td>
+          <td class="num">85.0</td>
+          <td class="num">18.0</td>
+          <td class="num">-2.7</td>
+          <td class="num">-18.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04NCATGAST</td><td>moneyline</td>
+          <td>North Carolina A&amp;T Aggies to beat Georgia State Panthers (KXNCAAFGAME-26SEP04NCATGAST)</td>
+          <td class="num">5</td>
+          <td class="num">2</td>
+          <td class="num">4.0</td>
+          <td class="num">97.0</td>
+          <td class="num">-7.4</td>
+          <td class="num">-2.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04NCATGAST</td><td>moneyline</td>
+          <td>Georgia State Panthers to beat North Carolina A&amp;T Aggies (KXNCAAFGAME-26SEP04NCATGAST)</td>
+          <td class="num">95</td>
+          <td class="num">2</td>
+          <td class="num">97.0</td>
+          <td class="num">4.0</td>
+          <td class="num">-2.7</td>
+          <td class="num">-7.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05BAYAUB</td><td>moneyline</td>
+          <td>Auburn Tigers to beat Baylor Bears (KXNCAAFGAME-26SEP05BAYAUB)</td>
+          <td class="num">71</td>
+          <td class="num">9</td>
+          <td class="num">73.0</td>
+          <td class="num">28.0</td>
+          <td class="num">-5.6</td>
+          <td class="num">-2.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03IDHOUTAH</td><td>moneyline</td>
+          <td>Utah Utes to beat Idaho Vandals (KXNCAAFGAME-26SEP03IDHOUTAH)</td>
+          <td class="num">97</td>
+          <td class="num">1</td>
+          <td class="num">99.0</td>
+          <td class="num">2.0</td>
+          <td class="num">-2.7</td>
+          <td class="num">-9.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03IDHOUTAH</td><td>moneyline</td>
+          <td>Idaho Vandals to beat Utah Utes (KXNCAAFGAME-26SEP03IDHOUTAH)</td>
+          <td class="num">3</td>
+          <td class="num">1</td>
+          <td class="num">2.0</td>
+          <td class="num">99.0</td>
+          <td class="num">-9.5</td>
+          <td class="num">-2.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05KENTSCAR</td><td>spread</td>
+          <td>South Carolina Gamecocks -36.5 vs Kent State Golden Flashes (KXNCAAFSPREAD-26SEP05KENTSCAR)</td>
+          <td class="num">50</td>
+          <td class="num">9</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.7</td>
+          <td class="num">-6.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05BSUORE</td><td>moneyline</td>
+          <td>Oregon Ducks to beat Boise State Broncos (KXNCAAFGAME-26SEP05BSUORE)</td>
+          <td class="num">93</td>
+          <td class="num">8</td>
+          <td class="num">95.0</td>
+          <td class="num">6.0</td>
+          <td class="num">-2.8</td>
+          <td class="num">-5.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05DUQAFA</td><td>moneyline</td>
+          <td>Duquesne Dukes to beat Air Force Falcons (KXNCAAFGAME-26SEP05DUQAFA)</td>
+          <td class="num">4</td>
+          <td class="num">3</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">-6.8</td>
+          <td class="num">-2.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05DUQAFA</td><td>moneyline</td>
+          <td>Air Force Falcons to beat Duquesne Dukes (KXNCAAFGAME-26SEP05DUQAFA)</td>
+          <td class="num">96</td>
+          <td class="num">3</td>
+          <td class="num">98.0</td>
+          <td class="num">3.0</td>
+          <td class="num">-2.8</td>
+          <td class="num">-6.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05BCCIN</td><td>moneyline</td>
+          <td>Boston College Eagles to beat Cincinnati Bearcats (KXNCAAFGAME-26SEP05BCCIN)</td>
+          <td class="num">28</td>
+          <td class="num">9</td>
+          <td class="num">29.0</td>
+          <td class="num">72.0</td>
+          <td class="num">-9.5</td>
+          <td class="num">-2.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05DUQAFA</td><td>spread</td>
+          <td>Air Force Falcons -30.5 vs Duquesne Dukes (KXNCAAFSPREAD-26SEP05DUQAFA)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.8</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03ALBYBUFF</td><td>spread</td>
+          <td>Buffalo Bulls -24.5 vs Albany (KXNCAAFSPREAD-26SEP03ALBYBUFF)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-2.8</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05FAUFLA</td><td>moneyline</td>
+          <td>Florida Atlantic Owls to beat Florida Gators (KXNCAAFGAME-26SEP05FAUFLA)</td>
+          <td class="num">6</td>
+          <td class="num">7</td>
+          <td class="num">5.0</td>
+          <td class="num">96.0</td>
+          <td class="num">-4.2</td>
+          <td class="num">-2.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03ALBYBUFF</td><td>moneyline</td>
+          <td>Buffalo Bulls to beat Albany (KXNCAAFGAME-26SEP03ALBYBUFF)</td>
+          <td class="num">94</td>
+          <td class="num">2</td>
+          <td class="num">96.0</td>
+          <td class="num">5.0</td>
+          <td class="num">-2.8</td>
+          <td class="num">-4.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP03ALBYBUFF</td><td>moneyline</td>
+          <td>Albany to beat Buffalo Bulls (KXNCAAFGAME-26SEP03ALBYBUFF)</td>
+          <td class="num">6</td>
+          <td class="num">2</td>
+          <td class="num">5.0</td>
+          <td class="num">96.0</td>
+          <td class="num">-4.2</td>
+          <td class="num">-2.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05NIUIOWA</td><td>moneyline</td>
+          <td>Northern Illinois Huskies to beat Iowa Hawkeyes (KXNCAAFGAME-26SEP05NIUIOWA)</td>
+          <td class="num">4</td>
+          <td class="num">2</td>
+          <td class="num">3.0</td>
+          <td class="num">98.0</td>
+          <td class="num">-4.4</td>
+          <td class="num">-2.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05LIBJMU</td><td>spread</td>
+          <td>James Madison Dukes -6.5 vs Liberty Flames (KXNCAAFSPREAD-26SEP05LIBJMU)</td>
+          <td class="num">51</td>
+          <td class="num">9</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-2.9</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04FRESUSC</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP04FRESUSC)</td>
+          <td class="num">50</td>
+          <td class="num">7</td>
+          <td class="num">52.0</td>
+          <td class="num">49.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-2.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP12ISUIOWA</td><td>moneyline</td>
+          <td>Iowa State Cyclones to beat Iowa Hawkeyes (KXNCAAFGAME-26SEP12ISUIOWA)</td>
+          <td class="num">17</td>
+          <td class="num">2</td>
+          <td class="num">17.0</td>
+          <td class="num">85.0</td>
+          <td class="num">-8.3</td>
+          <td class="num">-2.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20LVLAC</td><td>moneyline</td>
+          <td>Los Angeles Chargers to beat Las Vegas Raiders (KXNFLGAME-26SEP20LVLAC)</td>
+          <td class="num">76</td>
+          <td class="num">1</td>
+          <td class="num">76.0</td>
+          <td class="num">25.0</td>
+          <td class="num">-2.9</td>
+          <td class="num">-10.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05BAYAUB</td><td>moneyline</td>
+          <td>Baylor Bears to beat Auburn Tigers (KXNCAAFGAME-26SEP05BAYAUB)</td>
+          <td class="num">29</td>
+          <td class="num">9</td>
+          <td class="num">30.0</td>
+          <td class="num">71.0</td>
+          <td class="num">-8.8</td>
+          <td class="num">-3.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03COOKUCF</td><td>total</td>
+          <td>Over 57.5 (KXNCAAFTOTAL-26SEP03COOKUCF)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-8.2</td>
+          <td class="num">-3.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05CLEMLSU</td><td>moneyline</td>
+          <td>Clemson Tigers to beat LSU Tigers (KXNCAAFGAME-26SEP05CLEMLSU)</td>
+          <td class="num">22</td>
+          <td class="num">9</td>
+          <td class="num">23.0</td>
+          <td class="num">78.0</td>
+          <td class="num">-10.1</td>
+          <td class="num">-3.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03IDHOUTAH</td><td>spread</td>
+          <td>Utah Utes -33.5 vs Idaho Vandals (KXNCAAFSPREAD-26SEP03IDHOUTAH)</td>
+          <td class="num">51</td>
+          <td class="num">2</td>
+          <td class="num">52.0</td>
+          <td class="num">49.0</td>
+          <td class="num">-6.3</td>
+          <td class="num">-3.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04TOLMSU</td><td>moneyline</td>
+          <td>Toledo Rockets to beat Michigan State Spartans (KXNCAAFGAME-26SEP04TOLMSU)</td>
+          <td class="num">23</td>
+          <td class="num">9</td>
+          <td class="num">23.0</td>
+          <td class="num">78.0</td>
+          <td class="num">-9.7</td>
+          <td class="num">-3.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05CCARWVU</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP05CCARWVU)</td>
+          <td class="num">49</td>
+          <td class="num">7</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-3.2</td>
+          <td class="num">-6.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20CINHOU</td><td>moneyline</td>
+          <td>Houston Texans to beat Cincinnati Bengals (KXNFLGAME-26SEP20CINHOU)</td>
+          <td class="num">55</td>
+          <td class="num">1</td>
+          <td class="num">55.0</td>
+          <td class="num">46.0</td>
+          <td class="num">-3.3</td>
+          <td class="num">-6.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04SJSUEMU</td><td>moneyline</td>
+          <td>Eastern Michigan Eagles to beat San Jose State Spartans (KXNCAAFGAME-26SEP04SJSUEMU)</td>
+          <td class="num">61</td>
+          <td class="num">7</td>
+          <td class="num">63.0</td>
+          <td class="num">38.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-3.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05TXSTTEX</td><td>total</td>
+          <td>Over 60.5 (KXNCAAFTOTAL-26SEP05TXSTTEX)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-3.4</td>
+          <td class="num">-6.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05FIUUSF</td><td>moneyline</td>
+          <td>South Florida Bulls to beat Florida International Panthers (KXNCAAFGAME-26SEP05FIUUSF)</td>
+          <td class="num">81</td>
+          <td class="num">9</td>
+          <td class="num">83.0</td>
+          <td class="num">19.0</td>
+          <td class="num">-3.4</td>
+          <td class="num">-10.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05FIUUSF</td><td>moneyline</td>
+          <td>Florida International Panthers to beat South Florida Bulls (KXNCAAFGAME-26SEP05FIUUSF)</td>
+          <td class="num">19</td>
+          <td class="num">9</td>
+          <td class="num">19.0</td>
+          <td class="num">82.0</td>
+          <td class="num">-10.3</td>
+          <td class="num">-3.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP04FRESUSC</td><td>spread</td>
+          <td>USC Trojans -22.5 vs Fresno State Bulldogs (KXNCAAFSPREAD-26SEP04FRESUSC)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-3.4</td>
+          <td class="num">-6.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05OHIONEB</td><td>moneyline</td>
+          <td>Nebraska Cornhuskers to beat Ohio Bobcats (KXNCAAFGAME-26SEP05OHIONEB)</td>
+          <td class="num">93</td>
+          <td class="num">8</td>
+          <td class="num">95.0</td>
+          <td class="num">7.0</td>
+          <td class="num">-3.4</td>
+          <td class="num">-9.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20MINCHI</td><td>moneyline</td>
+          <td>Minnesota Vikings to beat Chicago Bears (KXNFLGAME-26SEP20MINCHI)</td>
+          <td class="num">36</td>
+          <td class="num">1</td>
+          <td class="num">38.0</td>
+          <td class="num">64.0</td>
+          <td class="num">-9.2</td>
+          <td class="num">-3.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05PEAYVAN</td><td>total</td>
+          <td>Over 60.5 (KXNCAAFTOTAL-26SEP05PEAYVAN)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-9.4</td>
+          <td class="num">-3.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP17DETBUF</td><td>moneyline</td>
+          <td>Buffalo Bills to beat Detroit Lions (KXNFLGAME-26SEP17DETBUF)</td>
+          <td class="num">59</td>
+          <td class="num">2</td>
+          <td class="num">59.0</td>
+          <td class="num">42.0</td>
+          <td class="num">-3.7</td>
+          <td class="num">-6.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLSPREAD-26SEP13CHICAR</td><td>spread</td>
+          <td>Chicago Bears -2.5 vs Carolina Panthers (KXNFLSPREAD-26SEP13CHICAR)</td>
+          <td class="num">52</td>
+          <td class="num">7</td>
+          <td class="num">53.0</td>
+          <td class="num">48.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-3.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05KENTSCAR</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05KENTSCAR)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.8</td>
+          <td class="num">-3.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05LIBJMU</td><td>moneyline</td>
+          <td>Liberty Flames to beat James Madison Dukes (KXNCAAFGAME-26SEP05LIBJMU)</td>
+          <td class="num">32</td>
+          <td class="num">9</td>
+          <td class="num">32.0</td>
+          <td class="num">69.0</td>
+          <td class="num">-6.9</td>
+          <td class="num">-3.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20PHITEN</td><td>moneyline</td>
+          <td>Philadelphia Eagles to beat Tennessee Titans (KXNFLGAME-26SEP20PHITEN)</td>
+          <td class="num">64</td>
+          <td class="num">1</td>
+          <td class="num">65.0</td>
+          <td class="num">37.0</td>
+          <td class="num">-3.8</td>
+          <td class="num">-8.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20SEAARI</td><td>moneyline</td>
+          <td>Seattle Seahawks to beat Arizona Cardinals (KXNFLGAME-26SEP20SEAARI)</td>
+          <td class="num">81</td>
+          <td class="num">1</td>
+          <td class="num">83.0</td>
+          <td class="num">21.0</td>
+          <td class="num">-3.8</td>
+          <td class="num">-16.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20SEAARI</td><td>moneyline</td>
+          <td>Arizona Cardinals to beat Seattle Seahawks (KXNFLGAME-26SEP20SEAARI)</td>
+          <td class="num">19</td>
+          <td class="num">1</td>
+          <td class="num">19.0</td>
+          <td class="num">83.0</td>
+          <td class="num">-8.7</td>
+          <td class="num">-3.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03COOKUCF</td><td>spread</td>
+          <td>UCF Knights -41.5 vs Bethune-Cookman Wildcats (KXNCAAFSPREAD-26SEP03COOKUCF)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-3.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05FORNDSU</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP05FORNDSU)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-7.4</td>
+          <td class="num">-3.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UNHSYR</td><td>total</td>
+          <td>Over 55.5 (KXNCAAFTOTAL-26SEP05UNHSYR)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-3.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05LIBJMU</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05LIBJMU)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">50.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-3.9</td>
+          <td class="num">-9.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05MOHPITT</td><td>spread</td>
+          <td>Pittsburgh Panthers -16.5 vs Miami (OH) RedHawks (KXNCAAFSPREAD-26SEP05MOHPITT)</td>
+          <td class="num">50</td>
+          <td class="num">8</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.6</td>
+          <td class="num">-3.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04TOLMSU</td><td>total</td>
+          <td>Over 49.5 (KXNCAAFTOTAL-26SEP04TOLMSU)</td>
+          <td class="num">50</td>
+          <td class="num">8</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-3.9</td>
+          <td class="num">-5.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05CCARWVU</td><td>spread</td>
+          <td>West Virginia Mountaineers -21.5 vs Coastal Carolina Chanticleers (KXNCAAFSPREAD-26SEP05CCARWVU)</td>
+          <td class="num">50</td>
+          <td class="num">9</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-3.9</td>
+          <td class="num">-5.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05LIBJMU</td><td>moneyline</td>
+          <td>James Madison Dukes to beat Liberty Flames (KXNCAAFGAME-26SEP05LIBJMU)</td>
+          <td class="num">68</td>
+          <td class="num">9</td>
+          <td class="num">70.0</td>
+          <td class="num">31.0</td>
+          <td class="num">-5.1</td>
+          <td class="num">-4.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05ARSTMEM</td><td>total</td>
+          <td>Over 54.5 (KXNCAAFTOTAL-26SEP05ARSTMEM)</td>
+          <td class="num">51</td>
+          <td class="num">3</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.1</td>
+          <td class="num">-7.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04MIASTAN</td><td>total</td>
+          <td>Over 48.5 (KXNCAAFTOTAL-26SEP04MIASTAN)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.1</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05URITEM</td><td>moneyline</td>
+          <td>Rhode Island Rams to beat Temple Owls (KXNCAAFGAME-26SEP05URITEM)</td>
+          <td class="num">20</td>
+          <td class="num">3</td>
+          <td class="num">20.0</td>
+          <td class="num">81.0</td>
+          <td class="num">-7.2</td>
+          <td class="num">-4.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05URITEM</td><td>moneyline</td>
+          <td>Temple Owls to beat Rhode Island Rams (KXNCAAFGAME-26SEP05URITEM)</td>
+          <td class="num">80</td>
+          <td class="num">3</td>
+          <td class="num">81.0</td>
+          <td class="num">20.0</td>
+          <td class="num">-4.1</td>
+          <td class="num">-7.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05UNAARK</td><td>spread</td>
+          <td>Arkansas Razorbacks -40.5 vs North Alabama Lions (KXNCAAFSPREAD-26SEP05UNAARK)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.1</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05BALLOSU</td><td>spread</td>
+          <td>Ohio State Buckeyes -50.5 vs Ball State Cardinals (KXNCAAFSPREAD-26SEP05BALLOSU)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.2</td>
+          <td class="num">-5.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04SJSUEMU</td><td>moneyline</td>
+          <td>San Jose State Spartans to beat Eastern Michigan Eagles (KXNCAAFGAME-26SEP04SJSUEMU)</td>
+          <td class="num">39</td>
+          <td class="num">7</td>
+          <td class="num">39.0</td>
+          <td class="num">62.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-4.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP12OKLAMICH</td><td>moneyline</td>
+          <td>Oklahoma Sooners to beat Michigan Wolverines (KXNCAAFGAME-26SEP12OKLAMICH)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.3</td>
+          <td class="num">-4.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP12OKLAMICH</td><td>moneyline</td>
+          <td>Michigan Wolverines to beat Oklahoma Sooners (KXNCAAFGAME-26SEP12OKLAMICH)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.2</td>
+          <td class="num">-5.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05ACTTU</td><td>spread</td>
+          <td>Texas Tech Red Raiders -42.5 vs Abilene Christian Wildcats (KXNCAAFSPREAD-26SEP05ACTTU)</td>
+          <td class="num">51</td>
+          <td class="num">2</td>
+          <td class="num">51.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.2</td>
+          <td class="num">-8.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05UNHSYR</td><td>spread</td>
+          <td>Syracuse Orange -33.5 vs New Hampshire Wildcats (KXNCAAFSPREAD-26SEP05UNHSYR)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.3</td>
+          <td class="num">-7.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05BRYARMY</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP05BRYARMY)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.3</td>
+          <td class="num">-5.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05CLEMLSU</td><td>moneyline</td>
+          <td>LSU Tigers to beat Clemson Tigers (KXNCAAFGAME-26SEP05CLEMLSU)</td>
+          <td class="num">78</td>
+          <td class="num">9</td>
+          <td class="num">79.0</td>
+          <td class="num">22.0</td>
+          <td class="num">-4.3</td>
+          <td class="num">-6.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05CMUUNM</td><td>moneyline</td>
+          <td>New Mexico Lobos to beat Central Michigan Chippewas (KXNCAAFGAME-26SEP05CMUUNM)</td>
+          <td class="num">77</td>
+          <td class="num">8</td>
+          <td class="num">79.0</td>
+          <td class="num">23.0</td>
+          <td class="num">-4.4</td>
+          <td class="num">-9.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05CMUUNM</td><td>moneyline</td>
+          <td>Central Michigan Chippewas to beat New Mexico Lobos (KXNCAAFGAME-26SEP05CMUUNM)</td>
+          <td class="num">23</td>
+          <td class="num">8</td>
+          <td class="num">22.0</td>
+          <td class="num">79.0</td>
+          <td class="num">-6.0</td>
+          <td class="num">-4.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP04TOLMSU</td><td>moneyline</td>
+          <td>Michigan State Spartans to beat Toledo Rockets (KXNCAAFGAME-26SEP04TOLMSU)</td>
+          <td class="num">77</td>
+          <td class="num">9</td>
+          <td class="num">79.0</td>
+          <td class="num">22.0</td>
+          <td class="num">-4.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03AKRWAKE</td><td>total</td>
+          <td>Over 48.5 (KXNCAAFTOTAL-26SEP03AKRWAKE)</td>
+          <td class="num">50</td>
+          <td class="num">5</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.4</td>
+          <td class="num">-5.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20WASDAL</td><td>moneyline</td>
+          <td>Washington Commanders to beat Dallas Cowboys (KXNFLGAME-26SEP20WASDAL)</td>
+          <td class="num">36</td>
+          <td class="num">1</td>
+          <td class="num">36.0</td>
+          <td class="num">65.0</td>
+          <td class="num">-4.5</td>
+          <td class="num">-4.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20WASDAL</td><td>moneyline</td>
+          <td>Dallas Cowboys to beat Washington Commanders (KXNFLGAME-26SEP20WASDAL)</td>
+          <td class="num">64</td>
+          <td class="num">1</td>
+          <td class="num">65.0</td>
+          <td class="num">36.0</td>
+          <td class="num">-4.9</td>
+          <td class="num">-4.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05SEMOISU</td><td>spread</td>
+          <td>Iowa State Cyclones -30.5 vs Southeast Missouri State Redhawks (KXNCAAFSPREAD-26SEP05SEMOISU)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.5</td>
+          <td class="num">-6.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20JACDEN</td><td>moneyline</td>
+          <td>Denver Broncos to beat Jacksonville Jaguars (KXNFLGAME-26SEP20JACDEN)</td>
+          <td class="num">56</td>
+          <td class="num">1</td>
+          <td class="num">57.0</td>
+          <td class="num">45.0</td>
+          <td class="num">-4.5</td>
+          <td class="num">-7.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20INDKC</td><td>moneyline</td>
+          <td>Kansas City Chiefs to beat Indianapolis Colts (KXNFLGAME-26SEP20INDKC)</td>
+          <td class="num">73</td>
+          <td class="num">1</td>
+          <td class="num">74.0</td>
+          <td class="num">29.0</td>
+          <td class="num">-4.5</td>
+          <td class="num">-11.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20INDKC</td><td>moneyline</td>
+          <td>Indianapolis Colts to beat Kansas City Chiefs (KXNFLGAME-26SEP20INDKC)</td>
+          <td class="num">27</td>
+          <td class="num">1</td>
+          <td class="num">28.0</td>
+          <td class="num">74.0</td>
+          <td class="num">-8.6</td>
+          <td class="num">-4.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP04SJSUEMU</td><td>spread</td>
+          <td>Eastern Michigan Eagles -3.5 vs San Jose State Spartans (KXNCAAFSPREAD-26SEP04SJSUEMU)</td>
+          <td class="num">50</td>
+          <td class="num">7</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.5</td>
+          <td class="num">-5.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20CINHOU</td><td>moneyline</td>
+          <td>Cincinnati Bengals to beat Houston Texans (KXNFLGAME-26SEP20CINHOU)</td>
+          <td class="num">45</td>
+          <td class="num">1</td>
+          <td class="num">45.0</td>
+          <td class="num">57.0</td>
+          <td class="num">-4.6</td>
+          <td class="num">-6.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05ACTTU</td><td>total</td>
+          <td>Over 58.5 (KXNCAAFTOTAL-26SEP05ACTTU)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-6.7</td>
+          <td class="num">-4.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP06LOUMISS</td><td>moneyline</td>
+          <td>Louisville Cardinals to beat Ole Miss Rebels (KXNCAAFGAME-26SEP06LOUMISS)</td>
+          <td class="num">31</td>
+          <td class="num">7</td>
+          <td class="num">31.0</td>
+          <td class="num">70.0</td>
+          <td class="num">-4.6</td>
+          <td class="num">-4.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05FIUUSF</td><td>total</td>
+          <td>Over 54.5 (KXNCAAFTOTAL-26SEP05FIUUSF)</td>
+          <td class="num">51</td>
+          <td class="num">3</td>
+          <td class="num">51.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-4.6</td>
+          <td class="num">-10.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UTRGVUTSA</td><td>total</td>
+          <td>Over 59.5 (KXNCAAFTOTAL-26SEP05UTRGVUTSA)</td>
+          <td class="num">51</td>
+          <td class="num">2</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.6</td>
+          <td class="num">-6.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05SEMOISU</td><td>spread</td>
+          <td>Iowa State Cyclones -29.5 vs Southeast Missouri State Redhawks (KXNCAAFSPREAD-26SEP05SEMOISU)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.7</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05BRYARMY</td><td>spread</td>
+          <td>Army Black Knights -36.5 vs Bryant Bulldogs (KXNCAAFSPREAD-26SEP05BRYARMY)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.7</td>
+          <td class="num">-4.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP03EIUMINN</td><td>spread</td>
+          <td>Minnesota Golden Gophers -43.5 vs Eastern Illinois Panthers (KXNCAAFSPREAD-26SEP03EIUMINN)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.7</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05TXSTTEX</td><td>total</td>
+          <td>Over 59.5 (KXNCAAFTOTAL-26SEP05TXSTTEX)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-6.6</td>
+          <td class="num">-4.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05BSUORE</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP05BSUORE)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-4.8</td>
+          <td class="num">-4.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03ARPBMIZZ</td><td>total</td>
+          <td>Over 60.5 (KXNCAAFTOTAL-26SEP03ARPBMIZZ)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.7</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03MASSRUTG</td><td>total</td>
+          <td>Over 52.5 (KXNCAAFTOTAL-26SEP03MASSRUTG)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-4.8</td>
+          <td class="num">-4.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05MRSHPSU</td><td>spread</td>
+          <td>Penn State Nittany Lions -24.5 vs Marshall Thundering Herd (KXNCAAFSPREAD-26SEP05MRSHPSU)</td>
+          <td class="num">50</td>
+          <td class="num">9</td>
+          <td class="num">50.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.7</td>
+          <td class="num">-4.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05MOSUTXAM</td><td>spread</td>
+          <td>Texas A&amp;M Aggies -41.5 vs Missouri State Bears (KXNCAAFSPREAD-26SEP05MOSUTXAM)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">49.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.7</td>
+          <td class="num">-4.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05PEAYVAN</td><td>spread</td>
+          <td>Vanderbilt Commodores -30.5 vs Austin Peay Governors (KXNCAAFSPREAD-26SEP05PEAYVAN)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.8</td>
+          <td class="num">-8.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MEAPP</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP05MEAPP)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-4.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03IDHOUTAH</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP03IDHOUTAH)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-4.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03EIUMINN</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP03EIUMINN)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-4.9</td>
+          <td class="num">-6.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20CARATL</td><td>moneyline</td>
+          <td>Atlanta Falcons to beat Carolina Panthers (KXNFLGAME-26SEP20CARATL)</td>
+          <td class="num">53</td>
+          <td class="num">1</td>
+          <td class="num">54.0</td>
+          <td class="num">48.0</td>
+          <td class="num">-4.9</td>
+          <td class="num">-6.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20CLETB</td><td>moneyline</td>
+          <td>Cleveland Browns to beat Tampa Bay Buccaneers (KXNFLGAME-26SEP20CLETB)</td>
+          <td class="num">32</td>
+          <td class="num">1</td>
+          <td class="num">33.0</td>
+          <td class="num">69.0</td>
+          <td class="num">-7.2</td>
+          <td class="num">-4.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20GBNYJ</td><td>moneyline</td>
+          <td>New York Jets to beat Green Bay Packers (KXNFLGAME-26SEP20GBNYJ)</td>
+          <td class="num">32</td>
+          <td class="num">1</td>
+          <td class="num">34.0</td>
+          <td class="num">69.0</td>
+          <td class="num">-9.7</td>
+          <td class="num">-4.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20GBNYJ</td><td>moneyline</td>
+          <td>Green Bay Packers to beat New York Jets (KXNFLGAME-26SEP20GBNYJ)</td>
+          <td class="num">68</td>
+          <td class="num">1</td>
+          <td class="num">69.0</td>
+          <td class="num">34.0</td>
+          <td class="num">-4.9</td>
+          <td class="num">-9.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05ECUALA</td><td>total</td>
+          <td>Over 54.5 (KXNCAAFTOTAL-26SEP05ECUALA)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-4.9</td>
+          <td class="num">-6.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MOSUTXAM</td><td>total</td>
+          <td>Over 52.5 (KXNCAAFTOTAL-26SEP05MOSUTXAM)</td>
+          <td class="num">51</td>
+          <td class="num">8</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-6.3</td>
+          <td class="num">-5.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP21NYGLAR</td><td>moneyline</td>
+          <td>Los Angeles Rams to beat New York Giants (KXNFLGAME-26SEP21NYGLAR)</td>
+          <td class="num">76</td>
+          <td class="num">1</td>
+          <td class="num">78.0</td>
+          <td class="num">24.0</td>
+          <td class="num">-5.0</td>
+          <td class="num">-7.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04SJSUEMU</td><td>total</td>
+          <td>Over 54.5 (KXNCAAFTOTAL-26SEP04SJSUEMU)</td>
+          <td class="num">51</td>
+          <td class="num">7</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-6.3</td>
+          <td class="num">-5.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05BAYAUB</td><td>total</td>
+          <td>Over 59.5 (KXNCAAFTOTAL-26SEP05BAYAUB)</td>
+          <td class="num">49</td>
+          <td class="num">5</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.0</td>
+          <td class="num">-6.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05BSUORE</td><td>total</td>
+          <td>Over 52.5 (KXNCAAFTOTAL-26SEP05BSUORE)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.1</td>
+          <td class="num">-6.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05FORNDSU</td><td>total</td>
+          <td>Over 57.5 (KXNCAAFTOTAL-26SEP05FORNDSU)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-6.2</td>
+          <td class="num">-5.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03UWGAKENN</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP03UWGAKENN)</td>
+          <td class="num">51</td>
+          <td class="num">3</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-6.1</td>
+          <td class="num">-5.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20PHITEN</td><td>moneyline</td>
+          <td>Tennessee Titans to beat Philadelphia Eagles (KXNFLGAME-26SEP20PHITEN)</td>
+          <td class="num">36</td>
+          <td class="num">1</td>
+          <td class="num">36.0</td>
+          <td class="num">66.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-5.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05TOWSNAVY</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05TOWSNAVY)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-6.1</td>
+          <td class="num">-5.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05TNSTUGA</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP05TNSTUGA)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.2</td>
+          <td class="num">-6.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05SEMOISU</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05SEMOISU)</td>
+          <td class="num">49</td>
+          <td class="num">2</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.2</td>
+          <td class="num">-6.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05URITEM</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP05URITEM)</td>
+          <td class="num">49</td>
+          <td class="num">3</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.2</td>
+          <td class="num">-6.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP17DETBUF</td><td>moneyline</td>
+          <td>Detroit Lions to beat Buffalo Bills (KXNFLGAME-26SEP17DETBUF)</td>
+          <td class="num">41</td>
+          <td class="num">2</td>
+          <td class="num">43.0</td>
+          <td class="num">60.0</td>
+          <td class="num">-8.3</td>
+          <td class="num">-5.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05TNSTUGA</td><td>spread</td>
+          <td>Georgia Bulldogs -45.5 vs Tennessee State Tigers (KXNCAAFSPREAD-26SEP05TNSTUGA)</td>
+          <td class="num">51</td>
+          <td class="num">2</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-6.0</td>
+          <td class="num">-5.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP05BCCIN</td><td>moneyline</td>
+          <td>Cincinnati Bearcats to beat Boston College Eagles (KXNCAAFGAME-26SEP05BCCIN)</td>
+          <td class="num">72</td>
+          <td class="num">9</td>
+          <td class="num">74.0</td>
+          <td class="num">28.0</td>
+          <td class="num">-5.3</td>
+          <td class="num">-6.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20NOBAL</td><td>moneyline</td>
+          <td>New Orleans Saints to beat Baltimore Ravens (KXNFLGAME-26SEP20NOBAL)</td>
+          <td class="num">25</td>
+          <td class="num">1</td>
+          <td class="num">26.0</td>
+          <td class="num">77.0</td>
+          <td class="num">-9.9</td>
+          <td class="num">-5.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20NOBAL</td><td>moneyline</td>
+          <td>Baltimore Ravens to beat New Orleans Saints (KXNFLGAME-26SEP20NOBAL)</td>
+          <td class="num">75</td>
+          <td class="num">1</td>
+          <td class="num">77.0</td>
+          <td class="num">27.0</td>
+          <td class="num">-5.3</td>
+          <td class="num">-13.0</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05LIBJMU</td><td>total</td>
+          <td>Over 52.5 (KXNCAAFTOTAL-26SEP05LIBJMU)</td>
+          <td class="num">50</td>
+          <td class="num">5</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05URITEM</td><td>spread</td>
+          <td>Temple Owls -10.5 vs Rhode Island Rams (KXNCAAFSPREAD-26SEP05URITEM)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05OHIONEB</td><td>spread</td>
+          <td>Nebraska Cornhuskers -23.5 vs Ohio Bobcats (KXNCAAFSPREAD-26SEP05OHIONEB)</td>
+          <td class="num">51</td>
+          <td class="num">6</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05FORNDSU</td><td>spread</td>
+          <td>North Dakota State Bison -38.5 vs Fordham Rams (KXNCAAFSPREAD-26SEP05FORNDSU)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05ACTTU</td><td>total</td>
+          <td>Over 59.5 (KXNCAAFTOTAL-26SEP05ACTTU)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05NORFODU</td><td>total</td>
+          <td>Over 55.5 (KXNCAAFTOTAL-26SEP05NORFODU)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UNAARK</td><td>total</td>
+          <td>Over 63.5 (KXNCAAFTOTAL-26SEP05UNAARK)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05TNSTUGA</td><td>total</td>
+          <td>Over 55.5 (KXNCAAFTOTAL-26SEP05TNSTUGA)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05DUQAFA</td><td>total</td>
+          <td>Over 58.5 (KXNCAAFTOTAL-26SEP05DUQAFA)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05DUQAFA</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP05DUQAFA)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05SEMOISU</td><td>total</td>
+          <td>Over 52.5 (KXNCAAFTOTAL-26SEP05SEMOISU)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">50.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-5.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05ECUALA</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05ECUALA)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-5.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05NIUIOWA</td><td>spread</td>
+          <td>Iowa Hawkeyes -31.5 vs Northern Illinois Huskies (KXNCAAFSPREAD-26SEP05NIUIOWA)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.4</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP11MIZZKU</td><td>moneyline</td>
+          <td>Missouri Tigers to beat Kansas Jayhawks (KXNCAAFGAME-26SEP11MIZZKU)</td>
+          <td class="num">68</td>
+          <td class="num">2</td>
+          <td class="num">70.0</td>
+          <td class="num">32.0</td>
+          <td class="num">-5.8</td>
+          <td class="num">-5.5</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05TOWSNAVY</td><td>spread</td>
+          <td>Navy Midshipmen -30.5 vs Towson Tigers (KXNCAAFSPREAD-26SEP05TOWSNAVY)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.6</td>
+          <td class="num">-5.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP04NCATGAST</td><td>spread</td>
+          <td>Georgia State Panthers -28.5 vs North Carolina A&amp;T Aggies (KXNCAAFSPREAD-26SEP04NCATGAST)</td>
+          <td class="num">50</td>
+          <td class="num">3</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.6</td>
+          <td class="num">-5.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05OHIONEB</td><td>total</td>
+          <td>Over 47.5 (KXNCAAFTOTAL-26SEP05OHIONEB)</td>
+          <td class="num">50</td>
+          <td class="num">9</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.6</td>
+          <td class="num">-5.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MRSHPSU</td><td>total</td>
+          <td>Over 54.5 (KXNCAAFTOTAL-26SEP05MRSHPSU)</td>
+          <td class="num">50</td>
+          <td class="num">9</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.6</td>
+          <td class="num">-5.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05NORFODU</td><td>spread</td>
+          <td>Old Dominion Monarchs -41.5 vs Norfolk State Spartans (KXNCAAFSPREAD-26SEP05NORFODU)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-5.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UNHSYR</td><td>total</td>
+          <td>Over 57.5 (KXNCAAFTOTAL-26SEP05UNHSYR)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-9.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04NCATGAST</td><td>total</td>
+          <td>Over 65.5 (KXNCAAFTOTAL-26SEP04NCATGAST)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-7.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04NCATGAST</td><td>total</td>
+          <td>Over 63.5 (KXNCAAFTOTAL-26SEP04NCATGAST)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-5.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03IDHOUTAH</td><td>total</td>
+          <td>Over 57.5 (KXNCAAFTOTAL-26SEP03IDHOUTAH)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-5.7</td>
+          <td class="num">-7.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP11MIZZKU</td><td>moneyline</td>
+          <td>Kansas Jayhawks to beat Missouri Tigers (KXNCAAFGAME-26SEP11MIZZKU)</td>
+          <td class="num">32</td>
+          <td class="num">2</td>
+          <td class="num">33.0</td>
+          <td class="num">70.0</td>
+          <td class="num">-8.2</td>
+          <td class="num">-5.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05BCCIN</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP05BCCIN)</td>
+          <td class="num">50</td>
+          <td class="num">8</td>
+          <td class="num">52.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-7.3</td>
+          <td class="num">-5.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05FIUUSF</td><td>spread</td>
+          <td>South Florida Bulls -13.5 vs Florida International Panthers (KXNCAAFSPREAD-26SEP05FIUUSF)</td>
+          <td class="num">50</td>
+          <td class="num">9</td>
+          <td class="num">51.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-5.9</td>
+          <td class="num">-8.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05FIUUSF</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05FIUUSF)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-7.1</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UNAARK</td><td>total</td>
+          <td>Over 61.5 (KXNCAAFTOTAL-26SEP05UNAARK)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">50.0</td>
+          <td class="num">-7.1</td>
+          <td class="num">-5.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20PITNE</td><td>moneyline</td>
+          <td>Pittsburgh Steelers to beat New England Patriots (KXNFLGAME-26SEP20PITNE)</td>
+          <td class="num">34</td>
+          <td class="num">1</td>
+          <td class="num">35.0</td>
+          <td class="num">68.0</td>
+          <td class="num">-7.4</td>
+          <td class="num">-6.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20PITNE</td><td>moneyline</td>
+          <td>New England Patriots to beat Pittsburgh Steelers (KXNFLGAME-26SEP20PITNE)</td>
+          <td class="num">66</td>
+          <td class="num">1</td>
+          <td class="num">68.0</td>
+          <td class="num">36.0</td>
+          <td class="num">-6.1</td>
+          <td class="num">-9.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20JACDEN</td><td>moneyline</td>
+          <td>Jacksonville Jaguars to beat Denver Broncos (KXNFLGAME-26SEP20JACDEN)</td>
+          <td class="num">44</td>
+          <td class="num">1</td>
+          <td class="num">45.0</td>
+          <td class="num">58.0</td>
+          <td class="num">-7.1</td>
+          <td class="num">-6.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05BALLOSU</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP05BALLOSU)</td>
+          <td class="num">50</td>
+          <td class="num">7</td>
+          <td class="num">51.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-6.2</td>
+          <td class="num">-6.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP19LSUMISS</td><td>moneyline</td>
+          <td>LSU Tigers to beat Ole Miss Rebels (KXNCAAFGAME-26SEP19LSUMISS)</td>
+          <td class="num">46</td>
+          <td class="num">1</td>
+          <td class="num">47.0</td>
+          <td class="num">56.0</td>
+          <td class="num">-6.2</td>
+          <td class="num">-6.8</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MOSUTXAM</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05MOSUTXAM)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-8.4</td>
+          <td class="num">-6.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05DUQAFA</td><td>total</td>
+          <td>Over 57.5 (KXNCAAFTOTAL-26SEP05DUQAFA)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-6.4</td>
+          <td class="num">-8.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05PEAYVAN</td><td>total</td>
+          <td>Over 61.5 (KXNCAAFTOTAL-26SEP05PEAYVAN)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-8.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05MEAPP</td><td>total</td>
+          <td>Over 53.5 (KXNCAAFTOTAL-26SEP05MEAPP)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">51.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLGAME-26SEP20CARATL</td><td>moneyline</td>
+          <td>Carolina Panthers to beat Atlanta Falcons (KXNFLGAME-26SEP20CARATL)</td>
+          <td class="num">47</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">55.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-6.6</td>
+          <td></td></tr><tr class="">
+          <td>KXNFLTOTAL-26SEP13CHICAR</td><td>total</td>
+          <td>Over 47.5 (KXNFLTOTAL-26SEP13CHICAR)</td>
+          <td class="num">50</td>
+          <td class="num">7</td>
+          <td class="num">51.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-6.5</td>
+          <td class="num">-8.3</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP04NCATGAST</td><td>total</td>
+          <td>Over 64.5 (KXNCAAFTOTAL-26SEP04NCATGAST)</td>
+          <td class="num">51</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">51.0</td>
+          <td class="num">-8.1</td>
+          <td class="num">-6.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFGAME-26SEP19LSUMISS</td><td>moneyline</td>
+          <td>Ole Miss Rebels to beat LSU Tigers (KXNCAAFGAME-26SEP19LSUMISS)</td>
+          <td class="num">54</td>
+          <td class="num">1</td>
+          <td class="num">56.0</td>
+          <td class="num">48.0</td>
+          <td class="num">-6.8</td>
+          <td class="num">-8.1</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05NIUIOWA</td><td>total</td>
+          <td>Over 46.5 (KXNCAAFTOTAL-26SEP05NIUIOWA)</td>
+          <td class="num">50</td>
+          <td class="num">4</td>
+          <td class="num">52.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-7.0</td>
+          <td class="num">-9.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP05MEAPP</td><td>spread</td>
+          <td>Appalachian State Mountaineers -17.5 vs Maine Black Bears (KXNCAAFSPREAD-26SEP05MEAPP)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">52.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-7.4</td>
+          <td class="num">-7.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFSPREAD-26SEP11MIZZKU</td><td>spread</td>
+          <td>Missouri Tigers -6.5 vs Kansas Jayhawks (KXNCAAFSPREAD-26SEP11MIZZKU)</td>
+          <td class="num">51</td>
+          <td class="num">2</td>
+          <td class="num">53.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-7.8</td>
+          <td class="num">-10.4</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UNHSYR</td><td>total</td>
+          <td>Over 56.5 (KXNCAAFTOTAL-26SEP05UNHSYR)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">52.0</td>
+          <td class="num">-8.3</td>
+          <td class="num">-8.2</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP12OKLAMICH</td><td>total</td>
+          <td>Over 45.5 (KXNCAAFTOTAL-26SEP12OKLAMICH)</td>
+          <td class="num">50</td>
+          <td class="num">2</td>
+          <td class="num">53.0</td>
+          <td class="num">53.0</td>
+          <td class="num">-8.3</td>
+          <td class="num">-9.9</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP11MIZZKU</td><td>total</td>
+          <td>Over 52.5 (KXNCAAFTOTAL-26SEP11MIZZKU)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">54.0</td>
+          <td class="num">-9.1</td>
+          <td class="num">-10.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP11MIZZKU</td><td>total</td>
+          <td>Over 51.5 (KXNCAAFTOTAL-26SEP11MIZZKU)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">53.0</td>
+          <td class="num">54.0</td>
+          <td class="num">-9.1</td>
+          <td class="num">-10.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP03IDHOUTAH</td><td>total</td>
+          <td>Over 58.5 (KXNCAAFTOTAL-26SEP03IDHOUTAH)</td>
+          <td class="num">50</td>
+          <td class="num">1</td>
+          <td class="num">48.0</td>
+          <td class="num">54.0</td>
+          <td class="num">+0.0</td>
+          <td class="num">-10.7</td>
+          <td></td></tr><tr class="">
+          <td>KXNCAAFTOTAL-26SEP05UNAARK</td><td>total</td>
+          <td>Over 62.5 (KXNCAAFTOTAL-26SEP05UNAARK)</td>
+          <td class="num">49</td>
+          <td class="num">1</td>
+          <td class="num">67.0</td>
+          <td class="num">65.0</td>
+          <td class="num">-28.3</td>
+          <td class="num">-24.6</td>
+          <td></td></tr></tbody></table></div></details>
+  </section>
+
+  <p class="foot">
+    Edge % is fee-inclusive expected value as a share of outlay, versus a de-vigged consensus
+    of real sportsbook lines. It is not a prediction of any single game. The power-rating model
+    is preseason-seeded and unproven — a model/market gap is a prompt to research, never an edge
+    on its own. Market–to–sportsbook matching is heuristic; check the side before acting.
+    For small recreational bets. Not financial advice.
+  </p>
+</div></body></html>

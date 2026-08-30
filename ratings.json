@@ -1,0 +1,860 @@
+{
+  "cfb": {
+    "meta": {
+      "source": "SP+ preseason 2026 (Bill Connelly / ESPN, via cfbupdate.com)",
+      "as_of": "2026-08-25",
+      "note": "off/def recentred to CFB_LEAGUE_AVG=27.0. Teams outside the top ~108 fall back to default_off/def. Totals may need calibration vs book lines -- see triage.py --calibrate."
+    },
+    "params": {
+      "league_avg_pts": 29.0,
+      "home_edge": 2.7,
+      "margin_sigma": 16.5,
+      "total_sigma": 16.0
+    },
+    "default_off": -9.0,
+    "default_def": 7.0,
+    "aliases": {
+      "Miami Hurricanes": "Miami FL",
+      "Miami RedHawks": "Miami OH",
+      "Miami (OH) RedHawks": "Miami OH"
+    },
+    "teams": {
+      "Ohio State": {
+        "off": 12.0,
+        "def": -20.6,
+        "detailed": true
+      },
+      "Oregon": {
+        "off": 12.1,
+        "def": -16.8,
+        "detailed": true
+      },
+      "Notre Dame": {
+        "off": 11.6,
+        "def": -14.7,
+        "detailed": true
+      },
+      "Georgia": {
+        "off": 9.7,
+        "def": -16.1,
+        "detailed": true
+      },
+      "Indiana": {
+        "off": 8.8,
+        "def": -16.5,
+        "detailed": true
+      },
+      "Texas": {
+        "off": 8.3,
+        "def": -14.1,
+        "detailed": true
+      },
+      "Miami FL": {
+        "off": 6.0,
+        "def": -15.7,
+        "detailed": true
+      },
+      "Texas Tech": {
+        "off": 7.6,
+        "def": -14.0,
+        "detailed": true
+      },
+      "Texas A&M": {
+        "off": 8.6,
+        "def": -12.6,
+        "detailed": true
+      },
+      "LSU": {
+        "off": 3.6,
+        "def": -16.6,
+        "detailed": true
+      },
+      "Oklahoma": {
+        "off": 3.1,
+        "def": -15.3,
+        "detailed": true
+      },
+      "USC": {
+        "off": 9.0,
+        "def": -9.1,
+        "detailed": true
+      },
+      "Alabama": {
+        "off": 2.0,
+        "def": -16.0,
+        "detailed": true
+      },
+      "Tennessee": {
+        "off": 10.3,
+        "def": -6.6,
+        "detailed": true
+      },
+      "Michigan": {
+        "off": 4.2,
+        "def": -13.2,
+        "detailed": true
+      },
+      "Ole Miss": {
+        "off": 6.2,
+        "def": -9.6,
+        "detailed": true
+      },
+      "Penn State": {
+        "off": 4.9,
+        "def": -10.7,
+        "detailed": true
+      },
+      "Washington": {
+        "off": 4.0,
+        "def": -12.0,
+        "detailed": true
+      },
+      "Missouri": {
+        "off": 3.3,
+        "def": -12.6,
+        "detailed": true
+      },
+      "Florida": {
+        "off": 1.4,
+        "def": -13.2,
+        "detailed": true
+      },
+      "BYU": {
+        "off": 3.9,
+        "def": -10.7,
+        "detailed": true
+      },
+      "Iowa": {
+        "off": 1.8,
+        "def": -12.2,
+        "detailed": true
+      },
+      "Clemson": {
+        "off": 0.8,
+        "def": -11.9,
+        "detailed": true
+      },
+      "South Carolina": {
+        "off": 1.2,
+        "def": -10.9,
+        "detailed": true
+      },
+      "SMU": {
+        "off": 3.5,
+        "def": -8.9,
+        "detailed": true
+      },
+      "Auburn": {
+        "off": -0.5,
+        "def": -11.7,
+        "detailed": true
+      },
+      "Louisville": {
+        "off": 1.7,
+        "def": -9.2,
+        "detailed": true
+      },
+      "Illinois": {
+        "off": 3.0,
+        "def": -6.9,
+        "detailed": true
+      },
+      "Utah": {
+        "off": 2.9,
+        "def": -6.9,
+        "detailed": true
+      },
+      "Vanderbilt": {
+        "off": 4.3,
+        "def": -4.8,
+        "detailed": true
+      },
+      "Arizona": {
+        "off": 2.1,
+        "def": -7.8,
+        "detailed": true
+      },
+      "TCU": {
+        "off": 2.4,
+        "def": -7.2,
+        "detailed": true
+      },
+      "Nebraska": {
+        "off": 1.0,
+        "def": -8.3,
+        "detailed": true
+      },
+      "Kansas State": {
+        "off": 3.5,
+        "def": -5.4,
+        "detailed": true
+      },
+      "Florida State": {
+        "off": 0.8,
+        "def": -8.6,
+        "detailed": true
+      },
+      "Virginia Tech": {
+        "off": 1.7,
+        "def": -7.1,
+        "detailed": true
+      },
+      "Virginia": {
+        "off": -2.1,
+        "def": -10.1,
+        "detailed": true
+      },
+      "Houston": {
+        "off": 1.9,
+        "def": -5.9,
+        "detailed": true
+      },
+      "Oklahoma State": {
+        "off": 0.9,
+        "def": -5.6,
+        "detailed": true
+      },
+      "Minnesota": {
+        "off": -3.3,
+        "def": -10.0,
+        "detailed": true
+      },
+      "Pittsburgh": {
+        "off": 1.0,
+        "def": -5.1,
+        "detailed": true
+      },
+      "Georgia Tech": {
+        "off": -0.3,
+        "def": -5.6,
+        "detailed": true
+      },
+      "NC State": {
+        "off": 2.0,
+        "def": -4.1,
+        "detailed": true
+      },
+      "Arkansas": {
+        "off": 5.4,
+        "def": 0.0,
+        "detailed": true
+      },
+      "Duke": {
+        "off": 3.8,
+        "def": -1.4,
+        "detailed": true
+      },
+      "UCLA": {
+        "off": 0.1,
+        "def": -5.3,
+        "detailed": true
+      },
+      "Kentucky": {
+        "off": -2.7,
+        "def": -7.9,
+        "detailed": true
+      },
+      "Maryland": {
+        "off": -2.2,
+        "def": -7.0,
+        "detailed": true
+      },
+      "Boise State": {
+        "off": 0.0,
+        "def": -5.3,
+        "detailed": true
+      },
+      "Northwestern": {
+        "off": -3.7,
+        "def": -8.3,
+        "detailed": true
+      },
+      "Arizona State": {
+        "off": -1.6,
+        "def": -7.0,
+        "detailed": true
+      },
+      "Mississippi State": {
+        "off": 1.8,
+        "def": -2.5,
+        "detailed": true
+      },
+      "Baylor": {
+        "off": 2.9,
+        "def": -0.2,
+        "detailed": true
+      },
+      "Wisconsin": {
+        "off": -7.4,
+        "def": -11.5,
+        "detailed": true
+      },
+      "UNLV": {
+        "off": 2.4,
+        "def": -1.0,
+        "detailed": true
+      },
+      "North Carolina": {
+        "off": -4.7,
+        "def": -7.8,
+        "detailed": true
+      },
+      "Wake Forest": {
+        "off": -4.8,
+        "def": -8.3,
+        "detailed": true
+      },
+      "Kansas": {
+        "off": -0.2,
+        "def": -2.9,
+        "detailed": true
+      },
+      "California": {
+        "off": -0.2,
+        "def": -3.5,
+        "detailed": true
+      },
+      "Cincinnati": {
+        "off": -0.1,
+        "def": -2.9,
+        "detailed": true
+      },
+      "Rutgers": {
+        "off": 1.8,
+        "def": -0.8,
+        "detailed": true
+      },
+      "Michigan State": {
+        "off": -1.3,
+        "def": -3.9,
+        "detailed": true
+      },
+      "UCF": {
+        "off": -4.8,
+        "def": -6.7,
+        "detailed": true
+      },
+      "Navy": {
+        "off": -1.2,
+        "def": -2.2,
+        "detailed": true
+      },
+      "Colorado": {
+        "off": -2.9,
+        "def": -4.0,
+        "detailed": true
+      },
+      "San Diego State": {
+        "off": -4.9,
+        "def": -5.0,
+        "detailed": true
+      },
+      "Memphis": {
+        "off": 0.0,
+        "def": 0.2,
+        "detailed": true
+      },
+      "New Mexico": {
+        "off": -3.4,
+        "def": -2.9,
+        "detailed": true
+      },
+      "Iowa State": {
+        "off": -6.6,
+        "def": -5.8,
+        "detailed": true
+      },
+      "James Madison": {
+        "off": -2.3,
+        "def": -1.8,
+        "detailed": true
+      },
+      "UTSA": {
+        "off": 0.9,
+        "def": 2.1,
+        "detailed": true
+      },
+      "West Virginia": {
+        "off": -3.7,
+        "def": -2.4,
+        "detailed": true
+      },
+      "Fresno State": {
+        "off": -8.0,
+        "def": -6.6,
+        "detailed": true
+      },
+      "South Florida": {
+        "off": -0.9,
+        "def": 0.6,
+        "detailed": true
+      },
+      "North Dakota State": {
+        "off": -4.9,
+        "def": -3.1,
+        "detailed": true
+      },
+      "Syracuse": {
+        "off": -5.7,
+        "def": -3.4,
+        "detailed": true
+      },
+      "Texas State": {
+        "off": 4.2,
+        "def": 6.4,
+        "detailed": true
+      },
+      "Purdue": {
+        "off": -4.8,
+        "def": -2.0,
+        "detailed": true
+      },
+      "East Carolina": {
+        "off": -4.9,
+        "def": -2.7,
+        "detailed": true
+      },
+      "Stanford": {
+        "off": -6.5,
+        "def": -4.8,
+        "detailed": true
+      },
+      "Army": {
+        "off": -4.2,
+        "def": -1.8,
+        "detailed": true
+      },
+      "Boston College": {
+        "off": -4.3,
+        "def": -1.3,
+        "detailed": true
+      },
+      "Hawaii": {
+        "off": -3.1,
+        "def": 0.1,
+        "detailed": true
+      },
+      "Air Force": {
+        "off": -4.2,
+        "def": -0.9,
+        "detailed": true
+      },
+      "Miami OH": {
+        "off": -9.8,
+        "def": -5.2,
+        "detailed": true
+      },
+      "Tulane": {
+        "off": -6.2,
+        "def": -1.3,
+        "detailed": true
+      },
+      "Washington State": {
+        "off": -8.6,
+        "def": -4.4,
+        "detailed": true
+      },
+      "Liberty": {
+        "off": -3.0,
+        "def": 2.1,
+        "detailed": true
+      },
+      "Oregon State": {
+        "off": -7.8,
+        "def": -2.9,
+        "detailed": true
+      },
+      "Western Michigan": {
+        "off": -9.4,
+        "def": -3.8,
+        "detailed": true
+      },
+      "Florida Atlantic": {
+        "off": -1.3,
+        "def": 5.3,
+        "detailed": true
+      },
+      "Tulsa": {
+        "off": -4.8,
+        "def": 1.9,
+        "detailed": true
+      },
+      "Old Dominion": {
+        "off": -9.4,
+        "def": -3.2,
+        "detailed": true
+      },
+      "Western Kentucky": {
+        "off": -4.8,
+        "def": 3.0,
+        "detailed": true
+      },
+      "Jacksonville State": {
+        "off": -4.2,
+        "def": 3.0,
+        "detailed": true
+      },
+      "Utah State": {
+        "off": -5.6,
+        "def": 1.8,
+        "detailed": true
+      },
+      "Troy": {
+        "off": -6.5,
+        "def": 1.7,
+        "detailed": true
+      },
+      "Marshall": {
+        "off": -1.4,
+        "def": 7.0,
+        "detailed": true
+      },
+      "Louisiana Tech": {
+        "off": -7.1,
+        "def": 2.0,
+        "detailed": true
+      },
+      "Temple": {
+        "off": -4.0,
+        "def": 5.4,
+        "detailed": true
+      },
+      "Toledo": {
+        "off": -11.1,
+        "def": -2.4,
+        "detailed": true
+      },
+      "Louisiana": {
+        "off": -4.6,
+        "def": 5.6,
+        "detailed": true
+      },
+      "Georgia Southern": {
+        "off": -6.3,
+        "def": 4.5,
+        "detailed": true
+      },
+      "Wyoming": {
+        "off": -13.5,
+        "def": -3.4,
+        "detailed": true
+      },
+      "Arkansas State": {
+        "off": -6.9,
+        "def": 4.8,
+        "detailed": true
+      },
+      "Colorado State": {
+        "off": -12.2,
+        "def": -0.7,
+        "detailed": true
+      },
+      "North Texas": {
+        "off": -5.3,
+        "def": 6.0,
+        "detailed": true
+      },
+      "Nevada": {
+        "off": -11.4,
+        "def": 0.7,
+        "detailed": true
+      },
+      "Ohio": {
+        "off": -4.72,
+        "def": 7.08,
+        "detailed": false
+      },
+      "UConn": {
+        "off": -4.76,
+        "def": 7.14,
+        "detailed": false
+      },
+      "Buffalo": {
+        "off": -5.08,
+        "def": 7.62,
+        "detailed": false
+      },
+      "Appalachian State": {
+        "off": -5.08,
+        "def": 7.62,
+        "detailed": false
+      },
+      "Delaware": {
+        "off": -5.16,
+        "def": 7.74,
+        "detailed": false
+      },
+      "Kennesaw State": {
+        "off": -5.16,
+        "def": 7.74,
+        "detailed": false
+      },
+      "FIU": {
+        "off": -5.8,
+        "def": 8.7,
+        "detailed": false
+      },
+      "South Alabama": {
+        "off": -5.84,
+        "def": 8.76,
+        "detailed": false
+      },
+      "Coastal Carolina": {
+        "off": -5.88,
+        "def": 8.82,
+        "detailed": false
+      },
+      "Bowling Green": {
+        "off": -6.0,
+        "def": 9.0,
+        "detailed": false
+      },
+      "Central Michigan": {
+        "off": -6.04,
+        "def": 9.06,
+        "detailed": false
+      },
+      "Rice": {
+        "off": -6.12,
+        "def": 9.18,
+        "detailed": false
+      },
+      "San Jose State": {
+        "off": -6.28,
+        "def": 9.42,
+        "detailed": false
+      },
+      "Eastern Michigan": {
+        "off": -6.44,
+        "def": 9.66,
+        "detailed": false
+      },
+      "Northern Illinois": {
+        "off": -6.88,
+        "def": 10.32,
+        "detailed": false
+      },
+      "UAB": {
+        "off": -7.0,
+        "def": 10.5,
+        "detailed": false
+      },
+      "New Mexico State": {
+        "off": -7.4,
+        "def": 11.1,
+        "detailed": false
+      },
+      "Missouri State": {
+        "off": -7.64,
+        "def": 11.46,
+        "detailed": false
+      },
+      "UTEP": {
+        "off": -7.72,
+        "def": 11.58,
+        "detailed": false
+      },
+      "Southern Miss": {
+        "off": -8.28,
+        "def": 12.42,
+        "detailed": false
+      },
+      "Kent State": {
+        "off": -8.96,
+        "def": 13.44,
+        "detailed": false
+      },
+      "Akron": {
+        "off": -9.16,
+        "def": 13.74,
+        "detailed": false
+      },
+      "Sacramento State": {
+        "off": -9.36,
+        "def": 14.04,
+        "detailed": false
+      },
+      "Charlotte": {
+        "off": -9.64,
+        "def": 14.46,
+        "detailed": false
+      },
+      "Ball State": {
+        "off": -10.04,
+        "def": 15.06,
+        "detailed": false
+      },
+      "Sam Houston": {
+        "off": -10.4,
+        "def": 15.6,
+        "detailed": false
+      },
+      "Middle Tennessee": {
+        "off": -10.6,
+        "def": 15.9,
+        "detailed": false
+      },
+      "Louisiana Monroe": {
+        "off": -11.56,
+        "def": 17.34,
+        "detailed": false
+      },
+      "Georgia State": {
+        "off": -11.72,
+        "def": 17.58,
+        "detailed": false
+      },
+      "UMass": {
+        "off": -13.16,
+        "def": 19.74,
+        "detailed": false
+      }
+    }
+  },
+  "nfl": {
+    "meta": {
+      "source": "Talisman Red NFL computer ratings 2026 (Sagarin-style)",
+      "as_of": "2026-08-18",
+      "note": "overall-only source split 50/50 into off/def -- win/cover probs use the margin and are fine; totals are approximate."
+    },
+    "params": {
+      "league_avg_pts": 22.5,
+      "home_edge": 2.0,
+      "margin_sigma": 13.5,
+      "total_sigma": 10.0
+    },
+    "default_off": -6.0,
+    "default_def": 6.0,
+    "aliases": {},
+    "teams": {
+      "Seattle": {
+        "off": 6.3,
+        "def": -6.3
+      },
+      "LA Rams": {
+        "off": 5.57,
+        "def": -5.57
+      },
+      "Jacksonville": {
+        "off": 3.95,
+        "def": -3.95
+      },
+      "Houston": {
+        "off": 3.66,
+        "def": -3.66
+      },
+      "New England": {
+        "off": 3.11,
+        "def": -3.11
+      },
+      "Detroit": {
+        "off": 2.78,
+        "def": -2.78
+      },
+      "Buffalo": {
+        "off": 2.62,
+        "def": -2.62
+      },
+      "Indianapolis": {
+        "off": 2.45,
+        "def": -2.45
+      },
+      "Denver": {
+        "off": 2.12,
+        "def": -2.12
+      },
+      "San Francisco": {
+        "off": 1.36,
+        "def": -1.36
+      },
+      "LA Chargers": {
+        "off": 1.11,
+        "def": -1.11
+      },
+      "Kansas City": {
+        "off": 1.1,
+        "def": -1.1
+      },
+      "Baltimore": {
+        "off": 1.02,
+        "def": -1.02
+      },
+      "Philadelphia": {
+        "off": 0.96,
+        "def": -0.96
+      },
+      "Chicago": {
+        "off": 0.66,
+        "def": -0.66
+      },
+      "Minnesota": {
+        "off": 0.36,
+        "def": -0.36
+      },
+      "Pittsburgh": {
+        "off": 0.13,
+        "def": -0.13
+      },
+      "Tampa Bay": {
+        "off": -0.67,
+        "def": 0.67
+      },
+      "Green Bay": {
+        "off": -0.86,
+        "def": 0.86
+      },
+      "Dallas": {
+        "off": -1.18,
+        "def": 1.18
+      },
+      "Carolina": {
+        "off": -1.43,
+        "def": 1.43
+      },
+      "NY Giants": {
+        "off": -1.75,
+        "def": 1.75
+      },
+      "Atlanta": {
+        "off": -1.89,
+        "def": 1.89
+      },
+      "Cincinnati": {
+        "off": -2.2,
+        "def": 2.2
+      },
+      "Arizona": {
+        "off": -2.32,
+        "def": 2.32
+      },
+      "New Orleans": {
+        "off": -2.32,
+        "def": 2.32
+      },
+      "Washington": {
+        "off": -2.55,
+        "def": 2.55
+      },
+      "Miami": {
+        "off": -3.19,
+        "def": 3.19
+      },
+      "Tennessee": {
+        "off": -3.65,
+        "def": 3.65
+      },
+      "Cleveland": {
+        "off": -3.93,
+        "def": 3.93
+      },
+      "Las Vegas": {
+        "off": -5.32,
+        "def": 5.32
+      },
+      "NY Jets": {
+        "off": -6.02,
+        "def": 6.02
+      }
+    }
+  }
+}
