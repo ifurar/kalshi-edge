@@ -1,105 +1,85 @@
 {
-  "generated_at": "2026-10-24T23:59:25.380520+00:00",
+  "generated_at": "2026-10-25T19:27:17.242345+00:00",
   "games": {
-    "26OCT24MISSTEX": {
+    "26OCT31NDNAVY": {
       "networks": [
         "ABC"
       ],
-      "venue": "DKR-Texas Memorial Stadium",
-      "kickoff_utc": "2026-10-24T23:30Z",
-      "espn_event_id": "401856732",
-      "away_short": "Ole Miss",
-      "home_short": "Texas"
+      "venue": "Gillette Stadium",
+      "kickoff_utc": "2026-10-31T16:00Z",
+      "espn_event_id": "401859185",
+      "away_short": "Notre Dame",
+      "home_short": "Navy"
     },
-    "26OCT24VTCLEM": {
+    "26OCT31MINNIND": {
       "networks": [
-        "ESPN"
+        "CBS"
       ],
-      "venue": "Memorial Stadium (Clemson, SC)",
-      "kickoff_utc": "2026-10-24T23:00Z",
-      "espn_event_id": "401858276",
-      "away_short": "Virginia Tech",
-      "home_short": "Clemson"
+      "venue": "Memorial Stadium (Bloomington, IN)",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401858501",
+      "away_short": "Minnesota",
+      "home_short": "Indiana"
     },
-    "26OCT24SDSUCSU": {
-      "networks": [
-        "CW"
-      ],
-      "venue": "Canvas Stadium",
-      "kickoff_utc": "2026-10-24T22:30Z",
-      "espn_event_id": "401860905",
-      "away_short": "San Diego State",
-      "home_short": "Colorado State"
-    },
-    "26OCT24ODULT": {
-      "networks": [
-        "ESPN+"
-      ],
-      "venue": "Joe Aillet Stadium",
-      "kickoff_utc": "2026-10-24T21:00Z",
-      "espn_event_id": "401871093",
-      "away_short": "Old Dominion",
-      "home_short": "Louisiana Tech"
-    },
-    "26OCT24ISUARIZ": {
+    "26OCT31UVAWAKE": {
       "networks": [
         "ESPN2"
       ],
-      "venue": "Casino Del Sol Stadium",
-      "kickoff_utc": "2026-10-24T23:30Z",
-      "espn_event_id": "401856838",
-      "away_short": "Iowa State",
-      "home_short": "Arizona"
+      "venue": "Allegacy Federal Credit Union Stadium",
+      "kickoff_utc": "2026-10-31T19:45Z",
+      "espn_event_id": "401858284",
+      "away_short": "Virginia",
+      "home_short": "Wake Forest"
     },
-    "26OCT24GASTARST": {
+    "26OCT31OSUUSC": {
       "networks": [
-        "ESPN+"
+        "NBC"
       ],
-      "venue": "Centennial Bank Stadium",
-      "kickoff_utc": "2026-10-24T23:00Z",
-      "espn_event_id": "401869935",
-      "away_short": "Georgia State",
-      "home_short": "Arkansas State"
+      "venue": "Los Angeles Memorial Coliseum",
+      "kickoff_utc": "2026-10-31T23:30Z",
+      "espn_event_id": "401858509",
+      "away_short": "Ohio State",
+      "home_short": "USC"
     },
-    "26OCT24USUTXST": {
+    "26OCT31SMUSYR": {
       "networks": [
-        "CBSSN"
+        "ESPN2"
       ],
-      "venue": "UFCU Stadium",
-      "kickoff_utc": "2026-10-24T23:30Z",
-      "espn_event_id": "401860906",
-      "away_short": "Utah State",
-      "home_short": "Texas State"
+      "venue": "JMA Wireless Dome",
+      "kickoff_utc": "2026-10-31T16:00Z",
+      "espn_event_id": "401858278",
+      "away_short": "SMU",
+      "home_short": "Syracuse"
     },
-    "26OCT24BSUWSU": {
+    "26OCT29TROYJMU": {
       "networks": [
-        "USA Net"
+        "ESPN2"
       ],
-      "venue": "Martin Stadium",
-      "kickoff_utc": "2026-10-24T22:00Z",
-      "espn_event_id": "401860907",
-      "away_short": "Boise State",
-      "home_short": "Washington State"
+      "venue": "Bridgeforth Stadium",
+      "kickoff_utc": "2026-10-29T23:30Z",
+      "espn_event_id": "401869963",
+      "away_short": "Troy",
+      "home_short": "James Madison"
     },
-    "26OCT24VANUK": {
+    "26OCT30BAYUCF": {
       "networks": [
-        "SEC Network"
+        "ESPN"
       ],
-      "venue": "Kroger Field",
-      "kickoff_utc": "2026-10-24T23:30Z",
-      "espn_event_id": "401856729",
-      "away_short": "Vanderbilt",
-      "home_short": "Kentucky"
+      "venue": "Acrisure Bounce House",
+      "kickoff_utc": "2026-10-30T23:30Z",
+      "espn_event_id": "401856844",
+      "away_short": "Baylor",
+      "home_short": "UCF"
     },
-    "26OCT24SYRUNC": {
+    "26OCT31KUTCU": {
       "networks": [
-        "ACC Network"
+        "FS1"
       ],
-      "venue": "Kenan Stadium",
-      "kickoff_utc": "2026-10-24T23:30Z",
-      "espn_event_id": "401858275",
-      "away_short": "Syracuse",
-      "home_short": "North Carolina"
+      "venue": "Amon G. Carter Stadium",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401856845",
+      "away_short": "Kansas",
+      "home_short": "TCU"
     },
     "26OCT28KENNMTU": {
       "networks": [
@@ -111,35 +91,15 @@
       "away_short": "Kennesaw State",
       "home_short": "Middle Tennessee"
     },
-    "26OCT24HOUUTAH": {
+    "26OCT31CALNCST": {
       "networks": [
-        "ESPN"
+        "ACC Network"
       ],
-      "venue": "Rice-Eccles Stadium",
-      "kickoff_utc": "2026-10-25T02:15Z",
-      "espn_event_id": "401856837",
-      "away_short": "Houston",
-      "home_short": "Utah"
-    },
-    "26OCT31FLAUGA": {
-      "networks": [
-        "ABC"
-      ],
-      "venue": "Mercedes-Benz Stadium",
-      "kickoff_utc": "2026-10-31T19:30Z",
-      "espn_event_id": "401856734",
-      "away_short": "Florida",
-      "home_short": "Georgia"
-    },
-    "26OCT24NDSUUNM": {
-      "networks": [
-        "CW"
-      ],
-      "venue": "University Stadium (NM)",
-      "kickoff_utc": "2026-10-25T02:00Z",
-      "espn_event_id": "401864527",
-      "away_short": "North Dakota State",
-      "home_short": "New Mexico"
+      "venue": "Carter-Finley Stadium",
+      "kickoff_utc": "2026-10-31T16:00Z",
+      "espn_event_id": "401858277",
+      "away_short": "California",
+      "home_short": "NC State"
     },
     "26OCT27SHSUMOSU": {
       "networks": [
@@ -151,6 +111,156 @@
       "away_short": "Sam Houston",
       "home_short": "Missouri State"
     },
+    "26OCT31UNMSJSU": {
+      "networks": [
+        "MW+"
+      ],
+      "venue": "CEFCU Stadium",
+      "kickoff_utc": "2026-10-31T20:00Z",
+      "espn_event_id": "401864529",
+      "away_short": "New Mexico",
+      "home_short": "San Jos\u00e9 State"
+    },
+    "26OCT31MICHRUTG": {
+      "networks": [
+        "BTN"
+      ],
+      "venue": "SHI Stadium",
+      "kickoff_utc": "2026-10-31T16:30Z",
+      "espn_event_id": "401858507",
+      "away_short": "Michigan",
+      "home_short": "Rutgers"
+    },
+    "26OCT31ARMYMEM": {
+      "networks": [
+        "ESPNU"
+      ],
+      "venue": "Simmons Bank Liberty Stadium",
+      "kickoff_utc": "2026-11-01T00:00Z",
+      "espn_event_id": "401862814",
+      "away_short": "Army",
+      "home_short": "Memphis"
+    },
+    "26OCT31BGSUWMU": {
+      "networks": [
+        "CBSSN"
+      ],
+      "venue": "Waldo Stadium",
+      "kickoff_utc": "2026-10-31T16:00Z",
+      "espn_event_id": "401866452",
+      "away_short": "Bowling Green",
+      "home_short": "Western Michigan"
+    },
+    "26OCT31UTAHCIN": {
+      "networks": [
+        "ESPN"
+      ],
+      "venue": "Nippert Stadium",
+      "kickoff_utc": "2026-10-31T19:45Z",
+      "espn_event_id": "401856848",
+      "away_short": "Utah",
+      "home_short": "Cincinnati"
+    },
+    "26OCT31AUBMISS": {
+      "networks": [
+        "SEC Network"
+      ],
+      "venue": "Vaught-Hemingway Stadium",
+      "kickoff_utc": "2026-10-31T16:45Z",
+      "espn_event_id": "401856735",
+      "away_short": "Auburn",
+      "home_short": "Ole Miss"
+    },
+    "26OCT31NWORE": {
+      "networks": [
+        "Peacock"
+      ],
+      "venue": "Autzen Stadium",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401858505",
+      "away_short": "Northwestern",
+      "home_short": "Oregon"
+    },
+    "26OCT31NIUUNLV": {
+      "networks": [
+        "CBSSN"
+      ],
+      "venue": "Allegiant Stadium",
+      "kickoff_utc": "2026-11-01T02:30Z",
+      "espn_event_id": "401864530",
+      "away_short": "Northern Illinois",
+      "home_short": "UNLV"
+    },
+    "26OCT31FLAUGA": {
+      "networks": [
+        "ABC"
+      ],
+      "venue": "Mercedes-Benz Stadium",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401856734",
+      "away_short": "Florida",
+      "home_short": "Georgia"
+    },
+    "26OCT31WASHNEB": {
+      "networks": [
+        "BTN"
+      ],
+      "venue": "Memorial Stadium (Lincoln, NE)",
+      "kickoff_utc": "2026-11-01T00:00Z",
+      "espn_event_id": "401858504",
+      "away_short": "Washington",
+      "home_short": "Nebraska"
+    },
+    "26OCT31ASUBYU": {
+      "networks": [
+        "Fox"
+      ],
+      "venue": "LaVell Edwards Stadium",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401856843",
+      "away_short": "Arizona State",
+      "home_short": "BYU"
+    },
+    "26OCT31BCDUKE": {
+      "networks": [
+        "CW"
+      ],
+      "venue": "Wallace Wade Stadium",
+      "kickoff_utc": "2026-10-31T16:00Z",
+      "espn_event_id": "401858279",
+      "away_short": "Boston College",
+      "home_short": "Duke"
+    },
+    "26OCT30KENTSAC": {
+      "networks": [
+        "ESPN2"
+      ],
+      "venue": "Hornet Stadium",
+      "kickoff_utc": "2026-10-31T02:30Z",
+      "espn_event_id": "401866451",
+      "away_short": "Kent State",
+      "home_short": "Sacramento State"
+    },
+    "26OCT31CSUUSU": {
+      "networks": [
+        "USA Net"
+      ],
+      "venue": "Maverik Stadium",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401860910",
+      "away_short": "Colorado State",
+      "home_short": "Utah State"
+    },
+    "26OCT31FIULIB": {
+      "networks": [
+        "CBSSN"
+      ],
+      "venue": "Williams Stadium (VA)",
+      "kickoff_utc": "2026-10-31T19:30Z",
+      "espn_event_id": "401871059",
+      "away_short": "Florida International",
+      "home_short": "Liberty"
+    },
     "26OCT28JVSTNMSU": {
       "networks": [
         "ESPN2"
@@ -161,15 +271,165 @@
       "away_short": "Jacksonville State",
       "home_short": "New Mexico State"
     },
-    "26OCT25LARLV": {
+    "26OCT31ARIZTTU": {
       "networks": [
-        "Fox"
+        "ESPN"
       ],
-      "venue": "Allegiant Stadium",
-      "kickoff_utc": "2026-10-25T20:25Z",
-      "espn_event_id": "401873021",
-      "away_short": "Los Angeles",
-      "home_short": "Las Vegas"
+      "venue": "Galaxy Stadium",
+      "kickoff_utc": "2026-10-31T16:00Z",
+      "espn_event_id": "401856842",
+      "away_short": "Arizona",
+      "home_short": "Texas Tech"
+    },
+    "26OCT31CLEMFSU": {
+      "networks": [
+        "ACC Network"
+      ],
+      "venue": "Doak Campbell Stadium",
+      "kickoff_utc": "2026-10-31T23:00Z",
+      "espn_event_id": "401858280",
+      "away_short": "Clemson",
+      "home_short": "Florida State"
+    },
+    "26OCT31CCARGAST": {
+      "networks": [
+        "ESPN+"
+      ],
+      "venue": "Center Parc Stadium",
+      "kickoff_utc": "2026-10-31T18:00Z",
+      "espn_event_id": "401869944",
+      "away_short": "Coastal Carolina",
+      "home_short": "Georgia State"
+    },
+    "26OCT31GTPITT": {
+      "networks": [
+        "ESPN2"
+      ],
+      "venue": "Acrisure Stadium",
+      "kickoff_utc": "2026-10-31T23:30Z",
+      "espn_event_id": "401858281",
+      "away_short": "Georgia Tech",
+      "home_short": "Pittsburgh"
+    },
+    "26OCT31TXSTBSU": {
+      "networks": [
+        "CW"
+      ],
+      "venue": "Albertsons Stadium",
+      "kickoff_utc": "2026-11-01T02:00Z",
+      "espn_event_id": "401860908",
+      "away_short": "Texas State",
+      "home_short": "Boise State"
+    },
+    "26OCT31STANLOU": {
+      "networks": [
+        "ACC Network"
+      ],
+      "venue": "L&N Federal Credit Union Stadium",
+      "kickoff_utc": "2026-10-31T19:15Z",
+      "espn_event_id": "401858283",
+      "away_short": "Stanford",
+      "home_short": "Louisville"
+    },
+    "26OCT31SCAROKLA": {
+      "networks": [
+        "SEC Network"
+      ],
+      "venue": "Memorial Stadium (Norman, OK)",
+      "kickoff_utc": "2026-10-31T20:15Z",
+      "espn_event_id": "401856736",
+      "away_short": "South Carolina",
+      "home_short": "Oklahoma"
+    },
+    "26OCT31MSSTTEX": {
+      "networks": [
+        "ESPN"
+      ],
+      "venue": "DKR-Texas Memorial Stadium",
+      "kickoff_utc": "2026-10-31T23:30Z",
+      "espn_event_id": "401856737",
+      "away_short": "Mississippi State",
+      "home_short": "Texas"
+    },
+    "26OCT31WSUSDSU": {
+      "networks": [
+        "CBSSN"
+      ],
+      "venue": "Snapdragon Stadium",
+      "kickoff_utc": "2026-10-31T23:00Z",
+      "espn_event_id": "401860909",
+      "away_short": "Washington State",
+      "home_short": "San Diego State"
+    },
+    "26OCT31PURPSU": {
+      "networks": [
+        "BTN"
+      ],
+      "venue": "Beaver Stadium",
+      "kickoff_utc": "2026-10-31T20:15Z",
+      "espn_event_id": "401858506",
+      "away_short": "Purdue",
+      "home_short": "Penn State"
+    },
+    "26OCT31MIAUNC": {
+      "networks": [
+        "ABC"
+      ],
+      "venue": "Kenan Stadium",
+      "kickoff_utc": "2026-10-31T23:30Z",
+      "espn_event_id": "401858282",
+      "away_short": "Miami",
+      "home_short": "North Carolina"
+    },
+    "26OCT31CONNAFA": {
+      "networks": [
+        "MW+"
+      ],
+      "venue": "Falcon Stadium",
+      "kickoff_utc": "2026-10-31T19:00Z",
+      "espn_event_id": "401861966",
+      "away_short": "UConn",
+      "home_short": "Air Force"
+    },
+    "26OCT31MIZZARK": {
+      "networks": [
+        "SEC Network"
+      ],
+      "venue": "Donald W. Reynolds Razorback Stadium",
+      "kickoff_utc": "2026-10-31T23:45Z",
+      "espn_event_id": "401856733",
+      "away_short": "Missouri",
+      "home_short": "Arkansas"
+    },
+    "26OCT31TEMECU": {
+      "networks": [
+        "ESPN+"
+      ],
+      "venue": "Dowdy-Ficklen Stadium",
+      "kickoff_utc": "2026-10-31T19:00Z",
+      "espn_event_id": "401862815",
+      "away_short": "Temple",
+      "home_short": "East Carolina"
+    },
+    "26OCT31MRSHODU": {
+      "networks": [
+        "ESPN+"
+      ],
+      "venue": "S.B. Ballard Stadium",
+      "kickoff_utc": "2026-10-31T17:00Z",
+      "espn_event_id": "401871096",
+      "away_short": "Marshall",
+      "home_short": "Old Dominion"
+    },
+    "26OCT31APPGASO": {
+      "networks": [
+        "ESPN+"
+      ],
+      "venue": "Allen E. Paulson Stadium",
+      "kickoff_utc": "2026-10-31T22:30Z",
+      "espn_event_id": "401869846",
+      "away_short": "App State",
+      "home_short": "Georgia Southern"
     },
     "26OCT25DENARI": {
       "networks": [
@@ -180,6 +440,16 @@
       "espn_event_id": "401873019",
       "away_short": "Denver",
       "home_short": "Arizona"
+    },
+    "26OCT25LARLV": {
+      "networks": [
+        "Fox"
+      ],
+      "venue": "Allegiant Stadium",
+      "kickoff_utc": "2026-10-25T20:25Z",
+      "espn_event_id": "401873021",
+      "away_short": "Los Angeles",
+      "home_short": "Las Vegas"
     }
   }
 }
