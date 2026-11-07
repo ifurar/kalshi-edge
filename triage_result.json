@@ -1,86 +1,190 @@
 {
-  "generated_at": "2026-11-07T02:36:07.528555+00:00",
+  "generated_at": "2026-11-07T19:52:21.290470+00:00",
   "scan_file": "scan_result.json",
   "shortlist": [
     {
-      "game_key": "26NOV07WKUMTU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU-MTU7",
+      "game_key": "26NOV07MDPUR",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07MDPUR",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07MDPUR-56",
       "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Tennessee Volunteers -6.5 vs Kentucky Wildcats (KXNCAAFSPREAD-26NOV07WKUMTU)",
-      "yes_side": "Tennessee Volunteers -6.5",
-      "commence_time": "2026-11-07T23:15:00Z",
-      "n_books": 4,
+      "bet_type": "total",
+      "label": "Over 55.5 (KXNCAAFTOTAL-26NOV07MDPUR)",
+      "yes_side": "Over 55.5",
+      "commence_time": "2026-11-07T17:32:08Z",
+      "n_books": 3,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.505,
-      "model_prob": 0.684,
-      "kalshi_yes_cents": 28.0,
-      "kalshi_no_cents": 73.0,
-      "model_vs_market_pts": 17.9,
-      "market_vs_kalshi_pts": 22.5,
-      "model_vs_kalshi_yes_pts": 40.4,
-      "model_vs_kalshi_no_pts": -41.4,
-      "signal": 23.5,
+      "market_prob": 0.506,
+      "model_prob": 0.199,
+      "kalshi_yes_cents": 83.0,
+      "kalshi_no_cents": 18.0,
+      "model_vs_market_pts": -30.7,
+      "market_vs_kalshi_pts": -32.4,
+      "model_vs_kalshi_yes_pts": -63.1,
+      "model_vs_kalshi_no_pts": 62.1,
+      "signal": 32.4,
+      "picks": [
+        [
+          "NO",
+          "market",
+          31.4
+        ],
+        [
+          "NO",
+          "model",
+          62.1
+        ]
+      ],
+      "flags": [
+        "model total outlier (-31 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -5.5 \u2192 +5 (toward the underdog); total 57 \u2192 62 (up 5)"
+    },
+    {
+      "game_key": "26NOV07WKUMTU",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU-MTU6",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Tennessee Volunteers -5.5 vs Kentucky Wildcats (KXNCAAFSPREAD-26NOV07WKUMTU)",
+      "yes_side": "Tennessee Volunteers -5.5",
+      "commence_time": "2026-11-07T23:15:00Z",
+      "n_books": 3,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.51,
+      "model_prob": 0.705,
+      "kalshi_yes_cents": 30.0,
+      "kalshi_no_cents": 71.0,
+      "model_vs_market_pts": 19.5,
+      "market_vs_kalshi_pts": 21.0,
+      "model_vs_kalshi_yes_pts": 40.5,
+      "model_vs_kalshi_no_pts": -41.5,
+      "signal": 22.0,
       "picks": [
         [
           "YES",
           "market",
-          22.5
+          21.0
         ],
         [
           "YES",
           "model",
-          40.4
+          40.5
         ]
       ],
       "flags": [
-        "model outlier (+18 pts vs market -- verify, likely model error)"
+        "model outlier (+20 pts vs market -- verify, likely model error)"
       ],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
       "line_move": null
     },
     {
-      "game_key": "26NOV06VTSMU",
-      "event_ticker": "KXNCAAFGAME-26NOV06VTSMU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV06VTSMU-VT",
+      "game_key": "26NOV07UNCCONN",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN-UNC8",
       "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Virginia Tech Hokies to beat SMU Mustangs (KXNCAAFGAME-26NOV06VTSMU)",
-      "yes_side": "Virginia Tech Hokies",
-      "commence_time": "2026-11-07T00:05:23Z",
-      "n_books": 4,
+      "bet_type": "spread",
+      "label": "North Carolina Tar Heels -7.5 vs UConn Huskies (KXNCAAFSPREAD-26NOV07UNCCONN)",
+      "yes_side": "North Carolina Tar Heels -7.5",
+      "commence_time": "2026-11-07T17:03:34Z",
+      "n_books": 1,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.152,
-      "model_prob": 0.351,
-      "kalshi_yes_cents": 1.0,
-      "kalshi_no_cents": 100.0,
-      "model_vs_market_pts": 19.9,
-      "market_vs_kalshi_pts": 14.2,
-      "model_vs_kalshi_yes_pts": 34.1,
-      "model_vs_kalshi_no_pts": -35.1,
-      "signal": 15.2,
+      "market_prob": 0.469,
+      "model_prob": 0.614,
+      "kalshi_yes_cents": 83.0,
+      "kalshi_no_cents": 19.0,
+      "model_vs_market_pts": 14.5,
+      "market_vs_kalshi_pts": -36.1,
+      "model_vs_kalshi_yes_pts": -21.6,
+      "model_vs_kalshi_no_pts": 19.6,
+      "signal": 18.1,
       "picks": [
         [
-          "YES",
+          "NO",
           "market",
-          14.2
+          34.1
         ],
         [
-          "YES",
+          "NO",
           "model",
-          34.1
+          19.6
         ]
       ],
-      "flags": [
-        "model outlier (+20 pts vs market -- verify, likely model error)"
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread +7.5 \u2192 +13.5 (toward the underdog); total 53.5 \u2192 59.5 (up 6)"
+    },
+    {
+      "game_key": "26NOV07ODUCCAR",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07ODUCCAR",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07ODUCCAR-ODU11",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Old Dominion Monarchs -10.5 vs Coastal Carolina Chanticleers (KXNCAAFSPREAD-26NOV07ODUCCAR)",
+      "yes_side": "Old Dominion Monarchs -10.5",
+      "commence_time": "2026-11-07T18:02:47Z",
+      "n_books": 6,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.51,
+      "model_prob": 0.388,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -12.2,
+      "market_vs_kalshi_pts": 0.0,
+      "model_vs_kalshi_yes_pts": -12.2,
+      "model_vs_kalshi_no_pts": 11.2,
+      "signal": 11.9,
+      "picks": [
+        [
+          "NO",
+          "model",
+          11.2
+        ]
       ],
-      "sharp_prob": 0.4316,
-      "sharp_vs_retail_pts": 36.8,
-      "line_move": "spread -7.75 \u2192 -24.5 (toward the favorite); total 57.5 \u2192 65.5 (up 8)"
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -7.25 \u2192 +11 (toward the underdog); total 45.25 \u2192 47.5 (up 2.25)"
+    },
+    {
+      "game_key": "26NOV07VANMSST",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07VANMSST",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07VANMSST-MSST3",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Mississippi State Bulldogs -2.5 vs Vanderbilt Commodores (KXNCAAFSPREAD-26NOV07VANMSST)",
+      "yes_side": "Mississippi State Bulldogs -2.5",
+      "commence_time": "2026-11-07T21:15:00Z",
+      "n_books": 11,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.512,
+      "model_prob": 0.39,
+      "kalshi_yes_cents": 52.0,
+      "kalshi_no_cents": 49.0,
+      "model_vs_market_pts": -12.2,
+      "market_vs_kalshi_pts": -0.8,
+      "model_vs_kalshi_yes_pts": -13.0,
+      "model_vs_kalshi_no_pts": 12.0,
+      "signal": 11.9,
+      "picks": [
+        [
+          "NO",
+          "model",
+          12.0
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.5128,
+      "sharp_vs_retail_pts": 0.2,
+      "line_move": null
     },
     {
       "game_key": "26NOV11MASSTOL",
@@ -97,17 +201,17 @@
       "market_prob": 0.171,
       "model_prob": 0.051,
       "kalshi_yes_cents": 16.0,
-      "kalshi_no_cents": 87.0,
+      "kalshi_no_cents": 86.0,
       "model_vs_market_pts": -11.9,
       "market_vs_kalshi_pts": 1.1,
       "model_vs_kalshi_yes_pts": -10.9,
-      "model_vs_kalshi_no_pts": 7.9,
+      "model_vs_kalshi_no_pts": 8.9,
       "signal": 11.9,
       "picks": [
         [
           "NO",
           "model",
-          7.9
+          8.9
         ]
       ],
       "flags": [],
@@ -116,42 +220,108 @@
       "line_move": null
     },
     {
-      "game_key": "26NOV07VANMSST",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07VANMSST",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07VANMSST-MSST3",
+      "game_key": "26NOV07FSUBC",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07FSUBC",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07FSUBC-FSU2",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "Mississippi State Bulldogs -2.5 vs Vanderbilt Commodores (KXNCAAFSPREAD-26NOV07VANMSST)",
-      "yes_side": "Mississippi State Bulldogs -2.5",
-      "commence_time": "2026-11-07T21:15:00Z",
-      "n_books": 7,
+      "label": "Florida State Seminoles -1.5 vs Boston College Eagles (KXNCAAFSPREAD-26NOV07FSUBC)",
+      "yes_side": "Florida State Seminoles -1.5",
+      "commence_time": "2026-11-07T17:03:01Z",
+      "n_books": 1,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.508,
-      "model_prob": 0.39,
-      "kalshi_yes_cents": 54.0,
-      "kalshi_no_cents": 47.0,
-      "model_vs_market_pts": -11.8,
-      "market_vs_kalshi_pts": -3.2,
-      "model_vs_kalshi_yes_pts": -15.0,
-      "model_vs_kalshi_no_pts": 14.0,
-      "signal": 11.8,
+      "market_prob": 0.574,
+      "model_prob": 0.69,
+      "kalshi_yes_cents": 62.0,
+      "kalshi_no_cents": 40.0,
+      "model_vs_market_pts": 11.7,
+      "market_vs_kalshi_pts": -4.6,
+      "model_vs_kalshi_yes_pts": 7.0,
+      "model_vs_kalshi_no_pts": -9.0,
+      "signal": 11.7,
       "picks": [
         [
           "NO",
           "market",
-          2.2
+          2.6
         ],
         [
-          "NO",
+          "YES",
           "model",
-          14.0
+          7.0
         ]
       ],
       "flags": [],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
-      "line_move": null
+      "line_move": "spread +6.5 \u2192 +2.5 (toward the favorite); total 52 \u2192 57.5 (up 5.5)"
+    },
+    {
+      "game_key": "26NOV07TEMNAVY",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY-NAVY7",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Navy Midshipmen -6.5 vs Temple Owls (KXNCAAFSPREAD-26NOV07TEMNAVY)",
+      "yes_side": "Navy Midshipmen -6.5",
+      "commence_time": "2026-11-07T20:30:00Z",
+      "n_books": 2,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.539,
+      "model_prob": 0.655,
+      "kalshi_yes_cents": 55.0,
+      "kalshi_no_cents": 46.0,
+      "model_vs_market_pts": 11.7,
+      "market_vs_kalshi_pts": -1.1,
+      "model_vs_kalshi_yes_pts": 10.5,
+      "model_vs_kalshi_no_pts": -11.5,
+      "signal": 11.7,
+      "picks": [
+        [
+          "YES",
+          "model",
+          10.5
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "total 53 \u2192 55.5 (up 2.5)"
+    },
+    {
+      "game_key": "26NOV07CLEMSYR",
+      "event_ticker": "KXNCAAFGAME-26NOV07CLEMSYR",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07CLEMSYR-SYR",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Syracuse Orange to beat Clemson Tigers (KXNCAAFGAME-26NOV07CLEMSYR)",
+      "yes_side": "Syracuse Orange",
+      "commence_time": "2026-11-07T17:02:32Z",
+      "n_books": 14,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.103,
+      "model_prob": 0.228,
+      "kalshi_yes_cents": 9.0,
+      "kalshi_no_cents": 92.0,
+      "model_vs_market_pts": 12.5,
+      "market_vs_kalshi_pts": 1.3,
+      "model_vs_kalshi_yes_pts": 13.8,
+      "model_vs_kalshi_no_pts": -14.8,
+      "signal": 11.7,
+      "picks": [
+        [
+          "YES",
+          "model",
+          13.8
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.0892,
+      "sharp_vs_retail_pts": -2.2,
+      "line_move": "spread +1.5 \u2192 +11.5 (toward the underdog); total 50 \u2192 31.5 (down 18.5)"
     },
     {
       "game_key": "26NOV07UCFKU",
@@ -162,342 +332,281 @@
       "label": "Over 48.5 (KXNCAAFTOTAL-26NOV07UCFKU)",
       "yes_side": "Over 48.5",
       "commence_time": "2026-11-07T20:45:00Z",
-      "n_books": 5,
+      "n_books": 9,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.493,
+      "market_prob": 0.492,
       "model_prob": 0.375,
-      "kalshi_yes_cents": 49.0,
-      "kalshi_no_cents": 52.0,
-      "model_vs_market_pts": -11.8,
-      "market_vs_kalshi_pts": 0.3,
-      "model_vs_kalshi_yes_pts": -11.5,
-      "model_vs_kalshi_no_pts": 10.5,
-      "signal": 11.8,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -11.7,
+      "market_vs_kalshi_pts": -1.8,
+      "model_vs_kalshi_yes_pts": -13.5,
+      "model_vs_kalshi_no_pts": 12.5,
+      "signal": 11.7,
       "picks": [
         [
           "NO",
           "model",
-          10.5
+          12.5
         ]
       ],
       "flags": [],
-      "sharp_prob": 0.4955,
+      "sharp_prob": 0.4933,
       "sharp_vs_retail_pts": 0.3,
-      "line_move": null
+      "line_move": "spread -3.5 \u2192 -6 (toward the favorite)"
     },
     {
-      "game_key": "26NOV07LIBNMSU",
-      "event_ticker": "KXNCAAFGAME-26NOV07LIBNMSU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07LIBNMSU-NMSU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "New Mexico State Aggies to beat Liberty Flames (KXNCAAFGAME-26NOV07LIBNMSU)",
-      "yes_side": "New Mexico State Aggies",
-      "commence_time": "2026-11-08T01:00:00Z",
-      "n_books": 19,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.144,
-      "model_prob": 0.258,
-      "kalshi_yes_cents": 14.0,
-      "kalshi_no_cents": 88.0,
-      "model_vs_market_pts": 11.4,
-      "market_vs_kalshi_pts": 0.4,
-      "model_vs_kalshi_yes_pts": 11.8,
-      "model_vs_kalshi_no_pts": -13.8,
-      "signal": 11.4,
-      "picks": [
-        [
-          "YES",
-          "model",
-          11.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.1442,
-      "sharp_vs_retail_pts": 0.1,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV06USFECU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV06USFECU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV06USFECU-USF3",
+      "game_key": "26NOV07OKLAFLA",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07OKLAFLA",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07OKLAFLA-FLA5",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "South Florida Bulls -2.5 vs East Carolina Pirates (KXNCAAFSPREAD-26NOV06USFECU)",
-      "yes_side": "South Florida Bulls -2.5",
-      "commence_time": "2026-11-07T00:36:06Z",
-      "n_books": 8,
+      "label": "Florida Gators -4.5 vs Oklahoma Sooners (KXNCAAFSPREAD-26NOV07OKLAFLA)",
+      "yes_side": "Florida Gators -4.5",
+      "commence_time": "2026-11-08T00:45:00Z",
+      "n_books": 13,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.523,
-      "model_prob": 0.393,
+      "market_prob": 0.496,
+      "model_prob": 0.367,
       "kalshi_yes_cents": 51.0,
       "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -12.9,
+      "market_vs_kalshi_pts": -1.4,
+      "model_vs_kalshi_yes_pts": -14.3,
+      "model_vs_kalshi_no_pts": 13.3,
+      "signal": 11.5,
+      "picks": [
+        [
+          "NO",
+          "model",
+          13.3
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.4944,
+      "sharp_vs_retail_pts": -0.5,
+      "line_move": "spread -6 \u2192 -4.5 (toward the underdog)"
+    },
+    {
+      "game_key": "26NOV07GASTAPP",
+      "event_ticker": "KXNCAAFGAME-26NOV07GASTAPP",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07GASTAPP-GAST",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Georgia State Panthers to beat Appalachian State Mountaineers (KXNCAAFGAME-26NOV07GASTAPP)",
+      "yes_side": "Georgia State Panthers",
+      "commence_time": "2026-11-07T19:30:00Z",
+      "n_books": 13,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.252,
+      "model_prob": 0.121,
+      "kalshi_yes_cents": 24.0,
+      "kalshi_no_cents": 77.0,
       "model_vs_market_pts": -13.1,
-      "market_vs_kalshi_pts": 1.3,
-      "model_vs_kalshi_yes_pts": -11.8,
-      "model_vs_kalshi_no_pts": 10.7,
+      "market_vs_kalshi_pts": 1.2,
+      "model_vs_kalshi_yes_pts": -11.9,
+      "model_vs_kalshi_no_pts": 10.9,
       "signal": 11.3,
       "picks": [
         [
           "NO",
           "model",
-          10.7
+          10.9
         ]
       ],
       "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "spread -1 \u2192 +2.5 (toward the underdog); total 40.5 \u2192 39.5 (down 1)"
-    },
-    {
-      "game_key": "26NOV06TCUARIZ",
-      "event_ticker": "KXNCAAFGAME-26NOV06TCUARIZ",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV06TCUARIZ-TCU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "TCU Horned Frogs to beat Arizona Wildcats (KXNCAAFGAME-26NOV06TCUARIZ)",
-      "yes_side": "TCU Horned Frogs",
-      "commence_time": "2026-11-07T03:15:00Z",
-      "n_books": 23,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.316,
-      "model_prob": 0.428,
-      "kalshi_yes_cents": 31.0,
-      "kalshi_no_cents": 70.0,
-      "model_vs_market_pts": 11.2,
-      "market_vs_kalshi_pts": 0.6,
-      "model_vs_kalshi_yes_pts": 11.8,
-      "model_vs_kalshi_no_pts": -12.8,
-      "signal": 11.2,
-      "picks": [
-        [
-          "YES",
-          "model",
-          11.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.3149,
+      "sharp_prob": 0.2623,
       "sharp_vs_retail_pts": -0.1,
-      "line_move": "spread -9 \u2192 -6.5 (toward the underdog); total 44.5 \u2192 46.5 (up 2)"
-    },
-    {
-      "game_key": "26NOV07UNCCONN",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN-UNC8",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "North Carolina Tar Heels -7.5 vs UConn Huskies (KXNCAAFSPREAD-26NOV07UNCCONN)",
-      "yes_side": "North Carolina Tar Heels -7.5",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 17,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.503,
-      "model_prob": 0.614,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": 11.1,
-      "market_vs_kalshi_pts": -1.7,
-      "model_vs_kalshi_yes_pts": 9.4,
-      "model_vs_kalshi_no_pts": -10.4,
-      "signal": 11.1,
-      "picks": [
-        [
-          "YES",
-          "model",
-          9.4
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.5082,
-      "sharp_vs_retail_pts": 0.4,
-      "line_move": "total 53.5 \u2192 54.5 (up 1)"
-    },
-    {
-      "game_key": "26NOV10KENTBGSU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV10KENTBGSU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV10KENTBGSU-BGSU6",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Bowling Green Falcons -5.5 vs Kent State Golden Flashes (KXNCAAFSPREAD-26NOV10KENTBGSU)",
-      "yes_side": "Bowling Green Falcons -5.5",
-      "commence_time": "2026-11-11T00:00:00Z",
-      "n_books": 2,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.5,
-      "model_prob": 0.61,
-      "kalshi_yes_cents": 50.0,
-      "kalshi_no_cents": 52.0,
-      "model_vs_market_pts": 11.0,
-      "market_vs_kalshi_pts": 0.0,
-      "model_vs_kalshi_yes_pts": 11.0,
-      "model_vs_kalshi_no_pts": -13.0,
-      "signal": 11.0,
-      "picks": [
-        [
-          "YES",
-          "model",
-          11.0
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07IOWANW",
-      "event_ticker": "KXNCAAFGAME-26NOV07IOWANW",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07IOWANW-NW",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Northwestern Wildcats to beat Iowa Hawkeyes (KXNCAAFGAME-26NOV07IOWANW)",
-      "yes_side": "Northwestern Wildcats",
-      "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 19,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.449,
-      "model_prob": 0.342,
-      "kalshi_yes_cents": 46.0,
-      "kalshi_no_cents": 55.0,
-      "model_vs_market_pts": -10.7,
-      "market_vs_kalshi_pts": -1.1,
-      "model_vs_kalshi_yes_pts": -11.8,
-      "model_vs_kalshi_no_pts": 10.8,
-      "signal": 10.7,
-      "picks": [
-        [
-          "NO",
-          "model",
-          10.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.4413,
-      "sharp_vs_retail_pts": -0.8,
-      "line_move": "spread -2.5 \u2192 +2.5 (toward the underdog)"
-    },
-    {
-      "game_key": "26NOV07TEMNAVY",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY-NAVY8",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Navy Midshipmen -7.5 vs Temple Owls (KXNCAAFSPREAD-26NOV07TEMNAVY)",
-      "yes_side": "Navy Midshipmen -7.5",
-      "commence_time": "2026-11-07T20:30:00Z",
-      "n_books": 13,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.49,
-      "model_prob": 0.633,
-      "kalshi_yes_cents": 48.0,
-      "kalshi_no_cents": 53.0,
-      "model_vs_market_pts": 14.2,
-      "market_vs_kalshi_pts": 1.1,
-      "model_vs_kalshi_yes_pts": 15.3,
-      "model_vs_kalshi_no_pts": -16.3,
-      "signal": 10.7,
-      "picks": [
-        [
-          "YES",
-          "model",
-          15.3
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.4864,
-      "sharp_vs_retail_pts": -0.1,
-      "line_move": "total 53 \u2192 54.5 (up 1.5)"
+      "line_move": "spread -3.75 \u2192 -8.5 (toward the favorite); total 56.5 \u2192 54.5 (down 2)"
     }
   ],
   "all_ranked": [
     {
-      "game_key": "26NOV07WKUMTU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU-MTU7",
+      "game_key": "26NOV07MDPUR",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07MDPUR",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07MDPUR-56",
       "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Tennessee Volunteers -6.5 vs Kentucky Wildcats (KXNCAAFSPREAD-26NOV07WKUMTU)",
-      "yes_side": "Tennessee Volunteers -6.5",
-      "commence_time": "2026-11-07T23:15:00Z",
-      "n_books": 4,
+      "bet_type": "total",
+      "label": "Over 55.5 (KXNCAAFTOTAL-26NOV07MDPUR)",
+      "yes_side": "Over 55.5",
+      "commence_time": "2026-11-07T17:32:08Z",
+      "n_books": 3,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.505,
-      "model_prob": 0.684,
-      "kalshi_yes_cents": 28.0,
-      "kalshi_no_cents": 73.0,
-      "model_vs_market_pts": 17.9,
-      "market_vs_kalshi_pts": 22.5,
-      "model_vs_kalshi_yes_pts": 40.4,
-      "model_vs_kalshi_no_pts": -41.4,
-      "signal": 23.5,
+      "market_prob": 0.506,
+      "model_prob": 0.199,
+      "kalshi_yes_cents": 83.0,
+      "kalshi_no_cents": 18.0,
+      "model_vs_market_pts": -30.7,
+      "market_vs_kalshi_pts": -32.4,
+      "model_vs_kalshi_yes_pts": -63.1,
+      "model_vs_kalshi_no_pts": 62.1,
+      "signal": 32.4,
+      "picks": [
+        [
+          "NO",
+          "market",
+          31.4
+        ],
+        [
+          "NO",
+          "model",
+          62.1
+        ]
+      ],
+      "flags": [
+        "model total outlier (-31 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -5.5 \u2192 +5 (toward the underdog); total 57 \u2192 62 (up 5)"
+    },
+    {
+      "game_key": "26NOV07WKUMTU",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07WKUMTU-MTU6",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Tennessee Volunteers -5.5 vs Kentucky Wildcats (KXNCAAFSPREAD-26NOV07WKUMTU)",
+      "yes_side": "Tennessee Volunteers -5.5",
+      "commence_time": "2026-11-07T23:15:00Z",
+      "n_books": 3,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.51,
+      "model_prob": 0.705,
+      "kalshi_yes_cents": 30.0,
+      "kalshi_no_cents": 71.0,
+      "model_vs_market_pts": 19.5,
+      "market_vs_kalshi_pts": 21.0,
+      "model_vs_kalshi_yes_pts": 40.5,
+      "model_vs_kalshi_no_pts": -41.5,
+      "signal": 22.0,
       "picks": [
         [
           "YES",
           "market",
-          22.5
+          21.0
         ],
         [
           "YES",
           "model",
-          40.4
+          40.5
         ]
       ],
       "flags": [
-        "model outlier (+18 pts vs market -- verify, likely model error)"
+        "model outlier (+20 pts vs market -- verify, likely model error)"
       ],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
       "line_move": null
     },
     {
-      "game_key": "26NOV06VTSMU",
-      "event_ticker": "KXNCAAFGAME-26NOV06VTSMU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV06VTSMU-VT",
+      "game_key": "26NOV07UNCCONN",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN-UNC8",
       "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Virginia Tech Hokies to beat SMU Mustangs (KXNCAAFGAME-26NOV06VTSMU)",
-      "yes_side": "Virginia Tech Hokies",
-      "commence_time": "2026-11-07T00:05:23Z",
-      "n_books": 4,
+      "bet_type": "spread",
+      "label": "North Carolina Tar Heels -7.5 vs UConn Huskies (KXNCAAFSPREAD-26NOV07UNCCONN)",
+      "yes_side": "North Carolina Tar Heels -7.5",
+      "commence_time": "2026-11-07T17:03:34Z",
+      "n_books": 1,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.152,
-      "model_prob": 0.351,
-      "kalshi_yes_cents": 1.0,
-      "kalshi_no_cents": 100.0,
-      "model_vs_market_pts": 19.9,
-      "market_vs_kalshi_pts": 14.2,
-      "model_vs_kalshi_yes_pts": 34.1,
-      "model_vs_kalshi_no_pts": -35.1,
-      "signal": 15.2,
+      "market_prob": 0.469,
+      "model_prob": 0.614,
+      "kalshi_yes_cents": 83.0,
+      "kalshi_no_cents": 19.0,
+      "model_vs_market_pts": 14.5,
+      "market_vs_kalshi_pts": -36.1,
+      "model_vs_kalshi_yes_pts": -21.6,
+      "model_vs_kalshi_no_pts": 19.6,
+      "signal": 18.1,
       "picks": [
         [
-          "YES",
+          "NO",
           "market",
-          14.2
+          34.1
         ],
         [
-          "YES",
+          "NO",
           "model",
-          34.1
+          19.6
         ]
       ],
-      "flags": [
-        "model outlier (+20 pts vs market -- verify, likely model error)"
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread +7.5 \u2192 +13.5 (toward the underdog); total 53.5 \u2192 59.5 (up 6)"
+    },
+    {
+      "game_key": "26NOV07ODUCCAR",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07ODUCCAR",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07ODUCCAR-ODU11",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Old Dominion Monarchs -10.5 vs Coastal Carolina Chanticleers (KXNCAAFSPREAD-26NOV07ODUCCAR)",
+      "yes_side": "Old Dominion Monarchs -10.5",
+      "commence_time": "2026-11-07T18:02:47Z",
+      "n_books": 6,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.51,
+      "model_prob": 0.388,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -12.2,
+      "market_vs_kalshi_pts": 0.0,
+      "model_vs_kalshi_yes_pts": -12.2,
+      "model_vs_kalshi_no_pts": 11.2,
+      "signal": 11.9,
+      "picks": [
+        [
+          "NO",
+          "model",
+          11.2
+        ]
       ],
-      "sharp_prob": 0.4316,
-      "sharp_vs_retail_pts": 36.8,
-      "line_move": "spread -7.75 \u2192 -24.5 (toward the favorite); total 57.5 \u2192 65.5 (up 8)"
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -7.25 \u2192 +11 (toward the underdog); total 45.25 \u2192 47.5 (up 2.25)"
+    },
+    {
+      "game_key": "26NOV07VANMSST",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07VANMSST",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07VANMSST-MSST3",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Mississippi State Bulldogs -2.5 vs Vanderbilt Commodores (KXNCAAFSPREAD-26NOV07VANMSST)",
+      "yes_side": "Mississippi State Bulldogs -2.5",
+      "commence_time": "2026-11-07T21:15:00Z",
+      "n_books": 11,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.512,
+      "model_prob": 0.39,
+      "kalshi_yes_cents": 52.0,
+      "kalshi_no_cents": 49.0,
+      "model_vs_market_pts": -12.2,
+      "market_vs_kalshi_pts": -0.8,
+      "model_vs_kalshi_yes_pts": -13.0,
+      "model_vs_kalshi_no_pts": 12.0,
+      "signal": 11.9,
+      "picks": [
+        [
+          "NO",
+          "model",
+          12.0
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.5128,
+      "sharp_vs_retail_pts": 0.2,
+      "line_move": null
     },
     {
       "game_key": "26NOV11MASSTOL",
@@ -514,17 +623,17 @@
       "market_prob": 0.171,
       "model_prob": 0.051,
       "kalshi_yes_cents": 16.0,
-      "kalshi_no_cents": 87.0,
+      "kalshi_no_cents": 86.0,
       "model_vs_market_pts": -11.9,
       "market_vs_kalshi_pts": 1.1,
       "model_vs_kalshi_yes_pts": -10.9,
-      "model_vs_kalshi_no_pts": 7.9,
+      "model_vs_kalshi_no_pts": 8.9,
       "signal": 11.9,
       "picks": [
         [
           "NO",
           "model",
-          7.9
+          8.9
         ]
       ],
       "flags": [],
@@ -533,42 +642,108 @@
       "line_move": null
     },
     {
-      "game_key": "26NOV07VANMSST",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07VANMSST",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07VANMSST-MSST3",
+      "game_key": "26NOV07FSUBC",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07FSUBC",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07FSUBC-FSU2",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "Mississippi State Bulldogs -2.5 vs Vanderbilt Commodores (KXNCAAFSPREAD-26NOV07VANMSST)",
-      "yes_side": "Mississippi State Bulldogs -2.5",
-      "commence_time": "2026-11-07T21:15:00Z",
-      "n_books": 7,
+      "label": "Florida State Seminoles -1.5 vs Boston College Eagles (KXNCAAFSPREAD-26NOV07FSUBC)",
+      "yes_side": "Florida State Seminoles -1.5",
+      "commence_time": "2026-11-07T17:03:01Z",
+      "n_books": 1,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.508,
-      "model_prob": 0.39,
-      "kalshi_yes_cents": 54.0,
-      "kalshi_no_cents": 47.0,
-      "model_vs_market_pts": -11.8,
-      "market_vs_kalshi_pts": -3.2,
-      "model_vs_kalshi_yes_pts": -15.0,
-      "model_vs_kalshi_no_pts": 14.0,
-      "signal": 11.8,
+      "market_prob": 0.574,
+      "model_prob": 0.69,
+      "kalshi_yes_cents": 62.0,
+      "kalshi_no_cents": 40.0,
+      "model_vs_market_pts": 11.7,
+      "market_vs_kalshi_pts": -4.6,
+      "model_vs_kalshi_yes_pts": 7.0,
+      "model_vs_kalshi_no_pts": -9.0,
+      "signal": 11.7,
       "picks": [
         [
           "NO",
           "market",
-          2.2
+          2.6
         ],
         [
-          "NO",
+          "YES",
           "model",
-          14.0
+          7.0
         ]
       ],
       "flags": [],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
-      "line_move": null
+      "line_move": "spread +6.5 \u2192 +2.5 (toward the favorite); total 52 \u2192 57.5 (up 5.5)"
+    },
+    {
+      "game_key": "26NOV07TEMNAVY",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY-NAVY7",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Navy Midshipmen -6.5 vs Temple Owls (KXNCAAFSPREAD-26NOV07TEMNAVY)",
+      "yes_side": "Navy Midshipmen -6.5",
+      "commence_time": "2026-11-07T20:30:00Z",
+      "n_books": 2,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.539,
+      "model_prob": 0.655,
+      "kalshi_yes_cents": 55.0,
+      "kalshi_no_cents": 46.0,
+      "model_vs_market_pts": 11.7,
+      "market_vs_kalshi_pts": -1.1,
+      "model_vs_kalshi_yes_pts": 10.5,
+      "model_vs_kalshi_no_pts": -11.5,
+      "signal": 11.7,
+      "picks": [
+        [
+          "YES",
+          "model",
+          10.5
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "total 53 \u2192 55.5 (up 2.5)"
+    },
+    {
+      "game_key": "26NOV07CLEMSYR",
+      "event_ticker": "KXNCAAFGAME-26NOV07CLEMSYR",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07CLEMSYR-SYR",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Syracuse Orange to beat Clemson Tigers (KXNCAAFGAME-26NOV07CLEMSYR)",
+      "yes_side": "Syracuse Orange",
+      "commence_time": "2026-11-07T17:02:32Z",
+      "n_books": 14,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.103,
+      "model_prob": 0.228,
+      "kalshi_yes_cents": 9.0,
+      "kalshi_no_cents": 92.0,
+      "model_vs_market_pts": 12.5,
+      "market_vs_kalshi_pts": 1.3,
+      "model_vs_kalshi_yes_pts": 13.8,
+      "model_vs_kalshi_no_pts": -14.8,
+      "signal": 11.7,
+      "picks": [
+        [
+          "YES",
+          "model",
+          13.8
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.0892,
+      "sharp_vs_retail_pts": -2.2,
+      "line_move": "spread +1.5 \u2192 +11.5 (toward the underdog); total 50 \u2192 31.5 (down 18.5)"
     },
     {
       "game_key": "26NOV07UCFKU",
@@ -579,161 +754,133 @@
       "label": "Over 48.5 (KXNCAAFTOTAL-26NOV07UCFKU)",
       "yes_side": "Over 48.5",
       "commence_time": "2026-11-07T20:45:00Z",
-      "n_books": 5,
+      "n_books": 9,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.493,
+      "market_prob": 0.492,
       "model_prob": 0.375,
-      "kalshi_yes_cents": 49.0,
-      "kalshi_no_cents": 52.0,
-      "model_vs_market_pts": -11.8,
-      "market_vs_kalshi_pts": 0.3,
-      "model_vs_kalshi_yes_pts": -11.5,
-      "model_vs_kalshi_no_pts": 10.5,
-      "signal": 11.8,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -11.7,
+      "market_vs_kalshi_pts": -1.8,
+      "model_vs_kalshi_yes_pts": -13.5,
+      "model_vs_kalshi_no_pts": 12.5,
+      "signal": 11.7,
       "picks": [
         [
           "NO",
           "model",
-          10.5
+          12.5
         ]
       ],
       "flags": [],
-      "sharp_prob": 0.4955,
+      "sharp_prob": 0.4933,
       "sharp_vs_retail_pts": 0.3,
-      "line_move": null
+      "line_move": "spread -3.5 \u2192 -6 (toward the favorite)"
     },
     {
-      "game_key": "26NOV07LIBNMSU",
-      "event_ticker": "KXNCAAFGAME-26NOV07LIBNMSU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07LIBNMSU-NMSU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "New Mexico State Aggies to beat Liberty Flames (KXNCAAFGAME-26NOV07LIBNMSU)",
-      "yes_side": "New Mexico State Aggies",
-      "commence_time": "2026-11-08T01:00:00Z",
-      "n_books": 19,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.144,
-      "model_prob": 0.258,
-      "kalshi_yes_cents": 14.0,
-      "kalshi_no_cents": 88.0,
-      "model_vs_market_pts": 11.4,
-      "market_vs_kalshi_pts": 0.4,
-      "model_vs_kalshi_yes_pts": 11.8,
-      "model_vs_kalshi_no_pts": -13.8,
-      "signal": 11.4,
-      "picks": [
-        [
-          "YES",
-          "model",
-          11.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.1442,
-      "sharp_vs_retail_pts": 0.1,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV06USFECU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV06USFECU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV06USFECU-USF3",
+      "game_key": "26NOV07OKLAFLA",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07OKLAFLA",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07OKLAFLA-FLA5",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "South Florida Bulls -2.5 vs East Carolina Pirates (KXNCAAFSPREAD-26NOV06USFECU)",
-      "yes_side": "South Florida Bulls -2.5",
-      "commence_time": "2026-11-07T00:36:06Z",
-      "n_books": 8,
+      "label": "Florida Gators -4.5 vs Oklahoma Sooners (KXNCAAFSPREAD-26NOV07OKLAFLA)",
+      "yes_side": "Florida Gators -4.5",
+      "commence_time": "2026-11-08T00:45:00Z",
+      "n_books": 13,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.523,
-      "model_prob": 0.393,
+      "market_prob": 0.496,
+      "model_prob": 0.367,
       "kalshi_yes_cents": 51.0,
       "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -12.9,
+      "market_vs_kalshi_pts": -1.4,
+      "model_vs_kalshi_yes_pts": -14.3,
+      "model_vs_kalshi_no_pts": 13.3,
+      "signal": 11.5,
+      "picks": [
+        [
+          "NO",
+          "model",
+          13.3
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.4944,
+      "sharp_vs_retail_pts": -0.5,
+      "line_move": "spread -6 \u2192 -4.5 (toward the underdog)"
+    },
+    {
+      "game_key": "26NOV07GASTAPP",
+      "event_ticker": "KXNCAAFGAME-26NOV07GASTAPP",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07GASTAPP-GAST",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Georgia State Panthers to beat Appalachian State Mountaineers (KXNCAAFGAME-26NOV07GASTAPP)",
+      "yes_side": "Georgia State Panthers",
+      "commence_time": "2026-11-07T19:30:00Z",
+      "n_books": 13,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.252,
+      "model_prob": 0.121,
+      "kalshi_yes_cents": 24.0,
+      "kalshi_no_cents": 77.0,
       "model_vs_market_pts": -13.1,
-      "market_vs_kalshi_pts": 1.3,
-      "model_vs_kalshi_yes_pts": -11.8,
-      "model_vs_kalshi_no_pts": 10.7,
+      "market_vs_kalshi_pts": 1.2,
+      "model_vs_kalshi_yes_pts": -11.9,
+      "model_vs_kalshi_no_pts": 10.9,
       "signal": 11.3,
       "picks": [
         [
           "NO",
           "model",
-          10.7
+          10.9
         ]
       ],
       "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "spread -1 \u2192 +2.5 (toward the underdog); total 40.5 \u2192 39.5 (down 1)"
-    },
-    {
-      "game_key": "26NOV06TCUARIZ",
-      "event_ticker": "KXNCAAFGAME-26NOV06TCUARIZ",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV06TCUARIZ-TCU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "TCU Horned Frogs to beat Arizona Wildcats (KXNCAAFGAME-26NOV06TCUARIZ)",
-      "yes_side": "TCU Horned Frogs",
-      "commence_time": "2026-11-07T03:15:00Z",
-      "n_books": 23,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.316,
-      "model_prob": 0.428,
-      "kalshi_yes_cents": 31.0,
-      "kalshi_no_cents": 70.0,
-      "model_vs_market_pts": 11.2,
-      "market_vs_kalshi_pts": 0.6,
-      "model_vs_kalshi_yes_pts": 11.8,
-      "model_vs_kalshi_no_pts": -12.8,
-      "signal": 11.2,
-      "picks": [
-        [
-          "YES",
-          "model",
-          11.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.3149,
+      "sharp_prob": 0.2623,
       "sharp_vs_retail_pts": -0.1,
-      "line_move": "spread -9 \u2192 -6.5 (toward the underdog); total 44.5 \u2192 46.5 (up 2)"
+      "line_move": "spread -3.75 \u2192 -8.5 (toward the favorite); total 56.5 \u2192 54.5 (down 2)"
     },
     {
-      "game_key": "26NOV07UNCCONN",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07UNCCONN-UNC8",
+      "game_key": "26NOV07TEXMIZZ",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07TEXMIZZ",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07TEXMIZZ-51",
       "sport": "cfb",
-      "bet_type": "spread",
-      "label": "North Carolina Tar Heels -7.5 vs UConn Huskies (KXNCAAFSPREAD-26NOV07UNCCONN)",
-      "yes_side": "North Carolina Tar Heels -7.5",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 17,
+      "bet_type": "total",
+      "label": "Over 50.5 (KXNCAAFTOTAL-26NOV07TEXMIZZ)",
+      "yes_side": "Over 50.5",
+      "commence_time": "2026-11-07T16:57:00Z",
+      "n_books": 4,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.503,
-      "model_prob": 0.614,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": 11.1,
-      "market_vs_kalshi_pts": -1.7,
-      "model_vs_kalshi_yes_pts": 9.4,
-      "model_vs_kalshi_no_pts": -10.4,
-      "signal": 11.1,
+      "market_prob": 0.495,
+      "model_prob": 0.358,
+      "kalshi_yes_cents": 53.0,
+      "kalshi_no_cents": 48.0,
+      "model_vs_market_pts": -13.7,
+      "market_vs_kalshi_pts": -3.5,
+      "model_vs_kalshi_yes_pts": -17.2,
+      "model_vs_kalshi_no_pts": 16.1,
+      "signal": 11.0,
       "picks": [
         [
-          "YES",
+          "NO",
+          "market",
+          2.5
+        ],
+        [
+          "NO",
           "model",
-          9.4
+          16.1
         ]
       ],
       "flags": [],
-      "sharp_prob": 0.5082,
-      "sharp_vs_retail_pts": 0.4,
-      "line_move": "total 53.5 \u2192 54.5 (up 1)"
+      "sharp_prob": 0.4978,
+      "sharp_vs_retail_pts": 0.8,
+      "line_move": "spread +2.5 \u2192 +1.5 (toward the favorite); total 42.5 \u2192 52.5 (up 10)"
     },
     {
       "game_key": "26NOV10KENTBGSU",
@@ -767,72 +914,6 @@
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
       "line_move": null
-    },
-    {
-      "game_key": "26NOV07IOWANW",
-      "event_ticker": "KXNCAAFGAME-26NOV07IOWANW",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07IOWANW-NW",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Northwestern Wildcats to beat Iowa Hawkeyes (KXNCAAFGAME-26NOV07IOWANW)",
-      "yes_side": "Northwestern Wildcats",
-      "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 19,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.449,
-      "model_prob": 0.342,
-      "kalshi_yes_cents": 46.0,
-      "kalshi_no_cents": 55.0,
-      "model_vs_market_pts": -10.7,
-      "market_vs_kalshi_pts": -1.1,
-      "model_vs_kalshi_yes_pts": -11.8,
-      "model_vs_kalshi_no_pts": 10.8,
-      "signal": 10.7,
-      "picks": [
-        [
-          "NO",
-          "model",
-          10.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.4413,
-      "sharp_vs_retail_pts": -0.8,
-      "line_move": "spread -2.5 \u2192 +2.5 (toward the underdog)"
-    },
-    {
-      "game_key": "26NOV07TEMNAVY",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07TEMNAVY-NAVY8",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Navy Midshipmen -7.5 vs Temple Owls (KXNCAAFSPREAD-26NOV07TEMNAVY)",
-      "yes_side": "Navy Midshipmen -7.5",
-      "commence_time": "2026-11-07T20:30:00Z",
-      "n_books": 13,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.49,
-      "model_prob": 0.633,
-      "kalshi_yes_cents": 48.0,
-      "kalshi_no_cents": 53.0,
-      "model_vs_market_pts": 14.2,
-      "market_vs_kalshi_pts": 1.1,
-      "model_vs_kalshi_yes_pts": 15.3,
-      "model_vs_kalshi_no_pts": -16.3,
-      "signal": 10.7,
-      "picks": [
-        [
-          "YES",
-          "model",
-          15.3
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.4864,
-      "sharp_vs_retail_pts": -0.1,
-      "line_move": "total 53 \u2192 54.5 (up 1.5)"
     },
     {
       "game_key": "26NOV11BUFFBALL",
@@ -848,18 +929,18 @@
       "model_coverage": "full",
       "market_prob": 0.524,
       "model_prob": 0.669,
-      "kalshi_yes_cents": 54.0,
+      "kalshi_yes_cents": 53.0,
       "kalshi_no_cents": 50.0,
       "model_vs_market_pts": 14.5,
-      "market_vs_kalshi_pts": -1.6,
-      "model_vs_kalshi_yes_pts": 12.9,
+      "market_vs_kalshi_pts": -0.6,
+      "model_vs_kalshi_yes_pts": 13.9,
       "model_vs_kalshi_no_pts": -16.9,
       "signal": 10.5,
       "picks": [
         [
           "YES",
           "model",
-          12.9
+          13.9
         ]
       ],
       "flags": [],
@@ -875,30 +956,103 @@
       "bet_type": "spread",
       "label": "Utah Utes -4.5 vs BYU Cougars (KXNCAAFSPREAD-26NOV07BYUUTAH)",
       "yes_side": "Utah Utes -4.5",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 16,
+      "commence_time": "2026-11-07T17:07:47Z",
+      "n_books": 2,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.493,
+      "market_prob": 0.494,
       "model_prob": 0.345,
-      "kalshi_yes_cents": 49.0,
-      "kalshi_no_cents": 52.0,
-      "model_vs_market_pts": -14.9,
-      "market_vs_kalshi_pts": 0.3,
-      "model_vs_kalshi_yes_pts": -14.5,
-      "model_vs_kalshi_no_pts": 13.5,
-      "signal": 10.3,
+      "kalshi_yes_cents": 65.0,
+      "kalshi_no_cents": 36.0,
+      "model_vs_market_pts": -15.0,
+      "market_vs_kalshi_pts": -15.6,
+      "model_vs_kalshi_yes_pts": -30.5,
+      "model_vs_kalshi_no_pts": 29.5,
+      "signal": 10.2,
+      "picks": [
+        [
+          "NO",
+          "market",
+          14.6
+        ],
+        [
+          "NO",
+          "model",
+          29.5
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -4.5 \u2192 -7.5 (toward the favorite); total 49 \u2192 58.5 (up 9.5)"
+    },
+    {
+      "game_key": "26NOV07LIBNMSU",
+      "event_ticker": "KXNCAAFGAME-26NOV07LIBNMSU",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07LIBNMSU-NMSU",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "New Mexico State Aggies to beat Liberty Flames (KXNCAAFGAME-26NOV07LIBNMSU)",
+      "yes_side": "New Mexico State Aggies",
+      "commence_time": "2026-11-08T01:00:00Z",
+      "n_books": 20,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.157,
+      "model_prob": 0.258,
+      "kalshi_yes_cents": 14.0,
+      "kalshi_no_cents": 87.0,
+      "model_vs_market_pts": 10.2,
+      "market_vs_kalshi_pts": 1.7,
+      "model_vs_kalshi_yes_pts": 11.8,
+      "model_vs_kalshi_no_pts": -12.8,
+      "signal": 10.2,
+      "picks": [
+        [
+          "YES",
+          "model",
+          11.8
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.1547,
+      "sharp_vs_retail_pts": -0.1,
+      "line_move": "spread +17 \u2192 +15 (toward the favorite)"
+    },
+    {
+      "game_key": "26NOV07MRSHGASO",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07MRSHGASO",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07MRSHGASO-GASO8",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Georgia Southern Eagles -7.5 vs Marshall Thundering Herd (KXNCAAFSPREAD-26NOV07MRSHGASO)",
+      "yes_side": "Georgia Southern Eagles -7.5",
+      "commence_time": "2026-11-07T20:30:00Z",
+      "n_books": 5,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.482,
+      "model_prob": 0.331,
+      "kalshi_yes_cents": 48.0,
+      "kalshi_no_cents": 53.0,
+      "model_vs_market_pts": -15.1,
+      "market_vs_kalshi_pts": 0.2,
+      "model_vs_kalshi_yes_pts": -14.9,
+      "model_vs_kalshi_no_pts": 13.9,
+      "signal": 10.1,
       "picks": [
         [
           "NO",
           "model",
-          13.5
+          13.9
         ]
       ],
-      "flags": [],
-      "sharp_prob": 0.4946,
-      "sharp_vs_retail_pts": -0.0,
-      "line_move": "spread -3 \u2192 -4.5 (toward the favorite); total 47.5 \u2192 49 (up 1.5)"
+      "flags": [
+        "model outlier (-15 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -10 \u2192 -7 (toward the underdog)"
     },
     {
       "game_key": "26NOV07UKTENN",
@@ -912,15 +1066,15 @@
       "n_books": 19,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.341,
+      "market_prob": 0.344,
       "model_prob": 0.191,
       "kalshi_yes_cents": 35.0,
       "kalshi_no_cents": 66.0,
-      "model_vs_market_pts": -14.9,
-      "market_vs_kalshi_pts": -0.9,
+      "model_vs_market_pts": -15.2,
+      "market_vs_kalshi_pts": -0.6,
       "model_vs_kalshi_yes_pts": -15.9,
       "model_vs_kalshi_no_pts": 14.9,
-      "signal": 10.3,
+      "signal": 10.1,
       "picks": [
         [
           "NO",
@@ -928,10 +1082,12 @@
           14.9
         ]
       ],
-      "flags": [],
-      "sharp_prob": 0.3475,
-      "sharp_vs_retail_pts": 0.5,
-      "line_move": "total 51.5 \u2192 49.5 (down 2)"
+      "flags": [
+        "model outlier (-15 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": 0.3438,
+      "sharp_vs_retail_pts": -0.3,
+      "line_move": null
     },
     {
       "game_key": "26NOV07MSUMICH",
@@ -942,18 +1098,18 @@
       "label": "Over 39.5 (KXNCAAFTOTAL-26NOV07MSUMICH)",
       "yes_side": "Over 39.5",
       "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 7,
+      "n_books": 9,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.504,
+      "market_prob": 0.506,
       "model_prob": 0.606,
       "kalshi_yes_cents": 51.0,
-      "kalshi_no_cents": 50.0,
-      "model_vs_market_pts": 10.2,
-      "market_vs_kalshi_pts": -0.6,
+      "kalshi_no_cents": 51.0,
+      "model_vs_market_pts": 10.0,
+      "market_vs_kalshi_pts": -0.4,
       "model_vs_kalshi_yes_pts": 9.6,
-      "model_vs_kalshi_no_pts": -10.6,
-      "signal": 10.2,
+      "model_vs_kalshi_no_pts": -11.6,
+      "signal": 10.0,
       "picks": [
         [
           "YES",
@@ -962,145 +1118,9 @@
         ]
       ],
       "flags": [],
-      "sharp_prob": 0.5111,
-      "sharp_vs_retail_pts": 1.0,
-      "line_move": "spread -13 \u2192 -14 (toward the favorite)"
-    },
-    {
-      "game_key": "26NOV14TEXLSU",
-      "event_ticker": "KXNCAAFGAME-26NOV14TEXLSU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14TEXLSU-LSU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "LSU Tigers to beat Texas Longhorns (KXNCAAFGAME-26NOV14TEXLSU)",
-      "yes_side": "LSU Tigers",
-      "commence_time": "2026-11-14T17:00:00Z",
-      "n_books": 3,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.641,
-      "model_prob": 0.541,
-      "kalshi_yes_cents": 67.0,
-      "kalshi_no_cents": 34.0,
-      "model_vs_market_pts": -10.0,
-      "market_vs_kalshi_pts": -2.9,
-      "model_vs_kalshi_yes_pts": -12.9,
-      "model_vs_kalshi_no_pts": 11.9,
-      "signal": 10.0,
-      "picks": [
-        [
-          "NO",
-          "model",
-          11.9
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
+      "sharp_prob": 0.5045,
+      "sharp_vs_retail_pts": -0.4,
       "line_move": null
-    },
-    {
-      "game_key": "26NOV07NIUSJSU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07NIUSJSU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07NIUSJSU-SJSU11",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "San Jose State Spartans -10.5 vs Northern Illinois Huskies (KXNCAAFSPREAD-26NOV07NIUSJSU)",
-      "yes_side": "San Jose State Spartans -10.5",
-      "commence_time": "2026-11-07T21:00:00Z",
-      "n_books": 4,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.507,
-      "model_prob": 0.351,
-      "kalshi_yes_cents": 53.0,
-      "kalshi_no_cents": 48.0,
-      "model_vs_market_pts": -15.5,
-      "market_vs_kalshi_pts": -2.3,
-      "model_vs_kalshi_yes_pts": -17.9,
-      "model_vs_kalshi_no_pts": 16.9,
-      "signal": 9.9,
-      "picks": [
-        [
-          "NO",
-          "model",
-          16.9
-        ]
-      ],
-      "flags": [
-        "model outlier (-16 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "spread -10 \u2192 -11.25 (toward the favorite); total 50.5 \u2192 52.5 (up 2)"
-    },
-    {
-      "game_key": "26NOV07ISUBAY",
-      "event_ticker": "KXNCAAFGAME-26NOV07ISUBAY",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07ISUBAY-ISU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Iowa State Cyclones to beat Baylor Bears (KXNCAAFGAME-26NOV07ISUBAY)",
-      "yes_side": "Iowa State Cyclones",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 23,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.247,
-      "model_prob": 0.345,
-      "kalshi_yes_cents": 25.0,
-      "kalshi_no_cents": 76.0,
-      "model_vs_market_pts": 9.8,
-      "market_vs_kalshi_pts": -0.3,
-      "model_vs_kalshi_yes_pts": 9.5,
-      "model_vs_kalshi_no_pts": -10.5,
-      "signal": 9.8,
-      "picks": [
-        [
-          "YES",
-          "model",
-          9.5
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.2452,
-      "sharp_vs_retail_pts": 0.1,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07DUKENCST",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07DUKENCST",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07DUKENCST-52",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 51.5 (KXNCAAFTOTAL-26NOV07DUKENCST)",
-      "yes_side": "Over 51.5",
-      "commence_time": "2026-11-07T17:30:00Z",
-      "n_books": 15,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.506,
-      "model_prob": 0.665,
-      "kalshi_yes_cents": 53.0,
-      "kalshi_no_cents": 48.0,
-      "model_vs_market_pts": 15.9,
-      "market_vs_kalshi_pts": -2.4,
-      "model_vs_kalshi_yes_pts": 13.5,
-      "model_vs_kalshi_no_pts": -14.5,
-      "signal": 9.7,
-      "picks": [
-        [
-          "YES",
-          "model",
-          13.5
-        ]
-      ],
-      "flags": [
-        "model total outlier (+16 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5074,
-      "sharp_vs_retail_pts": 0.1,
-      "line_move": "spread +6 \u2192 +4 (toward the favorite); total 50.5 \u2192 51.5 (up 1)"
     },
     {
       "game_key": "26NOV11SACCMU",
@@ -1116,294 +1136,92 @@
       "model_coverage": "full",
       "market_prob": 0.155,
       "model_prob": 0.253,
-      "kalshi_yes_cents": 16.0,
-      "kalshi_no_cents": 87.0,
+      "kalshi_yes_cents": 15.0,
+      "kalshi_no_cents": 88.0,
       "model_vs_market_pts": 9.7,
-      "market_vs_kalshi_pts": -0.5,
-      "model_vs_kalshi_yes_pts": 9.2,
-      "model_vs_kalshi_no_pts": -12.2,
+      "market_vs_kalshi_pts": 0.6,
+      "model_vs_kalshi_yes_pts": 10.2,
+      "model_vs_kalshi_no_pts": -13.2,
       "signal": 9.7,
       "picks": [
         [
           "YES",
           "model",
-          9.2
+          10.2
         ]
       ],
       "flags": [],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
-      "line_move": null
+      "line_move": "total 43.5 \u2192 42.5 (down 1)"
     },
     {
-      "game_key": "26NOV07WVUTTU",
-      "event_ticker": "KXNCAAFGAME-26NOV07WVUTTU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07WVUTTU-TTU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Texas Tech Red Raiders to beat West Virginia Mountaineers (KXNCAAFGAME-26NOV07WVUTTU)",
-      "yes_side": "Texas Tech Red Raiders",
-      "commence_time": "2026-11-08T02:30:00Z",
-      "n_books": 19,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.844,
-      "model_prob": 0.94,
-      "kalshi_yes_cents": 85.0,
-      "kalshi_no_cents": 16.0,
-      "model_vs_market_pts": 9.6,
-      "market_vs_kalshi_pts": -0.6,
-      "model_vs_kalshi_yes_pts": 9.0,
-      "model_vs_kalshi_no_pts": -10.0,
-      "signal": 9.6,
-      "picks": [
-        [
-          "YES",
-          "model",
-          9.0
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.8426,
-      "sharp_vs_retail_pts": -0.1,
-      "line_move": "total 63.5 \u2192 65.5 (up 2)"
-    },
-    {
-      "game_key": "26NOV07OKLAFLA",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07OKLAFLA",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07OKLAFLA-FLA6",
+      "game_key": "26NOV07ISUBAY",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07ISUBAY",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07ISUBAY-BAY14",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "Florida Gators -5.5 vs Oklahoma Sooners (KXNCAAFSPREAD-26NOV07OKLAFLA)",
-      "yes_side": "Florida Gators -5.5",
-      "commence_time": "2026-11-08T00:45:00Z",
-      "n_books": 7,
+      "label": "Baylor Bears -13.5 vs Iowa State Cyclones (KXNCAAFSPREAD-26NOV07ISUBAY)",
+      "yes_side": "Baylor Bears -13.5",
+      "commence_time": "2026-11-07T17:03:12Z",
+      "n_books": 4,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.506,
-      "model_prob": 0.345,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": -16.1,
-      "market_vs_kalshi_pts": -1.4,
-      "model_vs_kalshi_yes_pts": -17.5,
-      "model_vs_kalshi_no_pts": 16.5,
-      "signal": 9.5,
+      "market_prob": 0.498,
+      "model_prob": 0.338,
+      "kalshi_yes_cents": 56.0,
+      "kalshi_no_cents": 54.0,
+      "model_vs_market_pts": -16.0,
+      "market_vs_kalshi_pts": -6.2,
+      "model_vs_kalshi_yes_pts": -22.2,
+      "model_vs_kalshi_no_pts": 12.2,
+      "signal": 9.6,
       "picks": [
         [
           "NO",
           "model",
-          16.5
+          12.2
         ]
       ],
       "flags": [
         "model outlier (-16 pts vs market -- verify, likely model error)"
       ],
-      "sharp_prob": 0.5056,
-      "sharp_vs_retail_pts": -0.1,
-      "line_move": "spread -4 \u2192 -6 (toward the favorite); total 48.5 \u2192 45 (down 3.5)"
-    },
-    {
-      "game_key": "26NOV14MICHORE",
-      "event_ticker": "KXNCAAFGAME-26NOV14MICHORE",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14MICHORE-ORE",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Oregon Ducks to beat Michigan Wolverines (KXNCAAFGAME-26NOV14MICHORE)",
-      "yes_side": "Oregon Ducks",
-      "commence_time": "2026-11-14T20:30:00Z",
-      "n_books": 2,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.644,
-      "model_prob": 0.805,
-      "kalshi_yes_cents": 66.0,
-      "kalshi_no_cents": 38.0,
-      "model_vs_market_pts": 16.1,
-      "market_vs_kalshi_pts": -1.6,
-      "model_vs_kalshi_yes_pts": 14.5,
-      "model_vs_kalshi_no_pts": -18.5,
-      "signal": 9.5,
-      "picks": [
-        [
-          "YES",
-          "model",
-          14.5
-        ]
-      ],
-      "flags": [
-        "model outlier (+16 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": null,
+      "sharp_prob": 0.5233,
       "sharp_vs_retail_pts": null,
-      "line_move": null
+      "line_move": "spread -9.5 \u2192 -14.5 (toward the favorite); total 50.5 \u2192 71.5 (up 21)"
     },
     {
-      "game_key": "26NOV14BAYBYU",
-      "event_ticker": "KXNCAAFGAME-26NOV14BAYBYU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14BAYBYU-BYU",
+      "game_key": "26NOV07WVUTTU",
+      "event_ticker": "KXNCAAFGAME-26NOV07WVUTTU",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07WVUTTU-WVU",
       "sport": "cfb",
       "bet_type": "moneyline",
-      "label": "BYU Cougars to beat Baylor Bears (KXNCAAFGAME-26NOV14BAYBYU)",
-      "yes_side": "BYU Cougars",
-      "commence_time": "2026-11-14T17:00:00Z",
-      "n_books": 2,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.71,
-      "model_prob": 0.805,
-      "kalshi_yes_cents": 74.0,
-      "kalshi_no_cents": 31.0,
-      "model_vs_market_pts": 9.5,
-      "market_vs_kalshi_pts": -3.0,
-      "model_vs_kalshi_yes_pts": 6.5,
-      "model_vs_kalshi_no_pts": -11.5,
-      "signal": 9.5,
-      "picks": [
-        [
-          "YES",
-          "model",
-          6.5
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07CINHOU",
-      "event_ticker": "KXNCAAFGAME-26NOV07CINHOU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07CINHOU-HOU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Houston Cougars to beat Cincinnati Bearcats (KXNCAAFGAME-26NOV07CINHOU)",
-      "yes_side": "Houston Cougars",
-      "commence_time": "2026-11-07T20:30:00Z",
+      "label": "West Virginia Mountaineers to beat Texas Tech Red Raiders (KXNCAAFGAME-26NOV07WVUTTU)",
+      "yes_side": "West Virginia Mountaineers",
+      "commence_time": "2026-11-08T02:30:00Z",
       "n_books": 20,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.77,
-      "model_prob": 0.68,
-      "kalshi_yes_cents": 78.0,
-      "kalshi_no_cents": 23.0,
-      "model_vs_market_pts": -9.1,
-      "market_vs_kalshi_pts": -1.0,
-      "model_vs_kalshi_yes_pts": -10.0,
-      "model_vs_kalshi_no_pts": 9.0,
-      "signal": 9.1,
+      "market_prob": 0.155,
+      "model_prob": 0.06,
+      "kalshi_yes_cents": 15.0,
+      "kalshi_no_cents": 86.0,
+      "model_vs_market_pts": -9.5,
+      "market_vs_kalshi_pts": 0.5,
+      "model_vs_kalshi_yes_pts": -9.0,
+      "model_vs_kalshi_no_pts": 8.0,
+      "signal": 9.5,
       "picks": [
         [
           "NO",
           "model",
-          9.0
+          8.0
         ]
       ],
       "flags": [],
-      "sharp_prob": 0.7732,
-      "sharp_vs_retail_pts": 0.3,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07FSUBC",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07FSUBC",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07FSUBC-FSU6",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Florida State Seminoles -5.5 vs Boston College Eagles (KXNCAAFSPREAD-26NOV07FSUBC)",
-      "yes_side": "Florida State Seminoles -5.5",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 1,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.511,
-      "model_prob": 0.601,
-      "kalshi_yes_cents": 54.0,
-      "kalshi_no_cents": 47.0,
-      "model_vs_market_pts": 9.0,
-      "market_vs_kalshi_pts": -2.9,
-      "model_vs_kalshi_yes_pts": 6.0,
-      "model_vs_kalshi_no_pts": -7.1,
-      "signal": 9.0,
-      "picks": [
-        [
-          "YES",
-          "model",
-          6.0
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07MRSHGASO",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07MRSHGASO",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07MRSHGASO-55",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 54.5 (KXNCAAFTOTAL-26NOV07MRSHGASO)",
-      "yes_side": "Over 54.5",
-      "commence_time": "2026-11-07T20:30:00Z",
-      "n_books": 15,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.503,
-      "model_prob": 0.676,
-      "kalshi_yes_cents": 51.0,
-      "kalshi_no_cents": 50.0,
-      "model_vs_market_pts": 17.2,
-      "market_vs_kalshi_pts": -0.7,
-      "model_vs_kalshi_yes_pts": 16.6,
-      "model_vs_kalshi_no_pts": -17.6,
-      "signal": 8.9,
-      "picks": [
-        [
-          "YES",
-          "model",
-          16.6
-        ]
-      ],
-      "flags": [
-        "model total outlier (+17 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5036,
-      "sharp_vs_retail_pts": 0.0,
-      "line_move": "spread -10 \u2192 -9 (toward the underdog)"
-    },
-    {
-      "game_key": "26NOV07UGAMISS",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07UGAMISS",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07UGAMISS-UGA4",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Georgia Bulldogs -3.5 vs Ole Miss Rebels (KXNCAAFSPREAD-26NOV07UGAMISS)",
-      "yes_side": "Georgia Bulldogs -3.5",
-      "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 16,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.502,
-      "model_prob": 0.591,
-      "kalshi_yes_cents": 51.0,
-      "kalshi_no_cents": 50.0,
-      "model_vs_market_pts": 8.9,
-      "market_vs_kalshi_pts": -0.8,
-      "model_vs_kalshi_yes_pts": 8.1,
-      "model_vs_kalshi_no_pts": -9.1,
-      "signal": 8.9,
-      "picks": [
-        [
-          "YES",
-          "model",
-          8.1
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.4999,
-      "sharp_vs_retail_pts": -0.0,
-      "line_move": null
+      "sharp_prob": 0.1551,
+      "sharp_vs_retail_pts": -0.2,
+      "line_move": "total 65.5 \u2192 66.5 (up 1)"
     },
     {
       "game_key": "26NOV07FRESUSU",
@@ -1414,29 +1232,271 @@
       "label": "Over 43.5 (KXNCAAFTOTAL-26NOV07FRESUSU)",
       "yes_side": "Over 43.5",
       "commence_time": "2026-11-08T02:30:00Z",
-      "n_books": 5,
+      "n_books": 13,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.491,
+      "market_prob": 0.498,
       "model_prob": 0.404,
-      "kalshi_yes_cents": 50.0,
-      "kalshi_no_cents": 51.0,
-      "model_vs_market_pts": -8.8,
-      "market_vs_kalshi_pts": -0.9,
-      "model_vs_kalshi_yes_pts": -9.6,
-      "model_vs_kalshi_no_pts": 8.6,
-      "signal": 8.8,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -9.4,
+      "market_vs_kalshi_pts": -1.2,
+      "model_vs_kalshi_yes_pts": -10.6,
+      "model_vs_kalshi_no_pts": 9.6,
+      "signal": 9.4,
       "picks": [
         [
           "NO",
           "model",
-          8.6
+          9.6
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.5,
+      "sharp_vs_retail_pts": 0.3,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV08DENCAR",
+      "event_ticker": "KXNFLTOTAL-26NOV08DENCAR",
+      "kalshi_ticker": "KXNFLTOTAL-26NOV08DENCAR-39",
+      "sport": "nfl",
+      "bet_type": "total",
+      "label": "Over 38.5 (KXNFLTOTAL-26NOV08DENCAR)",
+      "yes_side": "Over 38.5",
+      "commence_time": "2026-11-08T18:00:00Z",
+      "n_books": 1,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.65,
+      "model_prob": 0.742,
+      "kalshi_yes_cents": 70.0,
+      "kalshi_no_cents": 31.0,
+      "model_vs_market_pts": 9.2,
+      "market_vs_kalshi_pts": -5.0,
+      "model_vs_kalshi_yes_pts": 4.2,
+      "model_vs_kalshi_no_pts": -5.2,
+      "signal": 9.2,
+      "picks": [
+        [
+          "NO",
+          "market",
+          4.0
+        ],
+        [
+          "YES",
+          "model",
+          4.2
         ]
       ],
       "flags": [],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
-      "line_move": "total 41.5 \u2192 43 (up 1.5)"
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07IOWANW",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07IOWANW",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07IOWANW-43",
+      "sport": "cfb",
+      "bet_type": "total",
+      "label": "Over 42.5 (KXNCAAFTOTAL-26NOV07IOWANW)",
+      "yes_side": "Over 42.5",
+      "commence_time": "2026-11-08T00:30:00Z",
+      "n_books": 6,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.501,
+      "model_prob": 0.333,
+      "kalshi_yes_cents": 50.0,
+      "kalshi_no_cents": 51.0,
+      "model_vs_market_pts": -16.8,
+      "market_vs_kalshi_pts": 0.1,
+      "model_vs_kalshi_yes_pts": -16.7,
+      "model_vs_kalshi_no_pts": 15.7,
+      "signal": 9.1,
+      "picks": [
+        [
+          "NO",
+          "model",
+          15.7
+        ]
+      ],
+      "flags": [
+        "model total outlier (-17 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": 0.4933,
+      "sharp_vs_retail_pts": -1.0,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07NIUSJSU",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07NIUSJSU",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07NIUSJSU-SJSU12",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "San Jose State Spartans -11.5 vs Northern Illinois Huskies (KXNCAAFSPREAD-26NOV07NIUSJSU)",
+      "yes_side": "San Jose State Spartans -11.5",
+      "commence_time": "2026-11-07T21:00:00Z",
+      "n_books": 7,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.498,
+      "model_prob": 0.329,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -16.9,
+      "market_vs_kalshi_pts": -1.2,
+      "model_vs_kalshi_yes_pts": -18.1,
+      "model_vs_kalshi_no_pts": 17.1,
+      "signal": 9.1,
+      "picks": [
+        [
+          "NO",
+          "model",
+          17.1
+        ]
+      ],
+      "flags": [
+        "model outlier (-17 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -10 \u2192 -12 (toward the favorite); total 50.5 \u2192 52.5 (up 2)"
+    },
+    {
+      "game_key": "26NOV07UGAMISS",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07UGAMISS",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07UGAMISS-UGA4",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Georgia Bulldogs -3.5 vs Ole Miss Rebels (KXNCAAFSPREAD-26NOV07UGAMISS)",
+      "yes_side": "Georgia Bulldogs -3.5",
+      "commence_time": "2026-11-08T00:30:00Z",
+      "n_books": 17,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.5,
+      "model_prob": 0.591,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": 9.1,
+      "market_vs_kalshi_pts": -1.0,
+      "model_vs_kalshi_yes_pts": 8.1,
+      "model_vs_kalshi_no_pts": -9.1,
+      "signal": 9.1,
+      "picks": [
+        [
+          "YES",
+          "model",
+          8.1
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.5007,
+      "sharp_vs_retail_pts": 0.0,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07ARKAUB",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07ARKAUB",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07ARKAUB-ARK4",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Arkansas Razorbacks -3.5 vs Auburn Tigers (KXNCAAFSPREAD-26NOV07ARKAUB)",
+      "yes_side": "Arkansas Razorbacks -3.5",
+      "commence_time": "2026-11-07T17:47:29Z",
+      "n_books": 8,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.485,
+      "model_prob": 0.234,
+      "kalshi_yes_cents": 47.0,
+      "kalshi_no_cents": 60.0,
+      "model_vs_market_pts": -25.1,
+      "market_vs_kalshi_pts": 1.5,
+      "model_vs_kalshi_yes_pts": -23.6,
+      "model_vs_kalshi_no_pts": 16.6,
+      "signal": 8.5,
+      "picks": [
+        [
+          "NO",
+          "model",
+          16.6
+        ]
+      ],
+      "flags": [
+        "model outlier (-25 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread -10.5 \u2192 +3.5 (toward the underdog); total 54 \u2192 37.5 (down 16.5)"
+    },
+    {
+      "game_key": "26NOV07CINHOU",
+      "event_ticker": "KXNCAAFGAME-26NOV07CINHOU",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07CINHOU-HOU",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Houston Cougars to beat Cincinnati Bearcats (KXNCAAFGAME-26NOV07CINHOU)",
+      "yes_side": "Houston Cougars",
+      "commence_time": "2026-11-07T20:30:00Z",
+      "n_books": 21,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.762,
+      "model_prob": 0.68,
+      "kalshi_yes_cents": 78.0,
+      "kalshi_no_cents": 23.0,
+      "model_vs_market_pts": -8.3,
+      "market_vs_kalshi_pts": -1.8,
+      "model_vs_kalshi_yes_pts": -10.0,
+      "model_vs_kalshi_no_pts": 9.0,
+      "signal": 8.3,
+      "picks": [
+        [
+          "NO",
+          "model",
+          9.0
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.7647,
+      "sharp_vs_retail_pts": 0.2,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07AFAARMY",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07AFAARMY",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07AFAARMY-44",
+      "sport": "cfb",
+      "bet_type": "total",
+      "label": "Over 43.5 (KXNCAAFTOTAL-26NOV07AFAARMY)",
+      "yes_side": "Over 43.5",
+      "commence_time": "2026-11-08T00:30:00Z",
+      "n_books": 11,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.501,
+      "model_prob": 0.584,
+      "kalshi_yes_cents": 52.0,
+      "kalshi_no_cents": 49.0,
+      "model_vs_market_pts": 8.3,
+      "market_vs_kalshi_pts": -1.9,
+      "model_vs_kalshi_yes_pts": 6.4,
+      "model_vs_kalshi_no_pts": -7.4,
+      "signal": 8.3,
+      "picks": [
+        [
+          "YES",
+          "model",
+          6.4
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.5022,
+      "sharp_vs_retail_pts": 0.1,
+      "line_move": "spread -5.75 \u2192 -4 (toward the underdog); total 51.5 \u2192 43.5 (down 8)"
     },
     {
       "game_key": "26NOV10OHIOMOH",
@@ -1452,18 +1512,18 @@
       "model_coverage": "full",
       "market_prob": 0.491,
       "model_prob": 0.673,
-      "kalshi_yes_cents": 51.0,
+      "kalshi_yes_cents": 50.0,
       "kalshi_no_cents": 54.0,
       "model_vs_market_pts": 18.2,
-      "market_vs_kalshi_pts": -1.9,
-      "model_vs_kalshi_yes_pts": 16.3,
+      "market_vs_kalshi_pts": -0.9,
+      "model_vs_kalshi_yes_pts": 17.3,
       "model_vs_kalshi_no_pts": -21.3,
       "signal": 8.3,
       "picks": [
         [
           "YES",
           "model",
-          16.3
+          17.3
         ]
       ],
       "flags": [
@@ -1472,576 +1532,6 @@
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
       "line_move": null
-    },
-    {
-      "game_key": "26NOV07TXAMSCAR",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07TXAMSCAR",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07TXAMSCAR-52",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 51.5 (KXNCAAFTOTAL-26NOV07TXAMSCAR)",
-      "yes_side": "Over 51.5",
-      "commence_time": "2026-11-07T20:00:00Z",
-      "n_books": 1,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.511,
-      "model_prob": 0.326,
-      "kalshi_yes_cents": 53.0,
-      "kalshi_no_cents": 48.0,
-      "model_vs_market_pts": -18.4,
-      "market_vs_kalshi_pts": -1.9,
-      "model_vs_kalshi_yes_pts": -20.4,
-      "model_vs_kalshi_no_pts": 19.4,
-      "signal": 8.2,
-      "picks": [
-        [
-          "NO",
-          "model",
-          19.4
-        ]
-      ],
-      "flags": [
-        "model total outlier (-18 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "total 51.5 \u2192 52.5 (up 1)"
-    },
-    {
-      "game_key": "26NOV14FLAUK",
-      "event_ticker": "KXNCAAFGAME-26NOV14FLAUK",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14FLAUK-FLA",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Florida Gators to beat Kentucky Wildcats (KXNCAAFGAME-26NOV14FLAUK)",
-      "yes_side": "Florida Gators",
-      "commence_time": "2026-11-14T17:00:00Z",
-      "n_books": 3,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.471,
-      "model_prob": 0.658,
-      "kalshi_yes_cents": 47.0,
-      "kalshi_no_cents": 55.0,
-      "model_vs_market_pts": 18.7,
-      "market_vs_kalshi_pts": 0.1,
-      "model_vs_kalshi_yes_pts": 18.8,
-      "model_vs_kalshi_no_pts": -20.8,
-      "signal": 8.0,
-      "picks": [
-        [
-          "YES",
-          "model",
-          18.8
-        ]
-      ],
-      "flags": [
-        "model outlier (+19 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07BSUCSU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07BSUCSU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07BSUCSU-BSU18",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Boise State Broncos -17.5 vs Colorado State Rams (KXNCAAFSPREAD-26NOV07BSUCSU)",
-      "yes_side": "Boise State Broncos -17.5",
-      "commence_time": "2026-11-07T23:00:00Z",
-      "n_books": 9,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.497,
-      "model_prob": 0.418,
-      "kalshi_yes_cents": 47.0,
-      "kalshi_no_cents": 54.0,
-      "model_vs_market_pts": -7.8,
-      "market_vs_kalshi_pts": 2.7,
-      "model_vs_kalshi_yes_pts": -5.2,
-      "model_vs_kalshi_no_pts": 4.2,
-      "signal": 7.8,
-      "picks": [
-        [
-          "YES",
-          "market",
-          2.7
-        ],
-        [
-          "NO",
-          "model",
-          4.2
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.5,
-      "sharp_vs_retail_pts": 0.6,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07OREOSU",
-      "event_ticker": "KXNCAAFGAME-26NOV07OREOSU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07OREOSU-OSU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Ohio State Buckeyes to beat Oregon Ducks (KXNCAAFGAME-26NOV07OREOSU)",
-      "yes_side": "Ohio State Buckeyes",
-      "commence_time": "2026-11-07T20:30:00Z",
-      "n_books": 20,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.725,
-      "model_prob": 0.651,
-      "kalshi_yes_cents": 73.0,
-      "kalshi_no_cents": 28.0,
-      "model_vs_market_pts": -7.5,
-      "market_vs_kalshi_pts": -0.5,
-      "model_vs_kalshi_yes_pts": -7.9,
-      "model_vs_kalshi_no_pts": 6.9,
-      "signal": 7.5,
-      "picks": [
-        [
-          "NO",
-          "model",
-          6.9
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.7233,
-      "sharp_vs_retail_pts": 0.1,
-      "line_move": "total 48.5 \u2192 45 (down 3.5)"
-    },
-    {
-      "game_key": "26NOV08DENCAR",
-      "event_ticker": "KXNFLGAME-26NOV08DENCAR",
-      "kalshi_ticker": "KXNFLGAME-26NOV08DENCAR-DEN",
-      "sport": "nfl",
-      "bet_type": "moneyline",
-      "label": "Denver Broncos to beat Carolina Panthers (KXNFLGAME-26NOV08DENCAR)",
-      "yes_side": "Denver Broncos",
-      "commence_time": "2026-11-08T18:00:00Z",
-      "n_books": 28,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.572,
-      "model_prob": 0.647,
-      "kalshi_yes_cents": 57.0,
-      "kalshi_no_cents": 44.0,
-      "model_vs_market_pts": 7.5,
-      "market_vs_kalshi_pts": 0.2,
-      "model_vs_kalshi_yes_pts": 7.7,
-      "model_vs_kalshi_no_pts": -8.7,
-      "signal": 7.5,
-      "picks": [
-        [
-          "YES",
-          "model",
-          7.7
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.5729,
-      "sharp_vs_retail_pts": 0.0,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07ARKAUB",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07ARKAUB",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07ARKAUB-55",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 54.5 (KXNCAAFTOTAL-26NOV07ARKAUB)",
-      "yes_side": "Over 54.5",
-      "commence_time": "2026-11-07T17:45:00Z",
-      "n_books": 4,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.493,
-      "model_prob": 0.418,
-      "kalshi_yes_cents": 50.0,
-      "kalshi_no_cents": 51.0,
-      "model_vs_market_pts": -7.5,
-      "market_vs_kalshi_pts": -0.7,
-      "model_vs_kalshi_yes_pts": -8.2,
-      "model_vs_kalshi_no_pts": 7.2,
-      "signal": 7.5,
-      "picks": [
-        [
-          "NO",
-          "model",
-          7.2
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "total 50.5 \u2192 54 (up 3.5)"
-    },
-    {
-      "game_key": "26NOV07AFAARMY",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07AFAARMY",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07AFAARMY-44",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 43.5 (KXNCAAFTOTAL-26NOV07AFAARMY)",
-      "yes_side": "Over 43.5",
-      "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 4,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.51,
-      "model_prob": 0.584,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": 7.4,
-      "market_vs_kalshi_pts": -1.0,
-      "model_vs_kalshi_yes_pts": 6.4,
-      "model_vs_kalshi_no_pts": -7.4,
-      "signal": 7.4,
-      "picks": [
-        [
-          "YES",
-          "model",
-          6.4
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "spread -5.75 \u2192 -4 (toward the underdog); total 51.5 \u2192 44 (down 7.5)"
-    },
-    {
-      "game_key": "26NOV14LOUUNC",
-      "event_ticker": "KXNCAAFGAME-26NOV14LOUUNC",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14LOUUNC-UNC",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "North Carolina Tar Heels to beat Louisville Cardinals (KXNCAAFGAME-26NOV14LOUUNC)",
-      "yes_side": "North Carolina Tar Heels",
-      "commence_time": "2026-11-14T17:00:00Z",
-      "n_books": 2,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.449,
-      "model_prob": 0.379,
-      "kalshi_yes_cents": 46.0,
-      "kalshi_no_cents": 62.0,
-      "model_vs_market_pts": -7.0,
-      "market_vs_kalshi_pts": -1.1,
-      "model_vs_kalshi_yes_pts": -8.1,
-      "model_vs_kalshi_no_pts": 0.1,
-      "signal": 7.0,
-      "picks": [],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07GASTAPP",
-      "event_ticker": "KXNCAAFGAME-26NOV07GASTAPP",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07GASTAPP-GAST",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Georgia State Panthers to beat Appalachian State Mountaineers (KXNCAAFGAME-26NOV07GASTAPP)",
-      "yes_side": "Georgia State Panthers",
-      "commence_time": "2026-11-07T19:30:00Z",
-      "n_books": 20,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.326,
-      "model_prob": 0.121,
-      "kalshi_yes_cents": 34.0,
-      "kalshi_no_cents": 67.0,
-      "model_vs_market_pts": -20.5,
-      "market_vs_kalshi_pts": -1.4,
-      "model_vs_kalshi_yes_pts": -21.9,
-      "model_vs_kalshi_no_pts": 20.9,
-      "signal": 6.9,
-      "picks": [
-        [
-          "NO",
-          "model",
-          20.9
-        ]
-      ],
-      "flags": [
-        "model outlier (-20 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.3269,
-      "sharp_vs_retail_pts": 0.2,
-      "line_move": "spread -3.75 \u2192 -6.5 (toward the favorite); total 56.5 \u2192 54.5 (down 2)"
-    },
-    {
-      "game_key": "26NOV07LTTROY",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07LTTROY",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07LTTROY-LT6",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Louisiana Tech Bulldogs -5.5 vs Troy Trojans (KXNCAAFSPREAD-26NOV07LTTROY)",
-      "yes_side": "Louisiana Tech Bulldogs -5.5",
-      "commence_time": "2026-11-07T21:00:00Z",
-      "n_books": 15,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.504,
-      "model_prob": 0.291,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": -21.3,
-      "market_vs_kalshi_pts": -1.6,
-      "model_vs_kalshi_yes_pts": -22.9,
-      "model_vs_kalshi_no_pts": 21.9,
-      "signal": 6.4,
-      "picks": [
-        [
-          "NO",
-          "model",
-          21.9
-        ]
-      ],
-      "flags": [
-        "model outlier (-21 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5089,
-      "sharp_vs_retail_pts": 0.6,
-      "line_move": "spread +6.5 \u2192 +5.5 (toward the favorite); total 45.5 \u2192 47.5 (up 2)"
-    },
-    {
-      "game_key": "26NOV07MIAND",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07MIAND",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07MIAND-54",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 53.5 (KXNCAAFTOTAL-26NOV07MIAND)",
-      "yes_side": "Over 53.5",
-      "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 2,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.522,
-      "model_prob": 0.302,
-      "kalshi_yes_cents": 53.0,
-      "kalshi_no_cents": 48.0,
-      "model_vs_market_pts": -22.0,
-      "market_vs_kalshi_pts": -0.8,
-      "model_vs_kalshi_yes_pts": -22.8,
-      "model_vs_kalshi_no_pts": 21.8,
-      "signal": 6.0,
-      "picks": [
-        [
-          "NO",
-          "model",
-          21.8
-        ]
-      ],
-      "flags": [
-        "model total outlier (-22 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5225,
-      "sharp_vs_retail_pts": null,
-      "line_move": "spread -3.5 \u2192 -7 (toward the favorite)"
-    },
-    {
-      "game_key": "26NOV07ALALSU",
-      "event_ticker": "KXNCAAFGAME-26NOV07ALALSU",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07ALALSU-LSU",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "LSU Tigers to beat Alabama Crimson Tide (KXNCAAFGAME-26NOV07ALALSU)",
-      "yes_side": "LSU Tigers",
-      "commence_time": "2026-11-07T20:30:00Z",
-      "n_books": 19,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.674,
-      "model_prob": 0.617,
-      "kalshi_yes_cents": 68.0,
-      "kalshi_no_cents": 33.0,
-      "model_vs_market_pts": -5.7,
-      "market_vs_kalshi_pts": -0.6,
-      "model_vs_kalshi_yes_pts": -6.3,
-      "model_vs_kalshi_no_pts": 5.3,
-      "signal": 5.7,
-      "picks": [
-        [
-          "NO",
-          "model",
-          5.3
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": 0.675,
-      "sharp_vs_retail_pts": 0.4,
-      "line_move": "spread -4.5 \u2192 -6 (toward the favorite)"
-    },
-    {
-      "game_key": "26NOV07CLEMSYR",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07CLEMSYR",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07CLEMSYR-CLEM3",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Clemson Tigers -2.5 vs Syracuse Orange (KXNCAAFSPREAD-26NOV07CLEMSYR)",
-      "yes_side": "Clemson Tigers -2.5",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 14,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.496,
-      "model_prob": 0.724,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": 22.8,
-      "market_vs_kalshi_pts": -2.4,
-      "model_vs_kalshi_yes_pts": 20.4,
-      "model_vs_kalshi_no_pts": -21.4,
-      "signal": 5.5,
-      "picks": [
-        [
-          "YES",
-          "model",
-          20.4
-        ]
-      ],
-      "flags": [
-        "model outlier (+23 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.4955,
-      "sharp_vs_retail_pts": 0.1,
-      "line_move": "spread +1.5 \u2192 +2.5 (toward the underdog); total 50.5 \u2192 49.5 (down 1)"
-    },
-    {
-      "game_key": "26NOV07MDPUR",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07MDPUR",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07MDPUR-PUR6",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Purdue Boilermakers -5.5 vs Maryland Terrapins (KXNCAAFSPREAD-26NOV07MDPUR)",
-      "yes_side": "Purdue Boilermakers -5.5",
-      "commence_time": "2026-11-07T17:30:00Z",
-      "n_books": 12,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.502,
-      "model_prob": 0.264,
-      "kalshi_yes_cents": 51.0,
-      "kalshi_no_cents": 50.0,
-      "model_vs_market_pts": -23.8,
-      "market_vs_kalshi_pts": -0.8,
-      "model_vs_kalshi_yes_pts": -24.6,
-      "model_vs_kalshi_no_pts": 23.6,
-      "signal": 4.9,
-      "picks": [
-        [
-          "NO",
-          "model",
-          23.6
-        ]
-      ],
-      "flags": [
-        "model outlier (-24 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5036,
-      "sharp_vs_retail_pts": 0.3,
-      "line_move": "spread -6.5 \u2192 -5.5 (toward the underdog)"
-    },
-    {
-      "game_key": "26NOV14MIZZUGA",
-      "event_ticker": "KXNCAAFGAME-26NOV14MIZZUGA",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14MIZZUGA-UGA",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Georgia Bulldogs to beat Missouri Tigers (KXNCAAFGAME-26NOV14MIZZUGA)",
-      "yes_side": "Georgia Bulldogs",
-      "commence_time": "2026-11-14T17:00:00Z",
-      "n_books": 3,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.799,
-      "model_prob": 0.777,
-      "kalshi_yes_cents": 82.0,
-      "kalshi_no_cents": 25.0,
-      "model_vs_market_pts": -2.2,
-      "market_vs_kalshi_pts": -2.1,
-      "model_vs_kalshi_yes_pts": -4.2,
-      "model_vs_kalshi_no_pts": -2.7,
-      "signal": 4.9,
-      "picks": [],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV14USCIND",
-      "event_ticker": "KXNCAAFGAME-26NOV14USCIND",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV14USCIND-IND",
-      "sport": "cfb",
-      "bet_type": "moneyline",
-      "label": "Indiana Hoosiers to beat USC Trojans (KXNCAAFGAME-26NOV14USCIND)",
-      "yes_side": "Indiana Hoosiers",
-      "commence_time": "2026-11-14T20:30:00Z",
-      "n_books": 3,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.706,
-      "model_prob": 0.726,
-      "kalshi_yes_cents": 69.0,
-      "kalshi_no_cents": 34.0,
-      "model_vs_market_pts": 2.0,
-      "market_vs_kalshi_pts": 1.6,
-      "model_vs_kalshi_yes_pts": 3.6,
-      "model_vs_kalshi_no_pts": -6.6,
-      "signal": 4.6,
-      "picks": [
-        [
-          "YES",
-          "model",
-          3.6
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": null
-    },
-    {
-      "game_key": "26NOV07LOUGT",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07LOUGT",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07LOUGT-LOU15",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Louisville Cardinals -14.5 vs Georgia Tech Yellow Jackets (KXNCAAFSPREAD-26NOV07LOUGT)",
-      "yes_side": "Louisville Cardinals -14.5",
-      "commence_time": "2026-11-08T00:30:00Z",
-      "n_books": 13,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.501,
-      "model_prob": 0.241,
-      "kalshi_yes_cents": 51.0,
-      "kalshi_no_cents": 50.0,
-      "model_vs_market_pts": -26.0,
-      "market_vs_kalshi_pts": -0.9,
-      "model_vs_kalshi_yes_pts": -26.9,
-      "model_vs_kalshi_no_pts": 25.9,
-      "signal": 3.6,
-      "picks": [
-        [
-          "NO",
-          "model",
-          25.9
-        ]
-      ],
-      "flags": [
-        "model outlier (-26 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5017,
-      "sharp_vs_retail_pts": 0.2,
-      "line_move": "total 60 \u2192 62.25 (up 2.25)"
     },
     {
       "game_key": "26NOV07MRMKWAKE",
@@ -2057,84 +1547,323 @@
       "model_coverage": "partial",
       "market_prob": 0.5,
       "model_prob": 0.15,
-      "kalshi_yes_cents": 45.0,
-      "kalshi_no_cents": 57.0,
+      "kalshi_yes_cents": 35.0,
+      "kalshi_no_cents": 66.0,
       "model_vs_market_pts": -35.0,
-      "market_vs_kalshi_pts": 5.0,
-      "model_vs_kalshi_yes_pts": -30.0,
-      "model_vs_kalshi_no_pts": 28.0,
-      "signal": 3.5,
+      "market_vs_kalshi_pts": 15.0,
+      "model_vs_kalshi_yes_pts": -20.0,
+      "model_vs_kalshi_no_pts": 19.0,
+      "signal": 8.0,
       "picks": [
         [
           "YES",
           "market",
-          5.0
+          15.0
         ]
       ],
       "flags": [],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
-      "line_move": "spread -47 \u2192 -48 (toward the favorite); total 59.5 \u2192 58.5 (down 1)"
+      "line_move": "total 59.5 \u2192 55.5 (down 4)"
+    },
+    {
+      "game_key": "26NOV07OREOSU",
+      "event_ticker": "KXNCAAFGAME-26NOV07OREOSU",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07OREOSU-OSU",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Ohio State Buckeyes to beat Oregon Ducks (KXNCAAFGAME-26NOV07OREOSU)",
+      "yes_side": "Ohio State Buckeyes",
+      "commence_time": "2026-11-07T20:30:00Z",
+      "n_books": 21,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.728,
+      "model_prob": 0.651,
+      "kalshi_yes_cents": 73.0,
+      "kalshi_no_cents": 28.0,
+      "model_vs_market_pts": -7.7,
+      "market_vs_kalshi_pts": -0.2,
+      "model_vs_kalshi_yes_pts": -7.9,
+      "model_vs_kalshi_no_pts": 6.9,
+      "signal": 7.7,
+      "picks": [
+        [
+          "NO",
+          "model",
+          6.9
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": 0.729,
+      "sharp_vs_retail_pts": 0.3,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07TXAMSCAR",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07TXAMSCAR",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07TXAMSCAR-53",
+      "sport": "cfb",
+      "bet_type": "total",
+      "label": "Over 52.5 (KXNCAAFTOTAL-26NOV07TXAMSCAR)",
+      "yes_side": "Over 52.5",
+      "commence_time": "2026-11-07T20:00:00Z",
+      "n_books": 17,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.498,
+      "model_prob": 0.304,
+      "kalshi_yes_cents": 50.0,
+      "kalshi_no_cents": 51.0,
+      "model_vs_market_pts": -19.4,
+      "market_vs_kalshi_pts": -0.2,
+      "model_vs_kalshi_yes_pts": -19.6,
+      "model_vs_kalshi_no_pts": 18.6,
+      "signal": 7.6,
+      "picks": [
+        [
+          "NO",
+          "model",
+          18.6
+        ]
+      ],
+      "flags": [
+        "model total outlier (-19 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": 0.4937,
+      "sharp_vs_retail_pts": -0.6,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07MIAND",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07MIAND",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07MIAND-55",
+      "sport": "cfb",
+      "bet_type": "total",
+      "label": "Over 54.5 (KXNCAAFTOTAL-26NOV07MIAND)",
+      "yes_side": "Over 54.5",
+      "commence_time": "2026-11-08T00:30:00Z",
+      "n_books": 12,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.5,
+      "model_prob": 0.281,
+      "kalshi_yes_cents": 50.0,
+      "kalshi_no_cents": 51.0,
+      "model_vs_market_pts": -22.0,
+      "market_vs_kalshi_pts": 0.0,
+      "model_vs_kalshi_yes_pts": -21.9,
+      "model_vs_kalshi_no_pts": 21.0,
+      "signal": 6.0,
+      "picks": [
+        [
+          "NO",
+          "model",
+          21.0
+        ]
+      ],
+      "flags": [
+        "model total outlier (-22 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07BSUCSU",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07BSUCSU",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07BSUCSU-BSU17",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Boise State Broncos -16.5 vs Colorado State Rams (KXNCAAFSPREAD-26NOV07BSUCSU)",
+      "yes_side": "Boise State Broncos -16.5",
+      "commence_time": "2026-11-07T23:00:00Z",
+      "n_books": 4,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.5,
+      "model_prob": 0.442,
+      "kalshi_yes_cents": 50.0,
+      "kalshi_no_cents": 51.0,
+      "model_vs_market_pts": -5.7,
+      "market_vs_kalshi_pts": -0.0,
+      "model_vs_kalshi_yes_pts": -5.8,
+      "model_vs_kalshi_no_pts": 4.8,
+      "signal": 5.7,
+      "picks": [
+        [
+          "NO",
+          "model",
+          4.8
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread +17.25 \u2192 +16 (toward the favorite)"
     },
     {
       "game_key": "26NOV07PSUWASH",
-      "event_ticker": "KXNCAAFGAME-26NOV07PSUWASH",
-      "kalshi_ticker": "KXNCAAFGAME-26NOV07PSUWASH-WASH",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07PSUWASH",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07PSUWASH-47",
+      "sport": "cfb",
+      "bet_type": "total",
+      "label": "Over 46.5 (KXNCAAFTOTAL-26NOV07PSUWASH)",
+      "yes_side": "Over 46.5",
+      "commence_time": "2026-11-07T20:30:00Z",
+      "n_books": 1,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.5,
+      "model_prob": 0.443,
+      "kalshi_yes_cents": 52.0,
+      "kalshi_no_cents": 49.0,
+      "model_vs_market_pts": -5.7,
+      "market_vs_kalshi_pts": -2.0,
+      "model_vs_kalshi_yes_pts": -7.7,
+      "model_vs_kalshi_no_pts": 6.7,
+      "signal": 5.7,
+      "picks": [
+        [
+          "NO",
+          "model",
+          6.7
+        ]
+      ],
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "total 44.5 \u2192 45.5 (up 1)"
+    },
+    {
+      "game_key": "26NOV07ALALSU",
+      "event_ticker": "KXNCAAFGAME-26NOV07ALALSU",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07ALALSU-ALA",
       "sport": "cfb",
       "bet_type": "moneyline",
-      "label": "Washington Huskies to beat Penn State Nittany Lions (KXNCAAFGAME-26NOV07PSUWASH)",
-      "yes_side": "Washington Huskies",
+      "label": "Alabama Crimson Tide to beat LSU Tigers (KXNCAAFGAME-26NOV07ALALSU)",
+      "yes_side": "Alabama Crimson Tide",
       "commence_time": "2026-11-07T20:30:00Z",
       "n_books": 20,
       "match_confidence": 1.0,
       "model_coverage": "full",
-      "market_prob": 0.543,
-      "model_prob": 0.575,
-      "kalshi_yes_cents": 55.0,
-      "kalshi_no_cents": 46.0,
-      "model_vs_market_pts": 3.1,
+      "market_prob": 0.333,
+      "model_prob": 0.383,
+      "kalshi_yes_cents": 34.0,
+      "kalshi_no_cents": 67.0,
+      "model_vs_market_pts": 5.0,
       "market_vs_kalshi_pts": -0.7,
-      "model_vs_kalshi_yes_pts": 2.4,
-      "model_vs_kalshi_no_pts": -3.5,
-      "signal": 3.1,
+      "model_vs_kalshi_yes_pts": 4.3,
+      "model_vs_kalshi_no_pts": -5.3,
+      "signal": 5.0,
       "picks": [
         [
           "YES",
           "model",
-          2.4
+          4.3
         ]
       ],
       "flags": [],
-      "sharp_prob": 0.5424,
-      "sharp_vs_retail_pts": -0.2,
-      "line_move": "spread -1.5 \u2192 -2.5 (toward the favorite)"
+      "sharp_prob": 0.3406,
+      "sharp_vs_retail_pts": 0.9,
+      "line_move": "total 52.5 \u2192 53.5 (up 1)"
     },
     {
-      "game_key": "26NOV07MOSUFIU",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07MOSUFIU",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07MOSUFIU-FIU5",
+      "game_key": "26NOV07LTTROY",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07LTTROY",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07LTTROY-LT7",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "Florida International Panthers -4.5 vs Missouri State Bears (KXNCAAFSPREAD-26NOV07MOSUFIU)",
-      "yes_side": "Florida International Panthers -4.5",
+      "label": "Louisiana Tech Bulldogs -6.5 vs Troy Trojans (KXNCAAFSPREAD-26NOV07LTTROY)",
+      "yes_side": "Louisiana Tech Bulldogs -6.5",
       "commence_time": "2026-11-07T21:00:00Z",
-      "n_books": 13,
+      "n_books": 5,
       "match_confidence": 1.0,
-      "model_coverage": "partial",
-      "market_prob": 0.503,
-      "model_prob": 0.531,
-      "kalshi_yes_cents": 53.0,
-      "kalshi_no_cents": 48.0,
-      "model_vs_market_pts": 2.8,
-      "market_vs_kalshi_pts": -2.7,
-      "model_vs_kalshi_yes_pts": 0.1,
-      "model_vs_kalshi_no_pts": -1.1,
-      "signal": 2.7,
+      "model_coverage": "full",
+      "market_prob": 0.522,
+      "model_prob": 0.27,
+      "kalshi_yes_cents": 54.0,
+      "kalshi_no_cents": 47.0,
+      "model_vs_market_pts": -25.2,
+      "market_vs_kalshi_pts": -1.8,
+      "model_vs_kalshi_yes_pts": -27.0,
+      "model_vs_kalshi_no_pts": 26.0,
+      "signal": 4.1,
+      "picks": [
+        [
+          "NO",
+          "model",
+          26.0
+        ]
+      ],
+      "flags": [
+        "model outlier (-25 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": 0.5335,
+      "sharp_vs_retail_pts": 1.4,
+      "line_move": "total 45.5 \u2192 47.5 (up 2)"
+    },
+    {
+      "game_key": "26NOV07LOUGT",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07LOUGT",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07LOUGT-LOU15",
+      "sport": "cfb",
+      "bet_type": "spread",
+      "label": "Louisville Cardinals -14.5 vs Georgia Tech Yellow Jackets (KXNCAAFSPREAD-26NOV07LOUGT)",
+      "yes_side": "Louisville Cardinals -14.5",
+      "commence_time": "2026-11-08T00:30:00Z",
+      "n_books": 20,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.498,
+      "model_prob": 0.241,
+      "kalshi_yes_cents": 51.0,
+      "kalshi_no_cents": 50.0,
+      "model_vs_market_pts": -25.7,
+      "market_vs_kalshi_pts": -1.2,
+      "model_vs_kalshi_yes_pts": -26.9,
+      "model_vs_kalshi_no_pts": 25.9,
+      "signal": 3.8,
+      "picks": [
+        [
+          "NO",
+          "model",
+          25.9
+        ]
+      ],
+      "flags": [
+        "model outlier (-26 pts vs market -- verify, likely model error)"
+      ],
+      "sharp_prob": 0.4983,
+      "sharp_vs_retail_pts": 0.0,
+      "line_move": null
+    },
+    {
+      "game_key": "26NOV07DUKENCST",
+      "event_ticker": "KXNCAAFTOTAL-26NOV07DUKENCST",
+      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07DUKENCST-57",
+      "sport": "cfb",
+      "bet_type": "total",
+      "label": "Over 56.5 (KXNCAAFTOTAL-26NOV07DUKENCST)",
+      "yes_side": "Over 56.5",
+      "commence_time": "2026-11-07T17:40:36Z",
+      "n_books": 2,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.512,
+      "model_prob": 0.545,
+      "kalshi_yes_cents": 54.0,
+      "kalshi_no_cents": 47.0,
+      "model_vs_market_pts": 3.3,
+      "market_vs_kalshi_pts": -2.8,
+      "model_vs_kalshi_yes_pts": 0.5,
+      "model_vs_kalshi_no_pts": -1.5,
+      "signal": 3.3,
       "picks": [],
       "flags": [],
-      "sharp_prob": 0.5119,
-      "sharp_vs_retail_pts": 1.2,
-      "line_move": "spread -3.5 \u2192 -4.5 (toward the favorite)"
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
+      "line_move": "spread +6 \u2192 +32.5 (toward the underdog); total 50.5 \u2192 57.5 (up 7)"
     },
     {
       "game_key": "26NOV10WMUAKR",
@@ -2150,18 +1879,23 @@
       "model_coverage": "full",
       "market_prob": 0.171,
       "model_prob": 0.188,
-      "kalshi_yes_cents": 16.0,
+      "kalshi_yes_cents": 15.0,
       "kalshi_no_cents": 88.0,
       "model_vs_market_pts": 1.7,
-      "market_vs_kalshi_pts": 1.1,
-      "model_vs_kalshi_yes_pts": 2.8,
+      "market_vs_kalshi_pts": 2.1,
+      "model_vs_kalshi_yes_pts": 3.8,
       "model_vs_kalshi_no_pts": -6.8,
       "signal": 2.5,
       "picks": [
         [
           "YES",
+          "market",
+          2.1
+        ],
+        [
+          "YES",
           "model",
-          2.8
+          3.8
         ]
       ],
       "flags": [],
@@ -2170,39 +1904,85 @@
       "line_move": null
     },
     {
-      "game_key": "26NOV07ODUCCAR",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07ODUCCAR",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07ODUCCAR-CCAR7",
+      "game_key": "26NOV07MOSUFIU",
+      "event_ticker": "KXNCAAFSPREAD-26NOV07MOSUFIU",
+      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07MOSUFIU-FIU5",
       "sport": "cfb",
       "bet_type": "spread",
-      "label": "Coastal Carolina Chanticleers -6.5 vs Old Dominion Monarchs (KXNCAAFSPREAD-26NOV07ODUCCAR)",
-      "yes_side": "Coastal Carolina Chanticleers -6.5",
-      "commence_time": "2026-11-07T18:00:00Z",
-      "n_books": 14,
+      "label": "Florida International Panthers -4.5 vs Missouri State Bears (KXNCAAFSPREAD-26NOV07MOSUFIU)",
+      "yes_side": "Florida International Panthers -4.5",
+      "commence_time": "2026-11-07T21:00:00Z",
+      "n_books": 13,
       "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.512,
-      "model_prob": 0.228,
+      "model_coverage": "partial",
+      "market_prob": 0.502,
+      "model_prob": 0.531,
       "kalshi_yes_cents": 52.0,
       "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": -28.4,
-      "market_vs_kalshi_pts": -0.8,
-      "model_vs_kalshi_yes_pts": -29.2,
-      "model_vs_kalshi_no_pts": 28.2,
-      "signal": 2.2,
-      "picks": [
-        [
-          "NO",
-          "model",
-          28.2
-        ]
-      ],
-      "flags": [
-        "model outlier (-28 pts vs market -- verify, likely model error)"
-      ],
-      "sharp_prob": 0.5174,
+      "model_vs_market_pts": 2.9,
+      "market_vs_kalshi_pts": -1.8,
+      "model_vs_kalshi_yes_pts": 1.1,
+      "model_vs_kalshi_no_pts": -2.1,
+      "signal": 1.8,
+      "picks": [],
+      "flags": [],
+      "sharp_prob": 0.5074,
       "sharp_vs_retail_pts": 0.8,
+      "line_move": "spread -3.5 \u2192 -4.5 (toward the favorite)"
+    },
+    {
+      "game_key": "26NOV14USCIND",
+      "event_ticker": "KXNCAAFGAME-26NOV14USCIND",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV14USCIND-USC",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "USC Trojans to beat Indiana Hoosiers (KXNCAAFGAME-26NOV14USCIND)",
+      "yes_side": "USC Trojans",
+      "commence_time": "2026-11-14T20:30:00Z",
+      "n_books": 3,
+      "match_confidence": 1.0,
+      "model_coverage": "full",
+      "market_prob": 0.292,
+      "model_prob": 0.274,
+      "kalshi_yes_cents": 31.0,
+      "kalshi_no_cents": 71.0,
+      "model_vs_market_pts": -1.7,
+      "market_vs_kalshi_pts": -1.8,
+      "model_vs_kalshi_yes_pts": -3.6,
+      "model_vs_kalshi_no_pts": 1.6,
+      "signal": 1.8,
+      "picks": [],
+      "flags": [],
+      "sharp_prob": null,
+      "sharp_vs_retail_pts": null,
       "line_move": null
+    },
+    {
+      "game_key": "26NOV07SHSUJVST",
+      "event_ticker": "KXNCAAFGAME-26NOV07SHSUJVST",
+      "kalshi_ticker": "KXNCAAFGAME-26NOV07SHSUJVST-SHSU",
+      "sport": "cfb",
+      "bet_type": "moneyline",
+      "label": "Sam Houston State Bearkats to beat Jacksonville State Gamecocks (KXNCAAFGAME-26NOV07SHSUJVST)",
+      "yes_side": "Sam Houston State Bearkats",
+      "commence_time": "2026-11-08T00:00:00Z",
+      "n_books": 20,
+      "match_confidence": 1.0,
+      "model_coverage": "partial",
+      "market_prob": 0.145,
+      "model_prob": 0.243,
+      "kalshi_yes_cents": 14.0,
+      "kalshi_no_cents": 87.0,
+      "model_vs_market_pts": 9.8,
+      "market_vs_kalshi_pts": 0.5,
+      "model_vs_kalshi_yes_pts": 10.3,
+      "model_vs_kalshi_no_pts": -11.3,
+      "signal": 1.5,
+      "picks": [],
+      "flags": [],
+      "sharp_prob": 0.1456,
+      "sharp_vs_retail_pts": 0.1,
+      "line_move": "total 48.25 \u2192 45.5 (down 2.75)"
     },
     {
       "game_key": "26NOV15LARARI",
@@ -2216,80 +1996,20 @@
       "n_books": 10,
       "match_confidence": 1.0,
       "model_coverage": "partial",
-      "market_prob": 0.748,
+      "market_prob": 0.757,
       "model_prob": 0.244,
       "kalshi_yes_cents": 77.0,
       "kalshi_no_cents": 25.0,
-      "model_vs_market_pts": -50.4,
-      "market_vs_kalshi_pts": -2.2,
+      "model_vs_market_pts": -51.3,
+      "market_vs_kalshi_pts": -1.3,
       "model_vs_kalshi_yes_pts": -52.6,
       "model_vs_kalshi_no_pts": 50.6,
-      "signal": 2.2,
+      "signal": 1.3,
       "picks": [],
       "flags": [],
       "sharp_prob": null,
       "sharp_vs_retail_pts": null,
       "line_move": null
-    },
-    {
-      "game_key": "26NOV07SHSUJVST",
-      "event_ticker": "KXNCAAFTOTAL-26NOV07SHSUJVST",
-      "kalshi_ticker": "KXNCAAFTOTAL-26NOV07SHSUJVST-47",
-      "sport": "cfb",
-      "bet_type": "total",
-      "label": "Over 46.5 (KXNCAAFTOTAL-26NOV07SHSUJVST)",
-      "yes_side": "Over 46.5",
-      "commence_time": "2026-11-08T00:00:00Z",
-      "n_books": 2,
-      "match_confidence": 1.0,
-      "model_coverage": "partial",
-      "market_prob": 0.508,
-      "model_prob": 0.698,
-      "kalshi_yes_cents": 48.0,
-      "kalshi_no_cents": 53.0,
-      "model_vs_market_pts": 18.9,
-      "market_vs_kalshi_pts": 2.8,
-      "model_vs_kalshi_yes_pts": 21.8,
-      "model_vs_kalshi_no_pts": -22.8,
-      "signal": 1.9,
-      "picks": [
-        [
-          "YES",
-          "market",
-          2.8
-        ]
-      ],
-      "flags": [],
-      "sharp_prob": null,
-      "sharp_vs_retail_pts": null,
-      "line_move": "total 48.25 \u2192 45.5 (down 2.75)"
-    },
-    {
-      "game_key": "26NOV07TEXMIZZ",
-      "event_ticker": "KXNCAAFSPREAD-26NOV07TEXMIZZ",
-      "kalshi_ticker": "KXNCAAFSPREAD-26NOV07TEXMIZZ-TEX3",
-      "sport": "cfb",
-      "bet_type": "spread",
-      "label": "Texas Longhorns -2.5 vs Missouri Tigers (KXNCAAFSPREAD-26NOV07TEXMIZZ)",
-      "yes_side": "Texas Longhorns -2.5",
-      "commence_time": "2026-11-07T17:00:00Z",
-      "n_books": 16,
-      "match_confidence": 1.0,
-      "model_coverage": "full",
-      "market_prob": 0.515,
-      "model_prob": 0.502,
-      "kalshi_yes_cents": 52.0,
-      "kalshi_no_cents": 49.0,
-      "model_vs_market_pts": -1.2,
-      "market_vs_kalshi_pts": -0.5,
-      "model_vs_kalshi_yes_pts": -1.8,
-      "model_vs_kalshi_no_pts": 0.8,
-      "signal": 1.2,
-      "picks": [],
-      "flags": [],
-      "sharp_prob": 0.5111,
-      "sharp_vs_retail_pts": -0.5,
-      "line_move": "spread +4.5 \u2192 +2.5 (toward the favorite); total 50.5 \u2192 42.5 (down 8)"
     }
   ]
 }
